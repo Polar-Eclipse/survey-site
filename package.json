@@ -1,0 +1,53 @@
+{
+  "name": "survey-site",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Polar-Eclipse/survey-site.git"
+  },
+  "author": "Jamee Kim <jameekim@nodaplife.me>",
+  "contributors": [
+    "Aun Raza <aunrazaq123@gmail.com>",
+    "Jerome Ching <Nathan_9_9@hotmail.com>",
+    "Sophie Xu <wxu63@my.centennialcollege.ca>",
+    "Tien Sang Nguyen <ntbs1798@gmail.com>",
+    "Eunju Jo <euj909@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc --build",
+    "dev": "nodemon"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.9.2",
+    "bootstrap": "^5.0.2",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "debug": "^4.3.2",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "http-errors": "^1.8.0",
+    "mongoose": "^5.13.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/bootstrap": "^5.0.17",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.12",
+    "@types/debug": "^4.1.6",
+    "@types/ejs": "^3.0.7",
+    "@types/express": "^4.17.13",
+    "@types/http-errors": "^1.8.1",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^15.14.2",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.2",
+    "eslint": "^7.30.0",
+    "nodemon": "^2.0.11",
+    "typescript": "^4.3.5"
+  }
+}

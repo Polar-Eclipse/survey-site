@@ -1,0 +1,13 @@
+/**
+ * FILE NAME
+ *
+ * FILE DESCRIPTION
+ *
+ * Polar Survey
+ * @author Aun Raza
+ * @author Jamee Kim (301058465)
+ * @author Jerome Ching
+ * @author Sophie Xu
+ * @author Tien Sang Nguyen
+ * @author Eunju Jo
+ */
