@@ -21,3 +21,25 @@ export default router;
 router.get("/", (req, res, _next) => {
     res.render("index", { title: "", page: "home" });
 });
+
+router.get("/login", (req, res, _next) => {
+    res.render("index", { title: "Login", page: "login" });
+});
+
+router.get("/register", (req, res, _next) => {
+    res.render("index", { title: "Register", page: "register" });
+});
+
+// we will probably move this to another route 
+router.get("/account", (req, res, _next) => {
+    res.render("index", { title: "Account", page: "account" });
+});
+
+router.get("/makeSurvey", (req, res, _next) => {
+    res.render("index", { title: "MakeSurvey", page: "makeSurvey" });
+});
+
+router.get("/question", (req, res, _next) => {
+    res.render("index", { title: "Question", page: "question" });
+});
+
