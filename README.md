@@ -23,8 +23,9 @@ preferred GUI to clone this repository onto your local machine.
 
 ### Install dependencies
 
-Make sure to run `yarn` command to install the dependencies to your local
-machine.
+Make sure to run `yarn --frozen-lockfile` command to install the dependencies to
+your local machine. The `--frozen-lockfile` flag is to prevent yarn overwriting
+the `yarn.lock` file.
 
 ### Before you run the app
 
