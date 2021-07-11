@@ -30,7 +30,7 @@ router.get("/register", (req, res, _next) => {
     res.render("index", { title: "Register", page: "register" });
 });
 
-// we will probably move this to another route 
+// we will probably move this to another route lalla
 router.get("/account", (req, res, _next) => {
     res.render("index", { title: "Account", page: "account" });
 });
