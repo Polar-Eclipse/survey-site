@@ -11,3 +11,11 @@
  * @author Tien Sang Nguyen
  * @author Eunju Jo
  */
+
+ .logoBlue { background-color: #68c2e8;}
+ .logoNavy { background-color: #0d1e41;}
+ .logoGray { background-color: #7f7f7f;}
+ .logoDarkGray { background-color: #3b3b3b;}
+
+ body { background-color: #313c5c;}
+ .polarText { color: #68c2e8;}
