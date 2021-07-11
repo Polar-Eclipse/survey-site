@@ -45,9 +45,3 @@ function onError(err: Error): void {
 function onConnected(): void {
     console.log("Connected to the MongoDB provider");
 }
-
-/** Database LocalURI, RemoteURI HostName, Secret */
-export const LocalURI = "mongodb://localhost/contacts";
-//export const RemoteURI = " ";
-export const HostName = "LocalHost";
-export const Secret = "someSecret";
