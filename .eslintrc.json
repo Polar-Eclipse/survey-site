@@ -14,8 +14,7 @@
             4
         ],
         "linebreak-style": [
-            "error",
-            "unix"
+            0 ,"error", "windows"
         ],
         "quotes": [
             "error",
@@ -31,5 +30,8 @@
                 "argsIgnorePattern": "^_"
             }
         ]
+        
+        
+     
     }
 }
