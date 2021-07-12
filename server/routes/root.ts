@@ -4,12 +4,12 @@
  * Router for root-level routes
  *
  * Polar Survey
- * @author Aun Raza
+ * @author Aun Raza (301074590)
  * @author Jamee Kim (301058465)
- * @author Jerome Ching
- * @author Sophie Xu
- * @author Tien Sang Nguyen
- * @author Eunju Jo
+ * @author Jerome Ching (300817930)
+ * @author Sophie Xu (3010981127)
+ * @author Tien Sang Nguyen (301028223)
+ * @author Eunju Jo (301170731)
  */
 
 import { Router } from "express";
@@ -42,4 +42,3 @@ router.get("/makeSurvey", (req, res, _next) => {
 router.get("/question", (req, res, _next) => {
     res.render("index", { title: "Question", page: "question" });
 });
-

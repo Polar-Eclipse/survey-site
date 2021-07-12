@@ -4,12 +4,12 @@
  * Set up the express application
  *
  * Polar Survey
- * @author Aun Raza
+ * @author Aun Raza (301074590)
  * @author Jamee Kim (301058465)
- * @author Jerome Ching
- * @author Sophie Xu
- * @author Tien Sang Nguyen
- * @author Eunju Jo
+ * @author Jerome Ching (300817930)
+ * @author Sophie Xu (3010981127)
+ * @author Tien Sang Nguyen (301028223)
+ * @author Eunju Jo (301170731)
  */
 
 import cookieParser from "cookie-parser";
@@ -83,4 +83,3 @@ function errorHandler(err: HttpError, req: Request, res: Response, _next: NextFu
     res.status(err.status || 500); // internal server error if the status is not set by the error
     res.render("error");
 }
-
