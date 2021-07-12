@@ -38,13 +38,8 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
             required: true,
         },
         activeFrom: {
-<<<<<<< HEAD
-            type: Date,
-            default: () => new Date(),
-=======
             type:Date,
             default: Date,
->>>>>>> 3417e17 (add interface user extends document in daclare global)
             // This calls the Date constructor every time a new model is created without this field value specified
         },
         expiresAt: {
