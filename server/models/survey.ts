@@ -4,12 +4,12 @@
  * Set up the database survey model
  *
  * Polar Survey
- * @author Aun Raza
+ * @author Aun Raza (301074590)
  * @author Jamee Kim (301058465)
- * @author Jerome Ching
- * @author Sophie Xu
- * @author Tien Sang Nguyen
- * @author Eunju Jo
+ * @author Jerome Ching (300817930)
+ * @author Sophie Xu (3010981127)
+ * @author Tien Sang Nguyen (301028223)
+ * @author Eunju Jo (301170731)
  */
 
 import {model, Model, ObjectId, Schema } from "mongoose";
@@ -65,7 +65,7 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
         options: {
             type: [{
                 value: {
-                    type: String, 
+                    type: String,
                     required: true,
                 },
                 text: {
