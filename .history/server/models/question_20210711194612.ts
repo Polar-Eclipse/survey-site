@@ -19,7 +19,7 @@ const QuestionSchema = new Schema<Question, Model<Question>, Question>(
         survey: {
             type: Schema.Types.ObjectId,
             required: true,
-            ref: "Survey",
+            ref: "Survey", 
         },
         question: {
             type: String,
@@ -34,16 +34,19 @@ const QuestionSchema = new Schema<Question, Model<Question>, Question>(
             enum: ["text", "yesno", "choice"], // Only one of these values
             default: "text",
         },
-        options: [{
-            value: {
-                type: String,
-                required: true,
-            },
-            text: {
-                type: String,
-                required: true,
-            },
-        }], // An array of QuestionOptionsValue
+        options: {
+            type: [{
+                value: {
+                    type: String, 
+                    required: true,
+                },
+
+                text: {
+                    type: String,
+                    required: true,
+                },
+            }], // An array of objects of the given type
+        },
     },
     {
         collection: "questions",
@@ -54,3 +57,24 @@ const QuestionSchema = new Schema<Question, Model<Question>, Question>(
 const Question = model("Question", QuestionSchema);
 
 export default Question;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

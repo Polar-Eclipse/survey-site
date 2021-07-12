@@ -11,7 +11,7 @@
  * @author Tien Sang Nguyen
  * @author Eunju Jo
  */
-import mongoose, { model, Document, PassportLocalModel,PassportLocalSchema, Schema } from "mongoose";
+import mongoose, { model, Document, PassportLocalModel,PassportLocalSchema,Schema } from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
 
 export type UserType = "admin" | "user";

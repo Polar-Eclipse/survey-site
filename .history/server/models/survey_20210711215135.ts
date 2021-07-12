@@ -1,18 +1,3 @@
-/**
- * models/survey.ts
- *
- * Set up the express application
- *
- * Polar Survey
- * @author Aun Raza
- * @author Jamee Kim (301058465)
- * @author Jerome Ching
- * @author Sophie Xu
- * @author Tien Sang Nguyen
- * @author Eunju Jo
- */
-
-
 import {model, Model, ObjectId, Schema } from "mongoose";
 
 // Create an interface which TS can rely on to give use hints of what fields can be used.
@@ -38,20 +23,18 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
             required: true,
         },
         activeFrom: {
-<<<<<<< HEAD
-            type: Date,
-            default: () => new Date(),
-=======
             type:Date,
-            default: Date,
->>>>>>> 3417e17 (add interface user extends document in daclare global)
+            //default: Date.now(),
+            default: Date.now(),
             // This calls the Date constructor every time a new model is created without this field value specified
         },
         expiresAt: {
             type: Date,
             required: false,
         },
-        questions: [Schema.Types.ObjectId], // An array of ObjectId's
+        questions:[{
+            type: [Schema.Types.ObjectId], // An array of ObjectId's
+        }],
     },
     {
         collection: "surveys",
@@ -65,3 +48,6 @@ const Survey = model("Survey", SurveySchema);
 
 // This exports both the model and the interface
 export default Survey;
+
+
+

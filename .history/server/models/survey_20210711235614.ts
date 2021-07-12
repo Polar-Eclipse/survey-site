@@ -27,7 +27,7 @@ interface Survey {
 }
 
 // Note the type signature of the schema.
-const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
+const SurveySchema = new Schema<Survey, Model<Survey>>(
     {
         name: {
             type: String,
@@ -38,20 +38,17 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
             required: true,
         },
         activeFrom: {
-<<<<<<< HEAD
-            type: Date,
-            default: () => new Date(),
-=======
             type:Date,
             default: Date,
->>>>>>> 3417e17 (add interface user extends document in daclare global)
             // This calls the Date constructor every time a new model is created without this field value specified
         },
         expiresAt: {
             type: Date,
             required: false,
         },
-        questions: [Schema.Types.ObjectId], // An array of ObjectId's
+        questions:[{
+            type: [Schema.Types.ObjectId], // An array of ObjectId's
+        }],
     },
     {
         collection: "surveys",
@@ -65,3 +62,6 @@ const Survey = model("Survey", SurveySchema);
 
 // This exports both the model and the interface
 export default Survey;
+
+
+

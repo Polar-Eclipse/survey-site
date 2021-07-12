@@ -27,13 +27,36 @@
                 <input type="text" class="col-7" id="choice4" placeholder="Forth Choice" name="choice4">
                 <div class="col-1"></div>
               </div>
-              
-         <div class="row justify-content-center">
+              <!--
+          <div class="row justify-content-center">
             <button type="submit" class="btn btn-primary col-3 my-3">Make It</button>
             <a href="/account" class="btn btn-warning col-3 my-3">Cancel</a>
           </div>
+          -->
           
     </form>
+    <tbody>
+     <!-- Repeatable Row Template -->   
+
+             <% for(let count = 0; count < question.length; count++) { %>
+              
+                <tr>
+                    <th scope="row"><%= count + 1 %></th>
+                    <td><%= question[count].YourQuestion %></td>
+                    <td><%= question[count].FirstChoice %></td>
+                    <td><%= question[count].SecondChoice %></td>
+                    <td><%= question[count].ThirdChoice %></td>
+                    <td><%= question[count].ForthChoice %></td>
+                    
+                    <!--click submit button to go to the update webpage and  the user data will be parsed to the update page -->
+                    <td class="text-center"><a href="/question/<%= question[count]._id %>" class="btn btn-primary btn-sm edit"><i class="fas fa-user-edit"></i></i> Make It</a></td>
+                     <!--click delete button to delete the user data from database then redirect to the contacts_list page -->
+                    <td class="text-center"><a href="/makeSurvey/delete/<%= question[count]._id %>" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></i> Cancel</a></td>
+                    
+                </tr>
+              <% } %>
+              
+    </tbody>
     <h3 class="polarText">Feel free to delete or add more as you need. (this is a message to the developers)</h3>
     
 </div>
