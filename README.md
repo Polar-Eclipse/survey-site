@@ -13,6 +13,8 @@ application.
   : Provides syntax highlighting for dotenv file format.
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
   : Runs the ESLint for you and show you any errors, warnings, or info.
+- [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+  : Tidy up your code in some ways so that you don't have to care about those.
 
 ## Getting Started
 
