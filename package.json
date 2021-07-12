@@ -32,7 +32,8 @@
     "express": "^4.17.1",
     "http-errors": "^1.8.0",
     "mongoose": "^5.13.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "passport-local-mongoose": "^6.1.0"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.0.17",
@@ -44,6 +45,7 @@
     "@types/http-errors": "^1.8.1",
     "@types/morgan": "^1.9.3",
     "@types/node": "^15.14.2",
+    "@types/passport-local-mongoose": "^4.0.15",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "eslint": "^7.30.0",
