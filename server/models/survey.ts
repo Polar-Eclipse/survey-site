@@ -12,7 +12,7 @@ interface Survey {
 }
 
 // Note the type signature of the schema.
-const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
+const SurveySchema = new Schema<Survey, Model<Survey>>(
     {
         name: {
             type: String,
@@ -23,14 +23,15 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
             required: true,
         },
         activeFrom: {
-            type: Date,
-            default:Date, // This calls the Date constructor every time a new model is created without this field value specified
+            type:Date,
+            default: Date.now(),
+            // This calls the Date constructor every time a new model is created without this field value specified
         },
         expiresAt: {
             type: Date,
             required: false,
         },
-        questions: [{
+        questions:[{
             type: [Schema.Types.ObjectId], // An array of ObjectId's
         }],
     },
