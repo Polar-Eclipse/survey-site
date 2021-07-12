@@ -21,6 +21,8 @@ import logger from "morgan";
 import path from "path";
 import setRouters from "../routes";
 
+
+
 /**
  * Create the express server application
  */
@@ -81,3 +83,4 @@ function errorHandler(err: HttpError, req: Request, res: Response, _next: NextFu
     res.status(err.status || 500); // internal server error if the status is not set by the error
     res.render("error");
 }
+
