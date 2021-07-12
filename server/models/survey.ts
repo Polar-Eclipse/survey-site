@@ -73,7 +73,6 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
                     type: String, 
                     required: true,
                 },
-
                 text: {
                     type: String,
                     required: true,
