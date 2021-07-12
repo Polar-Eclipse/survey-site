@@ -1,4 +1,4 @@
-import mongoose, {model, Model, ObjectId, Schema } from "mongoose";
+import {model, Model, ObjectId, Schema } from "mongoose";
 
 // Create an interface which TS can rely on to give use hints of what fields can be used.
 interface Survey {
@@ -24,16 +24,15 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
         },
         activeFrom: {
             type: Date,
-            default: Date,
-            // This calls the Date constructor every time a new model is created without this field value specified
+            default:Date, // This calls the Date constructor every time a new model is created without this field value specified
         },
         expiresAt: {
             type: Date,
             required: false,
         },
-        questions: {
+        questions: [{
             type: [Schema.Types.ObjectId], // An array of ObjectId's
-        },
+        }],
     },
     {
         collection: "surveys",
