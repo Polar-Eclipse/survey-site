@@ -5,9 +5,14 @@ interface Question {
     question: string;
     required: boolean;
     type: "text" | "yesno" | "choice";
-    options: { value: string; text: string; }[];
+    options: QuestionOptionsValue[];
     createdAt: Date;
     updatedAt: Date;
+}
+
+export interface QuestionOptionsValue {
+    value: string;
+    text: string;
 }
 
 const QuestionSchema = new Schema<Question, Model<Question>, Question>(
@@ -15,7 +20,7 @@ const QuestionSchema = new Schema<Question, Model<Question>, Question>(
         survey: {
             type: Schema.Types.ObjectId,
             required: true,
-            ref: "Survey", 
+            ref: "Survey",
         },
         question: {
             type: String,
@@ -30,19 +35,16 @@ const QuestionSchema = new Schema<Question, Model<Question>, Question>(
             enum: ["text", "yesno", "choice"], // Only one of these values
             default: "text",
         },
-        options: {
-            type: [{
-                value: {
-                    type: String, 
-                    required: true,
-                },
-
-                text: {
-                    type: String,
-                    required: true,
-                },
-            }], // An array of objects of the given type
-        },
+        options: [{
+            value: {
+                type: String,
+                required: true,
+            },
+            text: {
+                type: String,
+                required: true,
+            },
+        }], // An array of QuestionOptionsValue
     },
     {
         collection: "questions",
@@ -53,24 +55,3 @@ const QuestionSchema = new Schema<Question, Model<Question>, Question>(
 const Question = model("Question", QuestionSchema);
 
 export default Question;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
