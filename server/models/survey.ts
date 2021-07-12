@@ -12,7 +12,6 @@
  * @author Eunju Jo
  */
 
-
 import {model, Model, ObjectId, Schema } from "mongoose";
 
 // Create an interface which TS can rely on to give use hints of what fields can be used.
@@ -26,13 +25,13 @@ interface Survey {
     owner: ObjectId;
     type: "text" | "yesno" | "choice";
     options?: QuestionOptionItem[];
-
-
 }
+
 export interface QuestionOptionItem {
     value: string;
     text: string;
-    }
+}
+
 // Note the type signature of the schema.
 const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
     {
@@ -45,13 +44,9 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
             required: true,
         },
         activeFrom: {
-            type:Date,
-            default: Date,
-            // This calls the Date constructor every time a new model is created without this field value specified
-        },
-        createAt: {
             type: Date,
-            required: false,
+            default: () => new Date(),
+            // This calls the Date constructor every time a new model is created without this field value specified
         },
         expiresAt: {
             type: Date,

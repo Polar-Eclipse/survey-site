@@ -22,19 +22,16 @@ import {model, Model, ObjectId, Schema } from "mongoose";
  
 // Note the type signature of the schema.
 const ResponseSchema = new Schema<Response, Model<Response>>(
-    {  question:{
-        type: Schema.Types.ObjectId,
-        required: true,
-        ref: "Question",
-    },
-    createdAt: {
-        type: Date,
-        required: false,
-    },
-    value:{
-        type: String,
-        required:true,
-    },
+    {
+        question:{
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: "Question",
+        },
+        value:{
+            type: String,
+            required:true,
+        },
     },
     {
         collection: "response",

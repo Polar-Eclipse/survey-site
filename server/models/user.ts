@@ -11,7 +11,7 @@
  * @author Tien Sang Nguyen
  * @author Eunju Jo
  */
-import mongoose, { model, Document, PassportLocalModel,PassportLocalSchema, Schema } from "mongoose";
+import { model, Document, PassportLocalSchema, Schema } from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
 
 export type UserType = "admin" | "user";
@@ -21,15 +21,14 @@ declare global
      interface User extends Document{
         _id: string,
         username: string,
-        created:Date,
-        updated:Date,
+        createdAt:Date,
+        updatedAt:Date,
         emailAddress: string,
         contactNumber: string,
-        password:string,
         type:UserType,
      }
     }
-const UserSchema = new Schema
+const UserSchema = new Schema<User>
 ({
     username: {
         type:String,
@@ -43,19 +42,6 @@ const UserSchema = new Schema
         type:String,
         require:true,
     },
-    password:{
-        type:String,
-        require:true,
-    },
-    created: {
-        type: Date,
-        default: Date.now(),
-    },
-    updated:
-    {
-        type: Date,
-        default: Date.now()
-    },
     type:{
         type:String,
         enum:["admin","user"],
@@ -65,11 +51,9 @@ const UserSchema = new Schema
 },
 {
     collection: "users",
-    timestamps:{
-        createdAt :"created",
-        updatedAt : "updated",
-    }
+    timestamps: true,
 });
+
 UserSchema.plugin(passportLocalMongoose);
 const User=model<User>("User", UserSchema as PassportLocalSchema);
 export default User;
