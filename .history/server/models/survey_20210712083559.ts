@@ -34,7 +34,7 @@ export interface QuestionOptionItem {
     text: string;
     }
 // Note the type signature of the schema.
-const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
+const SurveySchema = new Schema<Survey, Model<Survey>>(
     {
         title: {
             type: String,
@@ -57,9 +57,6 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
             type: Date,
             required: false,
         },
-<<<<<<< HEAD
-        questions: [Schema.Types.ObjectId], // An array of ObjectId's
-=======
         owner:{
             type: Schema.Types.ObjectId,
             required: true,
@@ -83,7 +80,6 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
                 }
             }]
         },
->>>>>>> f5bf9fa (Create a reponses model)
     },
     {
         collection: "surveys",
@@ -97,3 +93,6 @@ const Survey = model("Survey", SurveySchema);
 
 // This exports both the model and the interface
 export default Survey;
+
+
+
