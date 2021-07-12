@@ -42,3 +42,7 @@ router.get("/makeSurvey", (req, res, _next) => {
 router.get("/question", (req, res, _next) => {
     res.render("index", { title: "Question", page: "question" });
 });
+
+router.get("/edit", (req, res, _next) => {
+    res.render("index", { title: "Edit", page: "edit" });
+});
