@@ -57,9 +57,6 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
             type: Date,
             required: false,
         },
-<<<<<<< HEAD
-        questions: [Schema.Types.ObjectId], // An array of ObjectId's
-=======
         owner:{
             type: Schema.Types.ObjectId,
             required: true,
@@ -83,7 +80,6 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
                 }
             }]
         },
->>>>>>> f5bf9fa (Create a reponses model)
     },
     {
         collection: "surveys",

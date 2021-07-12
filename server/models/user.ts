@@ -29,7 +29,7 @@ declare global
         type:UserType,
      }
     }
-const UserSchema = new Schema<User, PassportLocalModel<User>,User>
+const UserSchema = new Schema
 ({
     username: {
         type:String,

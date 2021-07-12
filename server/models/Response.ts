@@ -11,8 +11,6 @@
  * @author Tien Sang Nguyen
  * @author Eunju Jo
  */
-
-
 import {model, Model, ObjectId, Schema } from "mongoose";
 
  // Create an interface which TS can rely on to give use hints of what fields can be used.
@@ -49,7 +47,3 @@ const Response = model("Response", ResponseSchema);
  
 // This exports both the model and the interface
 export default Response;
- 
- 
- 
- 
