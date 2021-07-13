@@ -12,7 +12,8 @@
         "removeComments": true,
         "moduleResolution": "Node",
         "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true // do not run type checks on *.d.ts files; prevents error from dependencies
     },
     "include": [
         "./server/**/*"
