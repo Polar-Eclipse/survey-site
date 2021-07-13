@@ -30,19 +30,27 @@ router.get("/register", (req, res, _next) => {
     res.render("index", { title: "Register", page: "register" });
 });
 
-// we will probably move this to another route lalla
+router.get("/surveyavailable", (req, res, _next) => {
+    res.render("index", { title: "SurveyAvailable", page: "surveyavailable" });
+});
+
+// we will probably move this to another route
 router.get("/account", (req, res, _next) => {
     res.render("index", { title: "Account", page: "account" });
 });
 
 router.get("/makeSurvey", (req, res, _next) => {
-    res.render("index", { title: "MakeSurvey", page: "makeSurvey" });
+    res.render("index", { title: "MakeSurvey", page: "makesurvey" });
 });
 
 router.get("/question", (req, res, _next) => {
     res.render("index", { title: "Question", page: "question" });
 });
 
-router.get("/edit", (req, res, _next) => {
-    res.render("index", { title: "Edit", page: "edit" });
+router.get("/editsurvey", (req, res, _next) => {
+    res.render("index", { title: "EditSurvay", page: "editsurvey" });
+});
+
+router.get("/edituser", (req, res, _next) => {
+    res.render("index", { title: "EditUser", page: "edituser" });
 });
