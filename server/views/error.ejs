@@ -15,12 +15,31 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Error</title>
+   <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles/app.css">
+  <% for (const s of styles) { %>
+  <link rel="stylesheet" href="/styles/<%= s %>.css">
+  <% } %>
 </head>
-
 <body>
+  <header>
+    <%- include("partials/header") %>
+  </header>
+
   <h1><%= message %></h1>
   <h2><%= error.status %></h2>
   <pre><%= error.stack %></pre>
-</body>
 
+
+<footer>
+    <%- include("partials/footer") %>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+  <% for (const s of scripts) { %>
+  <script src="/scripts/<%= s %>.js"></script>
+  <% } %>
+</body>
 </html>
