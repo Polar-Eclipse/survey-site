@@ -1,5 +1,5 @@
 /**
- * models/user.ts
+ * server/models/user.ts
  *
  * Set up the database user model
  *

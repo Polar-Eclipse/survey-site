@@ -1,5 +1,5 @@
 /**
- * models/survey.ts
+ * server/models/survey.ts
  *
  * Set up the database survey model
  *

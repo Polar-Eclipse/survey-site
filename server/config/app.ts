@@ -1,5 +1,5 @@
 /**
- * server/config/server.ts
+ * server/config/app.ts
  *
  * Set up the express application
  *
@@ -20,8 +20,6 @@ import createError, { HttpError } from "http-errors";
 import logger from "morgan";
 import path from "path";
 import setRouters from "../routes";
-
-
 
 /**
  * Create the express server application

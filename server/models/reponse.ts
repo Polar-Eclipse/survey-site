@@ -1,5 +1,5 @@
 /**
- * models/response.ts
+ * server/models/response.ts
  *
  * Set up the database response model
  *
