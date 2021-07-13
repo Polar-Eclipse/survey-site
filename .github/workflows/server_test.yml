@@ -23,5 +23,7 @@ jobs:
         cache: 'yarn'
     - name: Install dependencies
       run: yarn --frozen-lockfile
+    - name: Test typescript build
+      run: yarn tsc --noEmit
     - name: Run ESLint
       run: yarn eslint ./server
