@@ -39,7 +39,7 @@ router.get("/account", (req, res, _next) => {
     res.render("index", { title: "Account", page: "account" });
 });
 
-router.get("/makeSurvey", (req, res, _next) => {
+router.get("/makesurvey", (req, res, _next) => {
     res.render("index", { title: "MakeSurvey", page: "makesurvey" });
 });
 
