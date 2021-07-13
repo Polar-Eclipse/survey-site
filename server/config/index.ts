@@ -1,5 +1,5 @@
 /**
- * server/config/app.ts
+ * server/config/index.ts
  *
  * Configure and run the application
  *
