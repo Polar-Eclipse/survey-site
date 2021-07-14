@@ -12,17 +12,17 @@
  * @author Eunju Jo (301170731)
  */
 
-import {model, Model, ObjectId, Schema } from "mongoose";
+import { model, Model, ObjectId, Schema } from "mongoose";
 
  // Create an interface which TS can rely on to give use hints of what fields can be used.
  interface Survey {
-     questions: string[]
-     activeFrom: Date;
-     expiresAt?: Date;
-     createdAt: Date;
-     updatedAt: Date;
-     owner: ObjectId;
-     type: "yesno" ;
+    questions: string[]
+    activeFrom: Date;
+    expiresAt?: Date;
+    createdAt: Date;
+    updatedAt: Date;
+    owner: ObjectId;
+    type: "yesno" ;
  }
 
 
