@@ -16,7 +16,7 @@ import {model, Model, ObjectId, Schema } from "mongoose";
 
  // Create an interface which TS can rely on to give use hints of what fields can be used.
  interface Survey {
-     questions: ObjectId[]
+     questions: string[]
      activeFrom: Date;
      expiresAt?: Date;
      createdAt: Date;
@@ -29,10 +29,7 @@ import {model, Model, ObjectId, Schema } from "mongoose";
 // Note the type signature of the schema.
 const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
     {
-        questions: [{
-            type: Schema.Types.ObjectId, // An array of ObjectId's
-            ref:"Question",
-        }],
+        questions: [String],
         activeFrom: {
             type: Date,
             default: () => new Date(),
