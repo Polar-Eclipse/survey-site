@@ -12,13 +12,13 @@
  * @author Eunju Jo (301170731)
  */
 
-import {model, Model, ObjectId, Schema } from "mongoose";
+import { model, Model, ObjectId, Schema } from "mongoose";
 
  // Create an interface which TS can rely on to give use hints of what fields can be used.
  interface Response {
-    question: ObjectId //The ID of the question this answers to
+    question: ObjectId; // The ID of the question this answers to
+    answers: string[];
     createdAt: Date;
-    value: string
 }
 
 // Note the type signature of the schema.
@@ -29,14 +29,14 @@ const ResponseSchema = new Schema<Response, Model<Response>>(
             required: true,
             ref: "Question",
         },
-        value:{
-            type: String,
-            required:true,
-        },
+        answers:[String],
     },
     {
         collection: "response",
-        timestamps: true,
+        timestamps: {
+            createdAt: true,
+            updatedAt: false,
+        },
     },
 );
 

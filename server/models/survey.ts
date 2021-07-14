@@ -12,37 +12,24 @@
  * @author Eunju Jo (301170731)
  */
 
-import {model, Model, ObjectId, Schema } from "mongoose";
+import { model, Model, ObjectId, Schema } from "mongoose";
 
-// Create an interface which TS can rely on to give use hints of what fields can be used.
-interface Survey {
-    title: string;
-    description?: string;
+ // Create an interface which TS can rely on to give use hints of what fields can be used.
+ interface Survey {
+    questions: string[]
     activeFrom: Date;
     expiresAt?: Date;
     createdAt: Date;
     updatedAt: Date;
     owner: ObjectId;
-    type: "text" | "yesno" | "choice";
-    options?: QuestionOptionItem[];
-}
+    type: "yesno" ;
+ }
 
-export interface QuestionOptionItem {
-    value: string;
-    text: string;
-}
 
 // Note the type signature of the schema.
 const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
     {
-        title: {
-            type: String,
-            required: true,
-        },
-        description: {
-            type: String,
-            required: true,
-        },
+        questions: [String],
         activeFrom: {
             type: Date,
             default: () => new Date(),
@@ -55,24 +42,11 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
         owner:{
             type: Schema.Types.ObjectId,
             required: true,
-            ref: "Owner",
+            ref: "User",
         },
         type: {
             type: String,
-            enum: ["text", "yesno", "choice"], // Only one of these values
-            default: "text",
-        },
-        options: {
-            type: [{
-                value: {
-                    type: String,
-                    required: true,
-                },
-                text: {
-                    type: String,
-                    required: true,
-                }
-            }]
+            default: "yesno",
         },
     },
     {
