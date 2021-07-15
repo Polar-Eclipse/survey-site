@@ -1,107 +1,124 @@
-import {Request, Response, NextFunction} from "express";
+/**
+ * server/controllers/survey.ts
+ *
+ * Controllers for survey-related pages and database operations
+ *
+ * Polar Survey
+ * @author Aun Raza (301074590)
+ * @author Jamee Kim (301058465)
+ * @author Jerome Ching (300817930)
+ * @author Sophie Xu (3010981127)
+ * @author Tien Sang Nguyen (301028223)
+ * @author Eunju Jo (301170731)
+ */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-//Survey Model reference
+import { Request, Response, NextFunction } from "express";
 import Survey from "../models/survey";
 
-//Display makesurvey page
-export function displayMakeSurveyPage(req:Request, res: Response, next: NextFunction):void
+/***DISPLAY FUNCTIONS***/
+
+/**
+ * Display the page for creating a survey
+ */
+export function displayMakeSurveyPage(req:Request, res: Response, _next: NextFunction):void
 {
-    res.render("index",{title: "Make Survey", page: "makesurvey", surveyitem:""});
+    res.render("index", { title: "Make Survey", page: "makesurvey" });
 }
 
-//Display available surveys (View)
+/**
+ * Display the page with the list of currently available surveys
+ */
 export function displayAvailableSurvey(req:Request, res: Response, next: NextFunction):void
 {
-    Survey.find(function(err, surveyCollection){
+    getAvailableSurveys((err, surveys) => {
         if(err){
-            console.error(err);
-            res.end(err);
+            return next(err);
         }
-        res.render("index",{title: "Available Survey", page:"surveyavailable", survey: surveyCollection});
+        res.render("index", { title: "Available Survey", page:"surveyavailable", survey: surveys });
     });
 }
 
-//Function to display question page, taking survey
+/**
+ * Display the page where the user can answer to the survey
+ */
 export function displayQuestionPage(req:Request, res: Response, next: NextFunction):void
 {
     const id = req.params.id;
 
-    Survey.findById(id,{},{},(err, surveyTaking)=>
-    {
-        if(err)
-        {
-            console.error(err);
-            res.end(err);
+    getSurveyById(id, (err, survey) => {
+        if (err) {
+            return next(err);
         }
-        res.render("index", {title: "Question", page: "question", surveyField: surveyTaking});
+        res.render("index", { title: "Question", page: "question", surveyField: survey });
     });
 }
 
-//Function to display edit page
+/**
+ * Display the page to edit the survey
+ */
 export function displayEditSurveyPage(req:Request, res: Response, next: NextFunction):void
 {
     const id = req.params.id;
 
-    Survey.findById(id,{},{},(err, surveyToEdit)=>{
-        if(err)
-        {
-            console.error(err);
-            res.end(err);
+    getSurveyById(id, (err, survey) => {
+        if (err) {
+            return next(err);
         }
-        res.render("index", {title: "Edit Survey", page: "editsurvey", surveyItem: surveyToEdit});
+        res.render("index", { title: "EditSurvey", page: "editsurvey", surveyItem: survey });
     });
 }
 
-//Display account page (View)
-export function displayAccountPage(req:Request, res: Response, next: NextFunction):void
-{
-    Survey.find(function(err, surveyCollection){
-        if(err){
-            console.error(err);
-            res.end(err);
-        }
-        res.render("index",{title: "Account", page:"account", survey: surveyCollection});
-    });
-}
 
-/***PROCESS FUNCTION***/
-//Process makesurvey(C)
+/***PROCESS FUNCTIONS***/
+
+/**
+ * Process a request to create a survey
+ */
 export function processMakeSurveyPage(req:Request, res: Response, next: NextFunction):void
 {
     const newSurvey = new Survey
     ({
-        "questions": [req.body.question1,req.body.question2,req.body.question3,req.body.question4,req.body.question5],
+        "questions": [
+            req.body.question1,
+            req.body.question2,
+            req.body.question3,
+            req.body.question4,
+            req.body.question5,
+        ],
         "title": req.body.title,
         "activeFrom": req.body.activeFrom,
         "expiresAt":  req.body.expiresAt
     });
     //insert newSurvey to db
-    Survey.create(newSurvey,(err)=>{
+    Survey.create(newSurvey, (err) => {
         if(err)
         {
-            console.error(err);
-            res.end(err);
+            return next(err);
         }
         res.redirect("/surveyavailable");
     });
 }
 
-//Delete available surveys through delete button
-export function processDeleteAvailableSurvey(req:Request, res: Response, next: NextFunction):void
+/**
+ * Process a delete request of a survey object
+ */
+export function processDeleteSurvey(req:Request, res: Response, next: NextFunction):void
 {
     const id = req.params.id;
 
-    Survey.remove({_id:id}, (err)=>{
+    Survey.findByIdAndRemove(id, {}, (err) => {
         if(err)
         {
-            console.error(err);
-            res.end(err);
+            return next(err);
         }
         res.redirect("/surveyavailable");
     });
 }
 
-//Process edit survey page
+/**
+ * Process an update request of a survey
+ */
 export function processEditSurveyPage(req:Request, res: Response, next: NextFunction):void
 {
     const id = req.params.id;
@@ -109,18 +126,43 @@ export function processEditSurveyPage(req:Request, res: Response, next: NextFunc
     const updatedSurvey = new Survey
     ({
         "_id": id,
-        "questions": [req.body.question1,req.body.question2,req.body.question3,req.body.question4,req.body.question5],
+        "questions": [
+            req.body.question1,
+            req.body.question2,
+            req.body.question3,
+            req.body.question4,
+            req.body.question5,
+        ],
         "title": req.body.title,
         "activeFrom": req.body.activeFrom,
         "expiresAt":  req.body.expiresAt
     });
 
-    Survey.updateOne({_id: id}, updatedSurvey,{}, (err)=>{
+    Survey.findByIdAndUpdate(id, updatedSurvey, {}, (err)=>{
         if(err)
         {
-            console.error(err);
-            res.end(err);
+            return next(err);
         }
         res.redirect("/account");
     });
+}
+
+/***DATABASE FUNCTIONS***/
+
+/**
+ * Get the list of currently available surveys from the database
+ */
+export function getAvailableSurveys(done: (err: any, surveys: Survey[]) => void): void {
+    const now = new Date();
+    Survey.find({ activeFrom: { $lte: now } }).or([
+        { expiresAt: { $exists: false } },
+        { expiresAt: { $gt: now } },
+    ]).exec(done);
+}
+
+/**
+ * Get a survey object with the given id from the database
+ */
+export function getSurveyById(surveyId: string, done: (err: any, survey?: Survey) => void): void {
+    Survey.findById(surveyId, done);
 }
