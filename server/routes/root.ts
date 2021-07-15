@@ -18,7 +18,7 @@ const router = Router();
 export default router;
 
 //import function from survey controller
-import {displayMakeSurveyPage, processMakeSurveyPage,displayAvailableSurvey, processDeleteAvailableSurvey,displayQuestionPage} from "../Controllers/survey";
+import {displayMakeSurveyPage, processMakeSurveyPage,displayAvailableSurvey, processDeleteAvailableSurvey,displayQuestionPage,displayAccountPage,displayEditSurveyPage,processEditSurveyPage} from "../Controllers/survey";
 
 // GET "/" - home page
 router.get("/", (req, res, _next) => {
@@ -44,9 +44,15 @@ router.get("/surveyavailable", (req, res, _next) => {
 router.get("/surveyavailable",displayAvailableSurvey);
 
 // we will probably move this to another route
+/****old GET: GET account page directly in the root****/
+/****
 router.get("/account", (req, res, _next) => {
     res.render("index", { title: "Account", page: "account" });
 });
+****/
+
+//NEW GET account page through displaydisplayAccountPage method
+router.get("/account",displayAccountPage);
 
 /****old GET: GET makesurvey page directly in the root****/
 /****
@@ -71,9 +77,18 @@ router.get("/question", (req, res, _next) => {
 //NEW GET question page through displayQuestionPage method
 router.get("/question/:id", displayQuestionPage);
 
+/****old GET: GET edit survey page directly in the root****/
+/****
 router.get("/editsurvey", (req, res, _next) => {
     res.render("index", { title: "EditSurvey", page: "editsurvey" });
 });
+****/
+
+//NEW GET question page through displayQuestionPage method
+router.get("/editsurvey/:id",displayEditSurveyPage);
+
+//POST- Process /edit/:id page
+router.post("/editsurvey/:id",processEditSurveyPage);
 
 //DELETE process to delete survey
 router.get("/delete/:id",processDeleteAvailableSurvey);

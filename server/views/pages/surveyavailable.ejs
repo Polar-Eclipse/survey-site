@@ -33,7 +33,6 @@
                 <td><%= survey[count].activeFrom %></td>
                 <td><%= survey[count].expiresAt %></td>
                 <td class="text-center"><a href="/question/<%= survey[count]._id %>" class="btn btn-warning editBTN"> Take</a> </td>
-                <td class="text-center"><a href="/delete/<%= survey[count]._id %>" class="btn btn-danger delete"><i class="fas fa-trash-alt fa-sm"></i> Delete</a></td>
               </tr>
               <% } %>
             </tbody>
