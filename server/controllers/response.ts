@@ -1,7 +1,7 @@
 /**
  * server/controllers/response.ts
  *
- * controller response function
+ * Controller functions for the Response database model
  *
  * Polar Survey
  * @author Aun Raza (301074590)
@@ -25,4 +25,28 @@ export function getSurveyById(surveyId: string, done: (err: any, res: Survey) =>
 export function insertResponse(response: Response, done: (err: any, res: Response) => void):void
 {   //db.Response.create()
     Response.create(response,done);
+}
+
+/**
+ * Get an array of user reponse to the survey with the given id
+ *
+ * @param surveyId The ID of the survey
+ * @param done The callback function
+ */
+export function getAllResponse(surveyId: string, done: (err: any, res?: Response[]) => void): void
+{
+    Response.find({ question: surveyId }, (err, result) =>
+    {
+        if (err)
+        {
+            done(err);
+        }
+        else
+        {
+            done(undefined, result);
+        }
+
+    });
+
+
 }

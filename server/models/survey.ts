@@ -17,6 +17,7 @@ import { model, Model, Schema, Types } from "mongoose";
  // Create an interface which TS can rely on to give use hints of what fields can be used.
  interface Survey {
     questions: string[]
+    title: string;
     activeFrom: Date;
     expiresAt?: Date;
     createdAt: Date;
@@ -35,13 +36,17 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
             default: () => new Date(),
             // This calls the Date constructor every time a new model is created without this field value specified
         },
+        title: {
+            type: String,
+            required: true,
+        },
         expiresAt: {
             type: Date,
             required: false,
         },
         owner:{
             type: Schema.Types.ObjectId,
-            required: true,
+            required: false,
             ref: "User",
         },
         type: {
