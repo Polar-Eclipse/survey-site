@@ -17,6 +17,9 @@ import { Router } from "express";
 const router = Router();
 export default router;
 
+//import function from survey controller
+import {displayMakeSurveyPage, processMakeSurveyPage} from "../Controllers/survey";
+
 // GET "/" - home page
 router.get("/", (req, res, _next) => {
     res.render("index", { title: "", page: "home" });
@@ -39,9 +42,18 @@ router.get("/account", (req, res, _next) => {
     res.render("index", { title: "Account", page: "account" });
 });
 
+//get makesurvey page directly in the root
+/****
 router.get("/makesurvey", (req, res, _next) => {
     res.render("index", { title: "MakeSurvey", page: "makesurvey" });
 });
+****/
+
+//GET makesurvey page through displayMakeSurveyPage method
+router.get("/makesurvey", displayMakeSurveyPage);
+
+//POST - process makesurvey
+router.post("/makesurvey", processMakeSurveyPage);
 
 router.get("/question", (req, res, _next) => {
     res.render("index", { title: "Question", page: "question" });
