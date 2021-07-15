@@ -3,7 +3,7 @@
 <%# @author Aun Raza (301074590) %>
 <%# @author Jamee Kim (301058465) %>
 <%# @author Jerome Ching (300817930) %>
-<%# @author Sophie Xu (3010981127) %>
+<%# @author Sophie Xu (301098127) %>
 <%# @author Tien Sang Nguyen (301028223) %>
 <%# @author Eunju Jo (301170731) %>
 
@@ -15,13 +15,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Error</title>
-   <!-- CSS Stylesheets -->
+  <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/styles/app.css">
   <% for (const s of styles) { %>
   <link rel="stylesheet" href="/styles/<%= s %>.css">
   <% } %>
 </head>
+
 <body>
   <header>
     <%- include("partials/header") %>
@@ -32,7 +33,7 @@
   <pre><%= error.stack %></pre>
 
 
-<footer>
+  <footer>
     <%- include("partials/footer") %>
   </footer>
 
@@ -42,4 +43,5 @@
   <script src="/scripts/<%= s %>.js"></script>
   <% } %>
 </body>
+
 </html>
