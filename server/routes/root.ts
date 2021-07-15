@@ -18,7 +18,7 @@ const router = Router();
 export default router;
 
 //import function from survey controller
-import {displayMakeSurveyPage, processMakeSurveyPage,displayAvailableSurvey, processDeleteAvailableSurvey} from "../Controllers/survey";
+import {displayMakeSurveyPage, processMakeSurveyPage,displayAvailableSurvey, processDeleteAvailableSurvey,displayQuestionPage} from "../Controllers/survey";
 
 // GET "/" - home page
 router.get("/", (req, res, _next) => {
@@ -33,12 +33,12 @@ router.get("/register", (req, res, _next) => {
     res.render("index", { title: "Register", page: "register" });
 });
 
-//old GET: GET surveyavailable directly in the root
-/***
+/****old GET: GET surveyavailable directly in the root****/
+/****
 router.get("/surveyavailable", (req, res, _next) => {
     res.render("index", { title: "SurveyAvailable", page: "surveyavailable" });
 });
-***/
+****/
 
 //new GET for surveyavailable:
 router.get("/surveyavailable",displayAvailableSurvey);
@@ -48,7 +48,7 @@ router.get("/account", (req, res, _next) => {
     res.render("index", { title: "Account", page: "account" });
 });
 
-//old GET: GET makesurvey page directly in the root
+/****old GET: GET makesurvey page directly in the root****/
 /****
 router.get("/makesurvey", (req, res, _next) => {
     res.render("index", { title: "MakeSurvey", page: "makesurvey" });
@@ -61,12 +61,18 @@ router.get("/makesurvey", displayMakeSurveyPage);
 //POST - process makesurvey
 router.post("/makesurvey", processMakeSurveyPage);
 
+/****old GET: GET question page directly in the root****/
+/****
 router.get("/question", (req, res, _next) => {
     res.render("index", { title: "Question", page: "question" });
 });
+****/
+
+//NEW GET question page through displayQuestionPage method
+router.get("/question/:id", displayQuestionPage);
 
 router.get("/editsurvey", (req, res, _next) => {
-    res.render("index", { title: "EditSurvay", page: "editsurvey" });
+    res.render("index", { title: "EditSurvey", page: "editsurvey" });
 });
 
 //DELETE process to delete survey

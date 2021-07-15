@@ -1,4 +1,4 @@
-import express,{Request, Response, NextFunction} from "express";
+import {Request, Response, NextFunction} from "express";
 
 //Survey Model reference
 import Survey from "../models/survey";
@@ -14,11 +14,7 @@ export function processMakeSurveyPage(req:Request, res: Response, next: NextFunc
 {
     const newSurvey = new Survey
     ({
-        "questions[0]": req.body.quetions1,
-        "questions[1]": req.body.quetions2,
-        "questions[2]": req.body.quetions3,
-        "questions[3]": req.body.quetions4,
-        "questions[4]": req.body.quetions5,
+        "questions": [req.body.question1,req.body.question2,req.body.question3,req.body.question4,req.body.question5],
         "title": req.body.title,
         "activeFrom": req.body.activeFrom,
         "expiresAt":  req.body.expiresAt
@@ -60,4 +56,21 @@ export function processDeleteAvailableSurvey(req:Request, res: Response, next: N
         res.redirect("/surveyavailable");
     });
 
+}
+
+
+//Function to display question page, taking survey
+export function displayQuestionPage(req:Request, res: Response, next: NextFunction):void
+{
+    const id = req.params.id;
+
+    Survey.findById(id,{},{},(err, surveyTaking)=>
+    {
+        if(err)
+        {
+            console.error(err);
+            res.end(err);
+        }
+        res.render("index", {title: "Question", page: "question", surveyField: surveyTaking});
+    });
 }
