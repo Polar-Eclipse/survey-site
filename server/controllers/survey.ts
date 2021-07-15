@@ -45,3 +45,19 @@ export function displayAvailableSurvey(req:Request, res: Response, next: NextFun
         res.render("index",{title: "Available Survey", page:"surveyavailable", survey: surveyCollection});
     });
 }
+
+//Delete available surveys through delete button
+export function processDeleteAvailableSurvey(req:Request, res: Response, next: NextFunction):void
+{
+    const id = req.params.id;
+
+    Survey.remove({_id:id}, (err)=>{
+        if(err)
+        {
+            console.error(err);
+            res.end(err);
+        }
+        res.redirect("/surveyavailable");
+    });
+
+}

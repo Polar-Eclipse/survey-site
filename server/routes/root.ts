@@ -18,7 +18,7 @@ const router = Router();
 export default router;
 
 //import function from survey controller
-import {displayMakeSurveyPage, processMakeSurveyPage,displayAvailableSurvey} from "../Controllers/survey";
+import {displayMakeSurveyPage, processMakeSurveyPage,displayAvailableSurvey, processDeleteAvailableSurvey} from "../Controllers/survey";
 
 // GET "/" - home page
 router.get("/", (req, res, _next) => {
@@ -69,6 +69,11 @@ router.get("/editsurvey", (req, res, _next) => {
     res.render("index", { title: "EditSurvay", page: "editsurvey" });
 });
 
+//DELETE process to delete survey
+router.get("/delete/:id",processDeleteAvailableSurvey);
+
 router.get("/edituser", (req, res, _next) => {
     res.render("index", { title: "EditUser", page: "edituser" });
 });
+
+
