@@ -163,6 +163,8 @@ export function getAvailableSurveys(done: (err: any, surveys: Survey[]) => void)
 /**
  * Get a survey object with the given id from the database
  */
-export function getSurveyById(surveyId: string, done: (err: any, survey?: Survey) => void): void {
+export function getSurveyById(surveyId: string, done: (err: any, res: Survey) => void): void
+{
+    // get survey id:db.Survey.find({"_id": SurveyId})
     Survey.findById(surveyId, done);
 }
