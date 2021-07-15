@@ -33,3 +33,15 @@ export function processMakeSurveyPage(req:Request, res: Response, next: NextFunc
         res.redirect("/surveyavailable");
     });
 }
+
+//Display available surveys (View)
+export function displayAvailableSurvey(req:Request, res: Response, next: NextFunction):void
+{
+    Survey.find(function(err, surveyCollection){
+        if(err){
+            console.error(err);
+            res.end(err);
+        }
+        res.render("index",{title: "Available Survey", page:"surveyavailable", survey: surveyCollection});
+    });
+}

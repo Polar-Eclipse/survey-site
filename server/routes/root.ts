@@ -18,7 +18,7 @@ const router = Router();
 export default router;
 
 //import function from survey controller
-import {displayMakeSurveyPage, processMakeSurveyPage} from "../Controllers/survey";
+import {displayMakeSurveyPage, processMakeSurveyPage,displayAvailableSurvey} from "../Controllers/survey";
 
 // GET "/" - home page
 router.get("/", (req, res, _next) => {
@@ -33,23 +33,29 @@ router.get("/register", (req, res, _next) => {
     res.render("index", { title: "Register", page: "register" });
 });
 
+//old GET: GET surveyavailable directly in the root
+/***
 router.get("/surveyavailable", (req, res, _next) => {
     res.render("index", { title: "SurveyAvailable", page: "surveyavailable" });
 });
+***/
+
+//new GET for surveyavailable:
+router.get("/surveyavailable",displayAvailableSurvey);
 
 // we will probably move this to another route
 router.get("/account", (req, res, _next) => {
     res.render("index", { title: "Account", page: "account" });
 });
 
-//get makesurvey page directly in the root
+//old GET: GET makesurvey page directly in the root
 /****
 router.get("/makesurvey", (req, res, _next) => {
     res.render("index", { title: "MakeSurvey", page: "makesurvey" });
 });
 ****/
 
-//GET makesurvey page through displayMakeSurveyPage method
+//NEW GET makesurvey page through displayMakeSurveyPage method
 router.get("/makesurvey", displayMakeSurveyPage);
 
 //POST - process makesurvey

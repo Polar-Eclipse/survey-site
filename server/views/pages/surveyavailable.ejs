@@ -25,15 +25,17 @@
             <tbody>
 
                 <!--Repeatable Row Template-->
+
+               <% for(let count = 0; count < survey.length; count++){ %>
                <tr>
-                <th scope="row">1</th>
-                <td></td>
-                <td></td>
-                <td></td>
+                <th scope="row"><%= count + 1 %></th>
+                <td><%= survey[count].title %></td>
+                <td><%= survey[count].activeFrom %></td>
+                <td><%= survey[count].expiresAt %></td>
                 <td></td>
                 <td class="text-center"><a href="/question" class="btn btn-warning editBTN"> Take</a> </td>
-
               </tr>
+              <% } %>
             </tbody>
           </table>
         <!--Table Goes Here-->
