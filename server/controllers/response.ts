@@ -1,6 +1,19 @@
 import Response from "../models/reponse";
 
-export function getAllResponse(surveyId: string): Response[]
+export function getAllResponse(surveyId: string, done: (err: any, res?: Response[]) => void): void
 {
-    return;
+    Response.find({ question: surveyId }, (err, result) =>
+    {
+        if (err)
+        {
+            done(err);
+        }
+        else
+        {
+            done(undefined, result);
+        }
+
+    });
+
+
 }
