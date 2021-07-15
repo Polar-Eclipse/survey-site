@@ -12,7 +12,7 @@
  * @author Eunju Jo (301170731)
  */
 
-import { model, Model, ObjectId, Schema } from "mongoose";
+import { model, Model, Schema, Types } from "mongoose";
 
  // Create an interface which TS can rely on to give use hints of what fields can be used.
  interface Survey {
@@ -21,7 +21,7 @@ import { model, Model, ObjectId, Schema } from "mongoose";
     expiresAt?: Date;
     createdAt: Date;
     updatedAt: Date;
-    owner: ObjectId;
+    owner: Types.ObjectId;
     type: "yesno" ;
  }
 
