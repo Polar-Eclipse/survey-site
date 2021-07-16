@@ -97,7 +97,7 @@ export function processMakeSurveyPage(req:Request, res: Response, next: NextFunc
         {
             return next(err);
         }
-        res.redirect("/surveyavailable");
+        res.redirect("/account");
     });
 }
 
@@ -113,7 +113,7 @@ export function processDeleteSurvey(req:Request, res: Response, next: NextFuncti
         {
             return next(err);
         }
-        res.redirect("/surveyavailable");
+        res.redirect("/account");
     });
 }
 
