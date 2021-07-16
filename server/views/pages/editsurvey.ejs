@@ -21,13 +21,13 @@
     <div class="row justify-content-center my-4">
       <label for="activeFor" class="col-3 text-end">Active From</label>
       <input type="date" class="col-7" id="activeFrom" placeholder="Start Date" name="activeFrom"
-        value="<%=surveyItem.activeFrom %>" required>
+        value="<%= formatDate(surveyItem.activeFrom) %>" required>
       <div class="col-1"></div>
     </div>
     <div class="row justify-content-center my-4">
       <label for="activeFor" class="col-3 text-end">Active Til</label>
       <input type="date" class="col-7" id="expiresAt" placeholder="End Date" name="expiresAt"
-        value="<%=surveyItem.expiresAt %>">
+        value="<%= formatDate(surveyItem.expiresAt) %>">
       <div class="col-1"></div>
     </div>
     <% for(let count = 1; count < 6; count++) {%>
