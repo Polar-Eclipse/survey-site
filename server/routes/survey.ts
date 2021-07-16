@@ -1,5 +1,5 @@
 /**
- * server/routes/survey
+ * server/routes/survey.ts
  *
  * Survey-Related Routers to be exported to server/routers/index
  *
