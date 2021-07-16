@@ -1,7 +1,7 @@
 /**
  * server/controllers/response.ts
  *
- * Controller functions for the Response database model
+ * Controller for the responses-related pages
  *
  * Polar Survey
  * @author Aun Raza (301074590)
@@ -39,6 +39,7 @@ export function getAllResponse(surveyId: string, done: (err: any, res?: Response
         {
             done(undefined, result);
         }
+
 
     });
 
