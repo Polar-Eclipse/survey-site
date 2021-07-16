@@ -1,5 +1,5 @@
 /**
- * server/routes/user
+ * server/routes/user.ts
  *
  * User-Related Router to be exported to server/routers/index
  *

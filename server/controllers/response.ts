@@ -1,5 +1,5 @@
 /**
- * server/controllers/response
+ * server/controllers/response.ts
  *
  * Controller for the responses-related pages
  *
@@ -11,9 +11,22 @@
  * @author Tien Sang Nguyen (301028223)
  * @author Eunju Jo (301170731)
  */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import Response from "../models/response";
 
+// insert data in to the Response collection
+export function insertResponse(response: Response, done: (err: any, res: Response) => void):void
+{   //db.Response.create()
+    Response.create(response,done);
+}
+
+/**
+ * Get an array of user reponse to the survey with the given id
+ *
+ * @param surveyId The ID of the survey
+ * @param done The callback function
+ */
 export function getAllResponse(surveyId: string, done: (err: any, res?: Response[]) => void): void
 {
     Response.find({ question: surveyId }, (err, result) =>
