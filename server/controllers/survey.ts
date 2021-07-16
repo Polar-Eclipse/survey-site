@@ -89,7 +89,7 @@ export function processMakeSurveyPage(req:Request, res: Response, next: NextFunc
         ],
         "title": req.body.title,
         "activeFrom": req.body.activeFrom,
-        "expiresAt":  req.body.expiresAt
+        "expiresAt":  req.body.expiresAt || undefined
     });
     //insert newSurvey to db
     Survey.create(newSurvey, (err) => {
@@ -136,7 +136,7 @@ export function processEditSurveyPage(req:Request, res: Response, next: NextFunc
         ],
         "title": req.body.title,
         "activeFrom": req.body.activeFrom,
-        "expiresAt":  req.body.expiresAt
+        "expiresAt":  req.body.expiresAt || undefined
     });
 
     Survey.findByIdAndUpdate(id, updatedSurvey, {}, (err)=>{

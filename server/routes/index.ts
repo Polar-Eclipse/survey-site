@@ -15,10 +15,15 @@
 import { Express } from "express-serve-static-core";
 
 import rootRouter from "./root";
+import userRouter from "./user";
+import surveyRouter from "./survey";
 
 /**
  * Register all routers to the express app
  */
 export default function setRouters(app: Express): void {
     app.use("/", rootRouter);
+    app.use("/", userRouter);
+    app.use("/", surveyRouter);
+
 }
