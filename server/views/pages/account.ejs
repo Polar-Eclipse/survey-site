@@ -28,7 +28,7 @@
 <div class="row justify-content-center mb-5">
   <a href="/makesurvey" class="btn btn-primary col-4">Make A Survey</a>
 </div>
-<h1 class="text-center">Survey List</h1>
+<h1 class="text-center polarText">Survey List</h1>
 <div class="row mb-5">
   <div class="col">
     <table class="table border border-dark mb-5">
@@ -56,6 +56,7 @@
           <td><%= survey[count].title %></td>
           <td><%= displayDate(survey[count].activeFrom) %></td>
           <td><%= displayDate(survey[count].expiresAt) %></td>
+          <td><%= displayDate(survey[count].updatedAt) %></td>
           <td class="text-center"><a href="/editsurvey/<%= survey[count]._id %>" class="btn btn-primary btn edit"><i
                 class="fas fa-edit fa-sm"></i> Edit</a></td>
           <td class="text-center"><a href="/delete/<%= survey[count]._id %>" class="btn btn-danger delete"><i
