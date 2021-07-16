@@ -65,6 +65,21 @@ function setCommonVars(req: Request, res: Response, next: NextFunction): void {
     res.locals.styles = [];
     res.locals.scripts = [];
 
+    // Date formatter: helper method for converting a Date object to "YYYY-MM-DD" format
+    // Use this for the value attribute of input nodes with type "date"
+    res.locals.formatDate = (date?: Date): string => {
+        return date
+            ? new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0]
+            : "";
+    };
+
+    // Date displayer: helper method that shows a user-friendly string representation of the given Date object
+    // Use this when showing the date to the users
+    const formatter = Intl.DateTimeFormat("en-CA");
+    res.locals.displayDate = (date?: Date): string => {
+        return date? formatter.format(date) : "";
+    };
+
     // Invoke next handlers
     next();
 }
