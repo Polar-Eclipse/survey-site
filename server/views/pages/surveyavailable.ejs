@@ -19,7 +19,6 @@
           <th scope="col">Available From</th>
           <th scope="col">Expires At</th>
           <th></th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -28,7 +27,7 @@
 
         <% for(let count = 0; count < survey.length; count++){ %>
         <tr>
-          <th scope="row"><%= count + 1 %></th>
+          <th scope="row" class="polarPurpleText"><%= count + 1 %></th>
           <td><%= survey[count].title %></td>
           <td><%= displayDate(survey[count].activeFrom) %></td>
           <td><%= displayDate(survey[count].expiresAt) %></td>
