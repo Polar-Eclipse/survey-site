@@ -37,6 +37,7 @@ export function displayAvailableSurvey(req:Request, res: Response, next: NextFun
         }
         res.render("index", { title: "Available Survey", page:"surveyavailable", survey: surveys });
     });
+
 }
 
 /**
