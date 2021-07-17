@@ -19,3 +19,10 @@
 
  body { background-color: #313c5c;}
  .polarText { color: #68c2e8;}
+ .polarPurple {color: #686CE8;}
+
+ td {color: #68c2e8 ;}
+ th {color: #686CE8;}
+ table, th, td {
+    border: 1px solid #686CE8;
+ }
