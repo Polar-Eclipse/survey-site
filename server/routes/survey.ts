@@ -18,6 +18,7 @@ export default router;
 
 // import controller
 import * as surveyController from "../controllers/survey";
+import * as responseController from "../controllers/response"
 
 //new GET for surveyavailable:
 router.get("/surveyavailable", surveyController.displayAvailableSurvey);
@@ -31,6 +32,9 @@ router.post("/makesurvey", surveyController.processMakeSurveyPage);
 //NEW GET question page through displayQuestionPage method
 router.get("/question/:id", surveyController.displayQuestionPage);
 
+//POST Process question /question/:id page
+router.post("/question/:id", responseController.processQuestion);
+
 //NEW GET question page through displayQuestionPage method
 router.get("/editsurvey/:id", surveyController.displayEditSurveyPage);
 
@@ -39,3 +43,6 @@ router.post("/editsurvey/:id", surveyController.processEditSurveyPage);
 
 //DELETE process to delete survey
 router.get("/delete/:id", surveyController.processDeleteSurvey);
+
+//DELETE process to delete result
+router.get("/deleteres/:id", responseController.processDeleteResult);
