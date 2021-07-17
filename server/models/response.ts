@@ -17,6 +17,7 @@ import { model, Model, Schema, Types } from "mongoose";
  // Create an interface which TS can rely on to give use hints of what fields can be used.
  interface Response {
     question: Types.ObjectId; // The ID of the question this answers to
+    title: string,
     answers: string[];
     createdAt: Date;
 }
@@ -30,6 +31,7 @@ const ResponseSchema = new Schema<Response, Model<Response>>(
             ref: "Question",
         },
         answers:[String],
+        title: String
     },
     {
         collection: "response",

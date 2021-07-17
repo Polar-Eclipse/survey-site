@@ -13,12 +13,13 @@
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import Response from "../models/response";
+import { Request, Response, NextFunction } from "express";
+import ResponseM from "../models/response";
 
 // insert data in to the Response collection
-export function insertResponse(response: Response, done: (err: any, res: Response) => void):void
+export function insertResponse(response: ResponseM, done: (err: any, res: ResponseM) => void):void
 {   //db.Response.create()
-    Response.create(response,done);
+    ResponseM.create(response,done);
 }
 
 /**
@@ -27,9 +28,9 @@ export function insertResponse(response: Response, done: (err: any, res: Respons
  * @param surveyId The ID of the survey
  * @param done The callback function
  */
-export function getAllResponse(surveyId: string, done: (err: any, res?: Response[]) => void): void
+export function getAllResponse(surveyId: string, done: (err: any, res?: ResponseM[]) => void): void
 {
-    Response.find({ question: surveyId }, (err, result) =>
+    ResponseM.find({ question: surveyId }, (err, result) =>
     {
         if (err)
         {
@@ -39,9 +40,41 @@ export function getAllResponse(surveyId: string, done: (err: any, res?: Response
         {
             done(undefined, result);
         }
-
-
     });
+}
+export function processQuestion(req: Request, res: Response, next: NextFunction): void
+{
+    const id = req.params.id;
+    const newResponse = new ResponseM
+    ({
+        "answers": [
+            req.body.answer1,
+            req.body.answer2,
+            req.body.answer3,
+            req.body.answer4,
+            req.body.answer5,
+        ],
+        "question": id,
+        "title": req.body.title
+    });
+    ResponseM.create(newResponse, (err) => {
+        if(err)
+        {
+            return next(err);
+        }
+        res.redirect("/surveyavailable");
+    });
+}
 
+export function processDeleteResult(req:Request, res: Response, next: NextFunction):void
+{
+    const id = req.params.id;
 
+    ResponseM.findByIdAndRemove(id, {}, (err) => {
+        if(err)
+        {
+            return next(err);
+        }
+        res.redirect("/account");
+    });
 }

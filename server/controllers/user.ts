@@ -14,6 +14,7 @@
 
 import { Request, Response, NextFunction } from "express";
 import Survey from "../models/survey";
+import ResponseM from "../models/response";
 
 /**
  * Display the account page for the user
@@ -22,9 +23,16 @@ export function displayAccountPage(req:Request, res: Response, next: NextFunctio
     // TODO This is a temporary version because we do not have any registered users
     // Once we have users, we do not need this `Survey.find` call.
     Survey.find(function(err, surveyCollection){
-        if(err){
-            return next(err);
-        }
-        res.render("index",{title: "Account", page:"account", survey: surveyCollection});
+        ResponseM.find(function(err2, responseCollection){
+            if (err2){
+                return next (err2);
+            }
+
+            if(err){
+                return next(err);
+            }
+
+            res.render("index",{title: "Account", page:"account", survey: surveyCollection, response: responseCollection});
+        });
     });
 }
