@@ -14,7 +14,7 @@
 
 import { Request, Response, NextFunction } from "express";
 import Survey from "../models/survey";
-import ResponseM from "../models/response"
+import ResponseM from "../models/response";
 
 /**
  * Display the account page for the user
@@ -28,11 +28,11 @@ export function displayAccountPage(req:Request, res: Response, next: NextFunctio
                 return next (err2);
             }
 
-        if(err){
-            return next(err);
-        }
+            if(err){
+                return next(err);
+            }
 
-        res.render("index",{title: "Account", page:"account", survey: surveyCollection, response: responseCollection});
+            res.render("index",{title: "Account", page:"account", survey: surveyCollection, response: responseCollection});
         });
     });
 }

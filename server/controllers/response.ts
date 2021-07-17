@@ -63,25 +63,8 @@ export function processQuestion(req: Request, res: Response, next: NextFunction)
             return next(err);
         }
         res.redirect("/surveyavailable");
-    })
-}
-
-export function displaySurveyResponse(req: Request, res: Response, next: NextFunction): void
-{
-    const id = req.params.id;
-
-    getAllResponse1((err, responses) =>
-    {
-        if(err){
-            return next(err);
-        }
-        res.render("index", { title: "All Response", page:"surveyresponse", response: responses });
-    })
-}
-//Will change when authentication is done
-export function getAllResponse1(done: (err: any, response: ResponseM[]) => void): void {
-    ResponseM.find().exec(done);
-}
+    });
+};
 
 export function processDeleteResult(req:Request, res: Response, next: NextFunction):void
 {
