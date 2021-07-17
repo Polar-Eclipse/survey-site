@@ -68,16 +68,21 @@ function setCommonVars(req: Request, res: Response, next: NextFunction): void {
     // Date formatter: helper method for converting a Date object to "YYYY-MM-DD" format
     // Use this for the value attribute of input nodes with type "date"
     res.locals.formatDate = (date?: Date): string => {
-        return date
-            ? new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0]
-            : "";
+        // The date is saved as midnight for UTC+0. The ISO string shows the time for UTC+0.
+        return date ? date.toISOString().split("T")[0] : "";
     };
 
     // Date displayer: helper method that shows a user-friendly string representation of the given Date object
     // Use this when showing the date to the users
     const formatter = Intl.DateTimeFormat("en-CA");
     res.locals.displayDate = (date?: Date): string => {
-        return date? formatter.format(date) : "";
+        if (!date) {
+            return "";
+        }
+        // The date is saved as midnight for UTC+0. Formatting the date tries to show the time in the local timezone.
+        // To show the proper date, we add the local timezone difference to the date.
+        const timezoneAdjustedDate = new Date(date.getTime() + 60000 * date.getTimezoneOffset());
+        return formatter.format(timezoneAdjustedDate);
     };
 
     // Invoke next handlers
