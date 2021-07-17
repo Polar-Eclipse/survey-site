@@ -139,7 +139,8 @@ export function processEditSurveyPage(req:Request, res: Response, next: NextFunc
         "expiresAt": req.body.expiresAt || undefined
     });
 
-    Survey.findByIdAndUpdate(id, updatedSurvey, {}, (err)=>{
+    
+    Survey.findByIdAndUpdate(id, updatedSurvey, { omitUndefined: true }, (err)=>{
         if(err)
         {
             return next(err);
