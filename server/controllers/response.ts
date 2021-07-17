@@ -64,7 +64,7 @@ export function processQuestion(req: Request, res: Response, next: NextFunction)
         }
         res.redirect("/surveyavailable");
     });
-};
+}
 
 export function processDeleteResult(req:Request, res: Response, next: NextFunction):void
 {

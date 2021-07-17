@@ -18,7 +18,7 @@ export default router;
 
 // import controller
 import * as surveyController from "../controllers/survey";
-import * as responseController from "../controllers/response"
+import * as responseController from "../controllers/response";
 
 //new GET for surveyavailable:
 router.get("/surveyavailable", surveyController.displayAvailableSurvey);
