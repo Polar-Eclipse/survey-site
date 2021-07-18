@@ -124,9 +124,7 @@ export function processEditSurveyPage(req:Request, res: Response, next: NextFunc
 {
     const id = req.params.id;
 
-    const updatedSurvey = new Survey
-    ({
-        "_id": id,
+    const updatedSurvey: Partial<Survey> = {
         "questions": [
             req.body.question1,
             req.body.question2,
@@ -137,10 +135,9 @@ export function processEditSurveyPage(req:Request, res: Response, next: NextFunc
         "title": req.body.title,
         "activeFrom": req.body.activeFrom,
         "expiresAt": req.body.expiresAt || undefined
-    });
+    };
 
-    
-    Survey.findByIdAndUpdate(id, updatedSurvey, { omitUndefined: true }, (err)=>{
+    Survey.findByIdAndUpdate(id, updatedSurvey, {}, (err)=>{
         if(err)
         {
             return next(err);
@@ -158,6 +155,7 @@ export function getAvailableSurveys(done: (err: any, surveys: Survey[]) => void)
     const now = new Date();
     Survey.find({ activeFrom: { $lte: now } }).or([
         { expiresAt: { $exists: false } },
+        { expiresAt: { $eq: undefined } },
         { expiresAt: { $gt: now } },
     ]).exec(done);
 }
