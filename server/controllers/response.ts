@@ -85,14 +85,14 @@ export function displayResult(req:Request, res: Response, next: NextFunction): v
     const id = req.params.id;
 
     ResponseM.find({ question: id }).then(data => {
-        let surveyResponse = data;
+        const surveyResponse = data;
         res.render("index", { title: "Survey Response", page: "surveyresponse", surveyResponses: surveyResponse});
 
     });
 }
 
 // Get The list of results with a specific id
- export function getSurveyById(responsetitle: string, done: (err: any, res: ResponseM) => void): void
+export function getSurveyById(responsetitle: string, done: (err: any, res: ResponseM) => void): void
 {
     // get survey id:db.Survey.find({"_id": SurveyId})
     ResponseM.find({title: {$eq: responsetitle}},{},{});
