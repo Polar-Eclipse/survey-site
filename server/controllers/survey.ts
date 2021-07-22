@@ -168,3 +168,4 @@ export function getSurveyById(surveyId: string, done: (err: any, res: Survey) =>
     // get survey id:db.Survey.find({"_id": SurveyId})
     Survey.findById(surveyId, done);
 }
+

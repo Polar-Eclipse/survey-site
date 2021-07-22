@@ -28,21 +28,20 @@
 
         <!--Repeatable Row Template-->
 
-        <% for(let count = 0; count < survey.length; count++){ %>
+        <% for(let count = 0; count < surveyResponses.length; count++){ %>
         <tr>
           <th scope="row" class="polarPurpleText"><%= count + 1 %></th>
-          <td><%= response[count].question %></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td class="text-center"><a href="/question/<%= survey[count]._id %>" class="btn btn-warning editBTN"> Take</a>
+          <td><%= surveyResponses[count].question %></td>
+          <td><%= surveyResponses[count].answers[0] %></td>
+          <td><%= surveyResponses[count].answers[1] %></td>
+          <td><%= surveyResponses[count].answers[2] %></td>
+          <td><%= surveyResponses[count].answers[3] %></td>
+          <td><%= surveyResponses[count].answers[4] %></td>
+          <td class="text-center"><a href="/deleteres/<%= surveyResponses[count]._id %>" class="btn btn-danger editBTN"> Delete</a>
           </td>
         </tr>
         <% } %>
       </tbody>
     </table>
-    <!--Table Goes Here-->
   </div>
 </div>
