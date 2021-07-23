@@ -43,6 +43,7 @@
 
           <th></th>
           <th></th>
+          <th></th>
 
 
         </tr>
@@ -57,6 +58,8 @@
           <td><%= displayDate(survey[count].activeFrom) %></td>
           <td><%= displayDate(survey[count].expiresAt) %></td>
           <td><%= displayDate(survey[count].updatedAt) %></td>
+          <td class="text-center"><a href="/surveyresponse/<%= survey[count]._id %>" class="btn btn-primary btn edit"><i
+            class="fas fa-edit fa-sm"></i> Results</a></td>
           <td class="text-center"><a href="/editsurvey/<%= survey[count]._id %>" class="btn btn-primary btn edit"><i
                 class="fas fa-edit fa-sm"></i> Edit</a></td>
           <td class="text-center"><a href="/delete/<%= survey[count]._id %>" class="btn btn-danger delete"><i

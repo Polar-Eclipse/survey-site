@@ -46,3 +46,6 @@ router.get("/delete/:id", surveyController.processDeleteSurvey);
 
 //DELETE process to delete result
 router.get("/deleteres/:id", responseController.processDeleteResult);
+
+//GET surveyresult Show the result of the survey
+router.get("/surveyresponse/:id", responseController.displayResult);

@@ -78,3 +78,29 @@ export function processDeleteResult(req:Request, res: Response, next: NextFuncti
         res.redirect("/account");
     });
 }
+
+//Get Survey Result site
+export function displayResult(req: Request, res: Response, next: NextFunction): void
+{
+    const id = req.params.id;
+    getAllResponse(id, (err, selectedResponse) => {
+        if (err || !selectedResponse) {
+            return next(err);
+        }
+        const answeredTrue = [0, 0, 0, 0, 0];
+        for(let i = 0; i < selectedResponse.length; i++ )
+        {
+            for(let j = 0; j < selectedResponse[i].answers.length; j++ ) //survey
+            {
+
+                if(selectedResponse[i].answers[j] == "True") //answers
+                {
+                    answeredTrue[j] = answeredTrue[j] + 1;
+                }
+            }
+        }
+        res.render("index", { title: "Survey Response", page: "surveyresponse", surveyResponses: selectedResponse, tally: answeredTrue});
+    });
+
+}
+
