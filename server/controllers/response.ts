@@ -80,20 +80,27 @@ export function processDeleteResult(req:Request, res: Response, next: NextFuncti
 }
 
 //Get Survey Result site
-export function displayResult(req:Request, res: Response, next: NextFunction): void
+export function displayResult(req: Request, res: Response, next: NextFunction): void
 {
     const id = req.params.id;
+    getAllResponse(id, (err, selectedResponse) => {
+        if (err || !selectedResponse) {
+            return next(err);
+        }
+        let answeredTrue = [0, 0, 0, 0, 0];
+        for(let i = 0; i < selectedResponse.length; i++ )
+        {
+            for(let j = 0; j < selectedResponse[i].answers.length; j++ ) //survey
+            {
 
-    ResponseM.find({ question: id }).then(data => {
-        const surveyResponse = data;
-        res.render("index", { title: "Survey Response", page: "surveyresponse", surveyResponses: surveyResponse});
-
+                if(selectedResponse[i].answers[j] == "True") //answers
+                {
+                    answeredTrue[j] = answeredTrue[j] + 1;
+                }
+            }
+        }
+        res.render("index", { title: "Survey Response", page: "surveyresponse", surveyResponses: selectedResponse, tally: answeredTrue});
     });
+
 }
 
-// Get The list of results with a specific id
-export function getSurveyById(responsetitle: string, done: (err: any, res: ResponseM) => void): void
-{
-    // get survey id:db.Survey.find({"_id": SurveyId})
-    ResponseM.find({title: {$eq: responsetitle}},{},{});
-}
