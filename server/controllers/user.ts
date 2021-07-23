@@ -19,7 +19,7 @@ import ResponseM from "../models/response";
 /**
  * Display the account page for the user
  */
- export function displayAccountPage(req:Request, res: Response, next: NextFunction): void {
+export function displayAccountPage(req:Request, res: Response, next: NextFunction): void {
     // TODO This is a temporary version because we do not have any registered users
     // Once we have users, we do not need this `Survey.find` call.
     Survey.find(function(err, surveyCollection){
