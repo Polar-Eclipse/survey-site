@@ -87,7 +87,7 @@ export function displayResult(req: Request, res: Response, next: NextFunction): 
         if (err || !selectedResponse) {
             return next(err);
         }
-        let answeredTrue = [0, 0, 0, 0, 0];
+        const answeredTrue = [0, 0, 0, 0, 0];
         for(let i = 0; i < selectedResponse.length; i++ )
         {
             for(let j = 0; j < selectedResponse[i].answers.length; j++ ) //survey
