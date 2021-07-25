@@ -15,6 +15,10 @@
 import { Request, Response, NextFunction } from "express";
 import Survey from "../models/survey";
 import ResponseM from "../models/response";
+import passport from "passport";
+
+//create an instance of the User model
+import User from "../models/user";
 
 /**
  * Display the account page for the user
@@ -35,4 +39,36 @@ export function displayAccountPage(req:Request, res: Response, next: NextFunctio
             res.render("index",{title: "Account", page:"account", survey: surveyCollection, response: responseCollection});
         });
     });
+}
+
+
+export function displayLoginPage(req:Request, res: Response, next: NextFunction): void {
+    if(!req.user)
+    {
+        res.render("index", {title: "Login", page: "login", messages: req.flash("loginMessage")});
+    }
+
+}
+
+export function displayRegisterPage(req:Request, res: Response, next: NextFunction): void {
+    if(!req.user)
+    {
+        res.render("index", {title: "Register", page: "register", messages: req.flash("registerMessage")});
+    }
+
+}
+
+export function processLoginPage(req:Request, res: Response, next: NextFunction): void {
+
+
+}
+
+export function processRegisterPage(req:Request, res: Response, next: NextFunction): void {
+
+
+}
+
+export function processLogoutPage(req:Request, res: Response, next: NextFunction): void {
+
+
 }
