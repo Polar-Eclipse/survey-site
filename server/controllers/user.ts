@@ -21,7 +21,7 @@ import passport from "passport";
 import User from "../models/user";
 
 //import Util functions
-import { UserDisplayUserName } from "../util";
+import { userDisplayUserName } from "../util";
 
 /**
  * Display the account page for the user
@@ -39,7 +39,7 @@ export function displayAccountPage(req:Request, res: Response, next: NextFunctio
                 return next(err);
             }
 
-            res.render("index",{title: "Account", page:"account", survey: surveyCollection, response: responseCollection, displayUserName: UserDisplayUserName(req)});
+            res.render("index",{title: "Account", page:"account", survey: surveyCollection, response: responseCollection, displayUserName: userDisplayUserName(req)});
         });
     });
 }
@@ -48,7 +48,7 @@ export function displayAccountPage(req:Request, res: Response, next: NextFunctio
 export function displayLoginPage(req:Request, res: Response, next: NextFunction): void {
     if(!req.user)
     {
-        return res.render("index", {title: "Login", page: "login", messages: req.flash("loginMessage"), displayUserName: UserDisplayUserName(req)});
+        return res.render("index", {title: "Login", page: "login", messages: req.flash("loginMessage"), displayUserName: userDisplayUserName(req)});
     }
     return res.redirect("/surveyavailable");
 }
@@ -56,7 +56,7 @@ export function displayLoginPage(req:Request, res: Response, next: NextFunction)
 export function displayRegisterPage(req:Request, res: Response, next: NextFunction): void {
     if(!req.user)
     {
-        res.render("index", {title: "Register", page: "register", messages: req.flash("registerMessage"), displayUserName: UserDisplayUserName(req)});
+        res.render("index", {title: "Register", page: "register", messages: req.flash("registerMessage"), displayUserName: userDisplayUserName(req)});
     }
 
 }

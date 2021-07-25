@@ -15,7 +15,7 @@
 
 import { Request, Response, NextFunction } from "express";
 import Survey from "../models/survey";
-import { UserDisplayUserName } from "../util";
+import { userDisplayUserName } from "../util";
 
 /***DISPLAY FUNCTIONS***/
 
@@ -24,7 +24,7 @@ import { UserDisplayUserName } from "../util";
  */
 export function displayMakeSurveyPage(req:Request, res: Response, _next: NextFunction):void
 {
-    res.render("index", { title: "Make Survey", page: "makesurvey", displayUserName: UserDisplayUserName(req) });
+    res.render("index", { title: "Make Survey", page: "makesurvey", displayUserName: userDisplayUserName(req) });
 }
 
 /**
@@ -36,7 +36,7 @@ export function displayAvailableSurvey(req:Request, res: Response, next: NextFun
         if(err){
             return next(err);
         }
-        res.render("index", { title: "Available Survey", page:"surveyavailable", survey: surveys, displayUserName: UserDisplayUserName(req) });
+        res.render("index", { title: "Available Survey", page:"surveyavailable", survey: surveys, displayUserName: userDisplayUserName(req) });
     });
 
 }
@@ -52,7 +52,7 @@ export function displayQuestionPage(req:Request, res: Response, next: NextFuncti
         if (err) {
             return next(err);
         }
-        res.render("index", { title: "Question", page: "question", surveyField: survey, displayUserName: UserDisplayUserName(req) });
+        res.render("index", { title: "Question", page: "question", surveyField: survey, displayUserName: userDisplayUserName(req) });
     });
 }
 
@@ -67,7 +67,7 @@ export function displayEditSurveyPage(req:Request, res: Response, next: NextFunc
         if (err) {
             return next(err);
         }
-        res.render("index", { title: "EditSurvey", page: "editsurvey", surveyItem: survey, displayUserName: UserDisplayUserName(req) });
+        res.render("index", { title: "EditSurvey", page: "editsurvey", surveyItem: survey, displayUserName: userDisplayUserName(req) });
     });
 }
 
