@@ -29,8 +29,8 @@ router.get("/register", userController.displayRegisterPage);
 /* POST - process register page when user clicks Login */
 router.post("/register", userController.processRegisterPage);
 
-/* POST - process logout page when user clicks Login */
-router.post("/logout", userController.processLogoutPage);
+/* GET - GET logout page when user clicks Logout */
+router.get("/logout", userController.processLogoutPage);
 
 //NEW GET account page through displaydisplayAccountPage method
 router.get("/account", userController.displayAccountPage);

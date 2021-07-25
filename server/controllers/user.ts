@@ -45,9 +45,9 @@ export function displayAccountPage(req:Request, res: Response, next: NextFunctio
 export function displayLoginPage(req:Request, res: Response, next: NextFunction): void {
     if(!req.user)
     {
-        res.render("index", {title: "Login", page: "login", messages: req.flash("loginMessage")});
+        return res.render("index", {title: "Login", page: "login", messages: req.flash("loginMessage")});
     }
-
+    return res.redirect("/surveyavailable");
 }
 
 export function displayRegisterPage(req:Request, res: Response, next: NextFunction): void {
@@ -59,16 +59,68 @@ export function displayRegisterPage(req:Request, res: Response, next: NextFuncti
 }
 
 export function processLoginPage(req:Request, res: Response, next: NextFunction): void {
+    passport.authenticate("local", (err, user, info) =>{
+        //are there server errors?
+        if(err)
+        {
+            console.error(err);
+            return next(err);
+        }
 
+        //are there login errors?
+        if(!user)
+        {
+            req.flash("loginMessage", "Authentication Error");
+            return res.redirect("/login");
+        }
+
+        req.login(user, (err) =>{
+            //are there db errors?
+            if(err)
+            {
+                console.error(err);
+                return next(err);
+            }
+            return res.redirect("/surveyavailable");
+        });
+    })(req, res, next);
 
 }
 
 export function processRegisterPage(req:Request, res: Response, next: NextFunction): void {
+    // instantiate a new User Object
+    const newUser = new User
+    ({
+        username: req.body.username,
+        emailAddress: req.body.emailAdress,
+        contactNumber: req.body.contactNumber,
+        displayName: req.body.username
+    });
 
+    User.register(newUser, req.body.password,(err)=>
+    {
+        if(err)
+        {
+            console.error("Error: Inserting New User");
+            if(err.name == "UserExistError")
+            {
+                console.error("Error: User Already Exist");
+            }
+            req.flash("registerMessage", "Registration Error");
+
+            return res.redirect("/register");
+        }
+
+        // after successful registration - login the user
+        return passport.authenticate("local")(req, res, ()=>{
+            return res.redirect("/account");
+        });
+    });
 
 }
 
 export function processLogoutPage(req:Request, res: Response, next: NextFunction): void {
+    req.logout();
 
-
+    res.redirect("/login");
 }
