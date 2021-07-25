@@ -20,6 +20,9 @@ import passport from "passport";
 //create an instance of the User model
 import User from "../models/user";
 
+//import Util functions
+import { UserDisplayUserName } from "../util";
+
 /**
  * Display the account page for the user
  */
@@ -36,7 +39,7 @@ export function displayAccountPage(req:Request, res: Response, next: NextFunctio
                 return next(err);
             }
 
-            res.render("index",{title: "Account", page:"account", survey: surveyCollection, response: responseCollection});
+            res.render("index",{title: "Account", page:"account", survey: surveyCollection, response: responseCollection, displayUserName: UserDisplayUserName(req)});
         });
     });
 }
@@ -45,7 +48,7 @@ export function displayAccountPage(req:Request, res: Response, next: NextFunctio
 export function displayLoginPage(req:Request, res: Response, next: NextFunction): void {
     if(!req.user)
     {
-        return res.render("index", {title: "Login", page: "login", messages: req.flash("loginMessage")});
+        return res.render("index", {title: "Login", page: "login", messages: req.flash("loginMessage"), displayUserName: UserDisplayUserName(req)});
     }
     return res.redirect("/surveyavailable");
 }
@@ -53,7 +56,7 @@ export function displayLoginPage(req:Request, res: Response, next: NextFunction)
 export function displayRegisterPage(req:Request, res: Response, next: NextFunction): void {
     if(!req.user)
     {
-        res.render("index", {title: "Register", page: "register", messages: req.flash("registerMessage")});
+        res.render("index", {title: "Register", page: "register", messages: req.flash("registerMessage"), displayUserName: UserDisplayUserName(req)});
     }
 
 }
@@ -94,7 +97,6 @@ export function processRegisterPage(req:Request, res: Response, next: NextFuncti
         username: req.body.username,
         emailAddress: req.body.emailAdress,
         contactNumber: req.body.contactNumber,
-        displayName: req.body.username
     });
 
     User.register(newUser, req.body.password,(err)=>
