@@ -27,8 +27,7 @@ import session from "express-session";
 import passport from "passport";
 import passportLocal from "passport-local";
 
-//authentication objects
-const localStrategy = passportLocal.Strategy;//alias
+
 import User from "../models/user";
 
 //Module for auth messaging and error management
