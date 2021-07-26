@@ -133,16 +133,16 @@ export function processLogoutPage(req:Request, res: Response, next: NextFunction
 }
 
 export function processEditPage(req: Request, res: Response, next: NextFunction): void {
-     const id = req.params.id;
+    const id = req.params.id;
 
-     let updatedUser = new User
-     ({
-         "_id": id,
-         "username": req.body.username,
-         "emailAddress": req.body.email,
-         "contactNumber": req.body.contactnumber
-     });
-     User.updateOne({_id: id}, updatedUser, {}, (err) =>{
+    const updatedUser = new User
+    ({
+        "_id": id,
+        "username": req.body.username,
+        "emailAddress": req.body.email,
+        "contactNumber": req.body.contactnumber
+    });
+    User.updateOne({_id: id}, updatedUser, {}, (err) =>{
 
         if(err)
         {
@@ -150,5 +150,5 @@ export function processEditPage(req: Request, res: Response, next: NextFunction)
             res.end(err);
         }
         res.redirect("/account");
-     });
+    });
 }
