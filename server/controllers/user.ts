@@ -20,7 +20,6 @@ import passport from "passport";
 //create an instance of the User model
 import User from "../models/user";
 
-
 /**
  * Display the account page for the user
  */
@@ -55,6 +54,14 @@ export function displayRegisterPage(req:Request, res: Response, next: NextFuncti
     if(!req.user)
     {
         res.render("index", {title: "Register", page: "register", messages: req.flash("registerMessage")});
+    }
+
+}
+
+export function displayUserEditPage(req:Request, res: Response, next: NextFunction): void {
+    if(!req.user)
+    {
+        res.render("index", {title: "EditUser", page: "edituser"});
     }
 
 }
@@ -123,4 +130,25 @@ export function processLogoutPage(req:Request, res: Response, next: NextFunction
     req.logout();
 
     res.redirect("/login");
+}
+
+export function processEditPage(req: Request, res: Response, next: NextFunction): void {
+     const id = req.params.id;
+
+     let updatedUser = new User
+     ({
+         "_id": id,
+         "username": req.body.username,
+         "emailAddress": req.body.email,
+         "contactNumber": req.body.contactnumber
+     });
+     User.updateOne({_id: id}, updatedUser, {}, (err) =>{
+
+        if(err)
+        {
+            console.error(err);
+            res.end(err);
+        }
+        res.redirect("/account");
+     });
 }

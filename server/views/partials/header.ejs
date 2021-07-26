@@ -33,17 +33,17 @@
           <a class="nav-link" href="/logout"><i class="fas fa-id-card fa-lg"></i> Logout</a>
         </li>
         <% } %>
+        <% if (user) { %>
         <li class="nav-item">
           <a class="nav-link" href="/account"><i class="fas fa-phone fa-lg"></i> Account</a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" href="/makesurvey"><i class="fas fa-phone fa-lg"></i> Make Survey</a>
         </li>
-
         <li class="nav-item">
-          <a class="nav-link" href="/edituser"> Edit User</a>
+          <a class="nav-link" href="/edituser/<%= user._id %>"> Edit User</a>
         </li>
+        <% } %>
 
       </ul>
     </div>

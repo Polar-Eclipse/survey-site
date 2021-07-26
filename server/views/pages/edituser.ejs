@@ -10,20 +10,25 @@
 <div class="row justify-content-center">
 
   <h1 class="text-center polarText display-1">Edit Account</h1>
-  <form action="" class="my-4 border border-dark col-5 logoGray border-3">
+  <form method="POST" class="my-4 border border-dark col-5 logoGray border-3">
+  <div class="row justify-content-center my-4">
+      <label for="username" class="col-4 text-end">id</label>
+      <input type="text" class="col-5" id="username" placeholder=" User Name" name="userid" required value= <%= user._id %> disabled>
+      <div class="col-2"></div>
+    </div>
     <div class="row justify-content-center my-4">
       <label for="username" class="col-4 text-end">User Name</label>
-      <input type="text" class="col-5" id="username" placeholder=" User Name" name="username" required>
+      <input type="text" class="col-5" id="username" placeholder=" User Name" name="username" required value=<%= user.username %>>
       <div class="col-2"></div>
     </div>
     <div class="row justify-content-center my-4">
       <label for="email" class="col-4 text-end">E-mail</label>
-      <input type="email" class="col-5" id="email" placeholder="myemail@email.com" name="email" required>
+      <input type="email" class="col-5" id="email" placeholder="myemail@email.com" name="email" required value=<%= user.emailAddress %>>
       <div class="col-2"></div>
     </div>
     <div class="row justify-content-center my-4">
       <label for="contactNumber" class="col-4 text-end">Contact Number</label>
-      <input type="number" class="col-5" id="ContactNumber" placeholder="eg. 444-4444" name="contactnumber" required>
+      <input type="number" class="col-5" id="ContactNumber" placeholder="eg. 444-4444" name="contactnumber" required value=<%= user.contactNumber %>>
       <div class="col-2"></div>
     </div>
     <div class="row justify-content-center my-4">

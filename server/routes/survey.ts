@@ -19,12 +19,13 @@ export default router;
 // import controller
 import * as surveyController from "../controllers/survey";
 import * as responseController from "../controllers/response";
+import * as util from "../util/index"
 
 //new GET for surveyavailable:
 router.get("/surveyavailable", surveyController.displayAvailableSurvey);
 
 //NEW GET makesurvey page through displayMakeSurveyPage method
-router.get("/makesurvey", surveyController.displayMakeSurveyPage);
+router.get("/makesurvey", util.authguard ,surveyController.displayMakeSurveyPage);
 
 //POST - process makesurvey
 router.post("/makesurvey", surveyController.processMakeSurveyPage);
@@ -36,16 +37,16 @@ router.get("/question/:id", surveyController.displayQuestionPage);
 router.post("/question/:id", responseController.processQuestion);
 
 //NEW GET question page through displayQuestionPage method
-router.get("/editsurvey/:id", surveyController.displayEditSurveyPage);
+router.get("/editsurvey/:id", util.authguard ,surveyController.displayEditSurveyPage);
 
 //POST- Process /edit/:id page
 router.post("/editsurvey/:id", surveyController.processEditSurveyPage);
 
 //DELETE process to delete survey
-router.get("/delete/:id", surveyController.processDeleteSurvey);
+router.get("/delete/:id", util.authguard ,surveyController.processDeleteSurvey);
 
 //DELETE process to delete result
-router.get("/deleteres/:id", responseController.processDeleteResult);
+router.get("/deleteres/:id", util.authguard ,responseController.processDeleteResult);
 
 //GET surveyresult Show the result of the survey
-router.get("/surveyresponse/:id", responseController.displayResult);
+router.get("/surveyresponse/:id", util.authguard ,responseController.displayResult);

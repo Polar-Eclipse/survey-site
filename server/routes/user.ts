@@ -16,6 +16,7 @@ import { Router } from "express";
 const router = Router();
 export default router;
 import * as userController from "../controllers/user";
+import * as util from "../util/index"
 
 /* Get - display login page - with /login */
 router.get("/login", userController.displayLoginPage);
@@ -33,9 +34,10 @@ router.post("/register", userController.processRegisterPage);
 router.get("/logout", userController.processLogoutPage);
 
 //NEW GET account page through displaydisplayAccountPage method
-router.get("/account", userController.displayAccountPage);
+router.get("/account", util.authguard ,userController.displayAccountPage);
 
 /* Get - display ediuser page - with /edituser */
-router.get("/edituser", (req, res, _next) => {
+router.get("/edituser/:id", (req, res, _next) => {
     res.render("index", { title: "EditUser", page: "edituser" });
 });
+router.post("/edituser/:id", userController.processEditPage)
