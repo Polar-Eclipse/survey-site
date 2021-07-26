@@ -23,7 +23,7 @@ import Survey from "../models/survey";
  */
 export function displayMakeSurveyPage(req:Request, res: Response, _next: NextFunction):void
 {
-    res.render("index", { title: "Make Survey", page: "makesurvey" });
+    res.render("index", { title: "Make Survey", page: "makesurvey"});
 }
 
 /**
@@ -35,7 +35,7 @@ export function displayAvailableSurvey(req:Request, res: Response, next: NextFun
         if(err){
             return next(err);
         }
-        res.render("index", { title: "Available Survey", page:"surveyavailable", survey: surveys });
+        res.render("index", { title: "Available Survey", page:"surveyavailable", survey: surveys});
     });
 
 }
@@ -51,7 +51,7 @@ export function displayQuestionPage(req:Request, res: Response, next: NextFuncti
         if (err) {
             return next(err);
         }
-        res.render("index", { title: "Question", page: "question", surveyField: survey });
+        res.render("index", { title: "Question", page: "question", surveyField: survey});
     });
 }
 

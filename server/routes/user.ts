@@ -17,17 +17,25 @@ const router = Router();
 export default router;
 import * as userController from "../controllers/user";
 
-router.get("/login", (req, res, _next) => {
-    res.render("index", { title: "Login", page: "login" });
-});
+/* Get - display login page - with /login */
+router.get("/login", userController.displayLoginPage);
 
-router.get("/register", (req, res, _next) => {
-    res.render("index", { title: "Register", page: "register" });
-});
+/* POST - process login page when user clicks Login */
+router.post("/login", userController.processLoginPage);
+
+/* Get - display register page - with /register */
+router.get("/register", userController.displayRegisterPage);
+
+/* POST - process register page when user clicks Login */
+router.post("/register", userController.processRegisterPage);
+
+/* GET - GET logout page when user clicks Logout */
+router.get("/logout", userController.processLogoutPage);
 
 //NEW GET account page through displaydisplayAccountPage method
 router.get("/account", userController.displayAccountPage);
 
+/* Get - display ediuser page - with /edituser */
 router.get("/edituser", (req, res, _next) => {
     res.render("index", { title: "EditUser", page: "edituser" });
 });

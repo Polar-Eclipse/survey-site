@@ -20,6 +20,18 @@ import createError, { HttpError } from "http-errors";
 import logger from "morgan";
 import path from "path";
 import setRouters from "../routes";
+import { ensuredEnv } from "./env";
+
+//modules for authentication
+import session from "express-session";
+import passport from "passport";
+import passportLocal from "passport-local";
+
+
+import User from "../models/user";
+
+//Module for auth messaging and error management
+import flash from "connect-flash";
 
 /**
  * Create the express server application
@@ -41,6 +53,30 @@ export default function createApp(): Express {
     // Send static files in the given folders
     app.use(express.static(path.join(__dirname, "../../client")));
     app.use(express.static(path.join(__dirname, "../../node_modules")));
+
+
+    //setup express-session
+    app.use(session({
+        secret: ensuredEnv().SESSION_SECRET,
+        saveUninitialized:false,
+        resave: false
+    }));
+
+    // initialize flash
+    app.use(flash());
+
+    // initialize passport
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    // implement an Auth Strategy
+    passport.use(User.createStrategy());
+
+    // serialize and deserialize user data
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    passport.serializeUser(User.serializeUser());
+    passport.deserializeUser(User.deserializeUser());
 
     // Set commonly-used variables in the templates
     app.use(setCommonVars);
@@ -84,6 +120,8 @@ function setCommonVars(req: Request, res: Response, next: NextFunction): void {
         const timezoneAdjustedDate = new Date(date.getTime() + 60000 * date.getTimezoneOffset());
         return formatter.format(timezoneAdjustedDate);
     };
+
+    res.locals.user = req.user;
 
     // Invoke next handlers
     next();
