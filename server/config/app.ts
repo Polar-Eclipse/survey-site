@@ -55,8 +55,6 @@ export default function createApp(): Express {
     app.use(express.static(path.join(__dirname, "../../client")));
     app.use(express.static(path.join(__dirname, "../../node_modules")));
 
-    //add support for cors
-    app.use(cors());
 
     //setup express-session
     app.use(session({
