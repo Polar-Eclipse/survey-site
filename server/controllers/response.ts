@@ -15,7 +15,6 @@
 
 import { Request, Response, NextFunction } from "express";
 import ResponseM from "../models/response";
-import { userDisplayUserName } from "../util";
 
 // insert data in to the Response collection
 export function insertResponse(response: ResponseM, done: (err: any, res: ResponseM) => void):void
@@ -100,7 +99,7 @@ export function displayResult(req: Request, res: Response, next: NextFunction): 
                 }
             }
         }
-        res.render("index", { title: "Survey Response", page: "surveyresponse", surveyResponses: selectedResponse, tally: answeredTrue, displayUserName: userDisplayUserName(req)});
+        res.render("index", { title: "Survey Response", page: "surveyresponse", surveyResponses: selectedResponse, tally: answeredTrue});
     });
 
 }

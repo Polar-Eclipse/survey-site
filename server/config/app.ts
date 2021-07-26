@@ -122,6 +122,8 @@ function setCommonVars(req: Request, res: Response, next: NextFunction): void {
         return formatter.format(timezoneAdjustedDate);
     };
 
+    res.locals.user = req.user;
+
     // Invoke next handlers
     next();
 }
