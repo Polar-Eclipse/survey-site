@@ -93,8 +93,8 @@ export function processRegisterPage(req:Request, res: Response, next: NextFuncti
     const newUser = new User
     ({
         username: req.body.username,
-        emailAddress: req.body.emailAdress,
-        contactNumber: req.body.contactNumber,
+        emailAddress: req.body.email,
+        contactNumber: req.body.contactnumber,
     });
 
     User.register(newUser, req.body.password,(err)=>
