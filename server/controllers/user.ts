@@ -64,7 +64,7 @@ export function displayUserEditPage(req:Request, res: Response, next: NextFuncti
 
     if(req.user?._id == id )
     {
-    return res.render("index", {title: "EditUser", page: "edituser"});
+        return res.render("index", {title: "EditUser", page: "edituser"});
     }
     return res.redirect("/logout");
 
@@ -149,7 +149,7 @@ export function processEditPage(req: Request, res: Response, next: NextFunction)
         });
         User.updateOne({_id: id}, updatedUser, {}, (err) =>{
 
-        if(err)
+            if(err)
             {
                 return next(err);
             }
