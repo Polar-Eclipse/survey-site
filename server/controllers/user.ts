@@ -60,7 +60,7 @@ export function displayRegisterPage(req:Request, res: Response, next: NextFuncti
 
 export function displayUserEditPage(req:Request, res: Response, next: NextFunction): void {
 
-        res.render("index", {title: "EditUser", page: "edituser"});
+    res.render("index", {title: "EditUser", page: "edituser"});
 
 }
 
