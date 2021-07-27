@@ -60,7 +60,13 @@ export function displayRegisterPage(req:Request, res: Response, next: NextFuncti
 
 export function displayUserEditPage(req:Request, res: Response, next: NextFunction): void {
 
-    res.render("index", {title: "EditUser", page: "edituser"});
+    const id = req.params.id;
+
+    if(req.user?._id == id )
+    {
+    return res.render("index", {title: "EditUser", page: "edituser"});
+    }
+    return res.redirect("/logout");
 
 }
 
@@ -132,20 +138,24 @@ export function processLogoutPage(req:Request, res: Response, next: NextFunction
 
 export function processEditPage(req: Request, res: Response, next: NextFunction): void {
     const id = req.params.id;
-
-    const updatedUser = new User
-    ({
-        "_id": id,
-        "username": req.body.username,
-        "emailAddress": req.body.email,
-        "contactNumber": req.body.contactnumber
-    });
-    User.updateOne({_id: id}, updatedUser, {}, (err) =>{
+    if(req.user?._id == id)
+    {
+        const updatedUser = new User
+        ({
+            "_id": id,
+            "username": req.body.username,
+            "emailAddress": req.body.email,
+            "contactNumber": req.body.contactnumber
+        });
+        User.updateOne({_id: id}, updatedUser, {}, (err) =>{
 
         if(err)
-        {
-            return next(err);
-        }
-        res.redirect("/account");
-    });
+            {
+                return next(err);
+            }
+            res.redirect("/account");
+        });
+    }
+
+
 }
