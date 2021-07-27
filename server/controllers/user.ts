@@ -59,10 +59,8 @@ export function displayRegisterPage(req:Request, res: Response, next: NextFuncti
 }
 
 export function displayUserEditPage(req:Request, res: Response, next: NextFunction): void {
-    if(!req.user)
-    {
+
         res.render("index", {title: "EditUser", page: "edituser"});
-    }
 
 }
 
@@ -146,8 +144,7 @@ export function processEditPage(req: Request, res: Response, next: NextFunction)
 
         if(err)
         {
-            console.error(err);
-            res.end(err);
+            return next(err);
         }
         res.redirect("/account");
     });

@@ -36,7 +36,7 @@ router.get("/question/:id", surveyController.displayQuestionPage);
 //POST Process question /question/:id page
 router.post("/question/:id", responseController.processQuestion);
 
-//NEW GET question page through displayQuestionPage method
+//GET question page through displayQuestionPage method
 router.get("/editsurvey/:id", util.authguard ,surveyController.displayEditSurveyPage);
 
 //POST- Process /edit/:id page

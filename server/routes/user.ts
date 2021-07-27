@@ -37,7 +37,6 @@ router.get("/logout", userController.processLogoutPage);
 router.get("/account", util.authguard ,userController.displayAccountPage);
 
 /* Get - display ediuser page - with /edituser */
-router.get("/edituser/:id", (req, res, _next) => {
-    res.render("index", { title: "EditUser", page: "edituser" });
-});
+router.get("/edituser/:id", util.authguard ,userController.displayUserEditPage);
+
 router.post("/edituser/:id", userController.processEditPage);
