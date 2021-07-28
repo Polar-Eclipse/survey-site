@@ -12,13 +12,13 @@
   <h1 class="text-center polarText display-1">Account</h1>
   <div class="my-4 border border-dark col-5 logoGray border-3">
     <div class="row justify-content-center my-4">
-      <p>User Name: Place Holder</p>
-      <p>E-mail: placeholder@hotmail.com</p>
-      <p>Contact Number: 444-4444</p>
+      <p>User Name: <%=user.username %></p>
+      <p>E-mail:<%=user.emailAddress %></p>
+      <p>Contact Number: <%=user.contactNumber %></p>
     </div>
 
     <div class="row justify-content-center mb-5">
-      <a href="/edituser" class="btn btn-primary col-4">Edit User</a>
+      <a href="/edituser/<%= user._id %>" class="btn btn-primary col-4">Edit User</a>
     </div>
 
   </div>

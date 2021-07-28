@@ -25,8 +25,6 @@ import { ensuredEnv } from "./env";
 //modules for authentication
 import session from "express-session";
 import passport from "passport";
-import passportLocal from "passport-local";
-
 
 import User from "../models/user";
 
