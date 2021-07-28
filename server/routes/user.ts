@@ -39,4 +39,4 @@ router.get("/account", util.authguard ,userController.displayAccountPage);
 /* Get - display ediuser page - with /edituser */
 router.get("/edituser/:id", util.authguard ,userController.displayUserEditPage);
 
-router.post("/edituser/:id", userController.processEditPage);
+router.post("/edituser/:id", util.authguard ,userController.processEditPage);

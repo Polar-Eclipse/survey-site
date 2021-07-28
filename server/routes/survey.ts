@@ -28,7 +28,7 @@ router.get("/surveyavailable", surveyController.displayAvailableSurvey);
 router.get("/makesurvey", util.authguard ,surveyController.displayMakeSurveyPage);
 
 //POST - process makesurvey
-router.post("/makesurvey", surveyController.processMakeSurveyPage);
+router.post("/makesurvey", util.authguard ,surveyController.processMakeSurveyPage);
 
 //NEW GET question page through displayQuestionPage method
 router.get("/question/:id", surveyController.displayQuestionPage);
@@ -40,7 +40,7 @@ router.post("/question/:id", responseController.processQuestion);
 router.get("/editsurvey/:id", util.authguard ,surveyController.displayEditSurveyPage);
 
 //POST- Process /edit/:id page
-router.post("/editsurvey/:id", surveyController.processEditSurveyPage);
+router.post("/editsurvey/:id", util.authguard ,surveyController.processEditSurveyPage);
 
 //DELETE process to delete survey
 router.get("/delete/:id", util.authguard ,surveyController.processDeleteSurvey);
