@@ -38,6 +38,7 @@
           <th scope="col">Title</th>
           <th scope="col">Available From</th>
           <th scope="col">Expires At</th>
+          <th scope="col">Active Override</th>
           <th scope="col">Updated At</th>
 
 
@@ -57,13 +58,26 @@
           <td><%= survey[count].title %></td>
           <td><%= displayDate(survey[count].activeFrom) %></td>
           <td><%= displayDate(survey[count].expiresAt) %></td>
+          <td>
+            <%= typeof survey[count].activeOverride !== "boolean" ? "" :
+              survey[count].activeOverride ? "Active" : "Inactive" %>
+          </td>
           <td><%= displayDate(survey[count].updatedAt) %></td>
-          <td class="text-center"><a href="/surveyresponse/<%= survey[count]._id %>" class="btn btn-primary btn edit"><i
-            class="fas fa-edit fa-sm"></i> Results</a></td>
-          <td class="text-center"><a href="/editsurvey/<%= survey[count]._id %>" class="btn btn-primary btn edit"><i
-                class="fas fa-edit fa-sm"></i> Edit</a></td>
-          <td class="text-center"><a href="/delete/<%= survey[count]._id %>" class="btn btn-danger delete"><i
-                class="fas fa-trash-alt fa-sm"></i> Delete</a></td>
+          <td class="text-center">
+            <a href="/surveyresponse/<%= survey[count]._id %>" class="btn btn-primary btn edit">
+              <i class="fas fa-edit fa-sm"></i> Results
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="/editsurvey/<%= survey[count]._id %>" class="btn btn-primary btn edit">
+              <i class="fas fa-edit fa-sm"></i> Edit
+            </a>
+          </td>
+          <td class="text-center">
+            <a href="/delete/<%= survey[count]._id %>" class="btn btn-danger delete">
+              <i class="fas fa-trash-alt fa-sm"></i> Delete
+            </a>
+          </td>
         </tr>
         <% } %>
       </tbody>
