@@ -77,7 +77,12 @@ export function displayEditSurveyPage(req:Request, res: Response, next: NextFunc
  * Process a request to create a survey
  */
 export function processMakeSurveyPage(req:Request, res: Response, next: NextFunction):void
-{
+{    // if req.user is undefined,then throw error
+    if (!req.user) {
+        throw Error("Unreachable: this route handler is called only when the user is logged in");
+    }
+    // pass the user _id to variable userId
+    const userId = req.user._id;
     const newSurvey = new Survey
     ({
         questions: [
@@ -91,6 +96,7 @@ export function processMakeSurveyPage(req:Request, res: Response, next: NextFunc
         activeFrom: req.body.activeFrom,
         expiresAt: req.body.expiresAt || undefined,
         activeOverride: req.body.isActiveStateOverridden ? req.body.activeOverride === "true" : undefined,
+        owner: userId,
     });
     //insert newSurvey to db
     Survey.create(newSurvey, (err) => {
