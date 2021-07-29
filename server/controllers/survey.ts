@@ -85,17 +85,18 @@ export function processMakeSurveyPage(req:Request, res: Response, next: NextFunc
     const userId = req.user._id;
     const newSurvey = new Survey
     ({
-        "questions": [
+        questions: [
             req.body.question1,
             req.body.question2,
             req.body.question3,
             req.body.question4,
             req.body.question5,
         ],
-        "title": req.body.title,
-        "activeFrom": req.body.activeFrom,
-        "expiresAt": req.body.expiresAt || undefined,
-        "owner":userId
+        title: req.body.title,
+        activeFrom: req.body.activeFrom,
+        expiresAt: req.body.expiresAt || undefined,
+        activeOverride: req.body.isActiveStateOverridden ? req.body.activeOverride === "true" : undefined,
+        owner: userId,
     });
     //insert newSurvey to db
     Survey.create(newSurvey, (err) => {
@@ -130,17 +131,19 @@ export function processEditSurveyPage(req:Request, res: Response, next: NextFunc
 {
     const id = req.params.id;
 
+    console.log(req.body);
     const updatedSurvey: Partial<Survey> = {
-        "questions": [
+        questions: [
             req.body.question1,
             req.body.question2,
             req.body.question3,
             req.body.question4,
             req.body.question5,
         ],
-        "title": req.body.title,
-        "activeFrom": req.body.activeFrom,
-        "expiresAt": req.body.expiresAt || undefined
+        title: req.body.title,
+        activeFrom: req.body.activeFrom,
+        expiresAt: req.body.expiresAt || undefined,
+        activeOverride: req.body.isActiveStateOverridden ? req.body.activeOverride === "true" : undefined,
     };
 
     Survey.findByIdAndUpdate(id, updatedSurvey, {}, (err)=>{
@@ -159,11 +162,24 @@ export function processEditSurveyPage(req:Request, res: Response, next: NextFunc
  */
 export function getAvailableSurveys(done: (err: any, surveys: Survey[]) => void): void {
     const now = new Date();
-    Survey.find({ activeFrom: { $lte: now } }).or([
-        { expiresAt: { $exists: false } },
-        { expiresAt: { $eq: undefined } },
-        { expiresAt: { $gt: now } },
-    ]).exec(done);
+    Survey.find({
+        $or: [
+            { activeOverride: true },
+            {
+                $and: [
+                    { activeOverride: { $ne: false } },
+                    { activeFrom: { $lte: now } },
+                    {
+                        $or: [
+                            { expiresAt: { $exists: false } },
+                            { expiresAt: { $eq: undefined } },
+                            { expiresAt: { $gt: now } },
+                        ],
+                    },
+                ],
+            },
+        ],
+    }, done);
 }
 
 /**
@@ -174,4 +190,3 @@ export function getSurveyById(surveyId: string, done: (err: any, res: Survey) =>
     // get survey id:db.Survey.find({"_id": SurveyId})
     Survey.findById(surveyId, done);
 }
-
