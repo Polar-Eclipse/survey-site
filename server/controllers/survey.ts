@@ -134,29 +134,30 @@ export function processDeleteSurvey(req:Request, res: Response, next: NextFuncti
  * Process an update request of a survey
  */
 export function processEditSurveyPage(req:Request, res: Response, next: NextFunction):void
-{
-    const id = req.params.id;
-
-    const updatedSurvey: Partial<Survey> = {
-        "questions": [
-            req.body.question1,
-            req.body.question2,
-            req.body.question3,
-            req.body.question4,
-            req.body.question5,
-        ],
-        "title": req.body.title,
-        "activeFrom": req.body.activeFrom,
-        "expiresAt": req.body.expiresAt || undefined
-    };
-
-    Survey.findByIdAndUpdate(id, updatedSurvey, {}, (err)=>{
-        if(err)
-        {
-            return next(err);
-        }
-        res.redirect("/account");
-    });
+{   if (!req.user) { // if req.user is undefined
+    throw Error("Unreachable: this route handler is called only when the user is logged in");
+}
+const userId = req.user._id;
+const id = req.params.id;
+const updatedSurvey: Partial<Survey> = {
+    "questions": [
+        req.body.question1,
+        req.body.question2,
+        req.body.question3,
+        req.body.question4,
+        req.body.question5,
+    ],
+    "title": req.body.title,
+    "activeFrom": req.body.activeFrom,
+    "expiresAt": req.body.expiresAt || undefined
+};
+Survey.findByIdAndUpdate({owner:userId,_id:id}, updatedSurvey, {}, (err)=>{
+    if(err)
+    {
+        return next(err);
+    }
+    res.redirect("/account");
+});
 }
 
 /***DATABASE FUNCTIONS***/
