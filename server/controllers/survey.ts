@@ -118,19 +118,15 @@ export function processDeleteSurvey(req:Request, res: Response, next: NextFuncti
     }
     const userId = req.user._id;
     const id = req.params.id;
-    // find the survey by survey id and user id
-    Survey.find({ owner:userId, _id:id},(err)=> {
-        if(err){
+    // find the survey by survey id and owen and remove it
+    Survey.findByIdAndRemove({owner:userId,_id:id}, {}, (err) => {
+        if(err)
+        {
             return next(err);
         }
-        Survey.findByIdAndRemove(id, {}, (err) => {
-            if(err)
-            {
-                return next(err);
-            }
-            res.redirect("/account");
-        });
+        res.redirect("/account");
     });
+
 
 }
 
