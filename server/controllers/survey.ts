@@ -76,7 +76,6 @@ export function displayEditSurveyPage(req:Request, res: Response, next: NextFunc
             }
             res.render("index", { title: "EditSurvey", page: "editsurvey", surveyItem: survey });
         });
-
     });
 }
 
@@ -132,7 +131,6 @@ export function processDeleteSurvey(req:Request, res: Response, next: NextFuncti
                 return next(err);
             }
             res.redirect("/account");
-
         });
     });
 

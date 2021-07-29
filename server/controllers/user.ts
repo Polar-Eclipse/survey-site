@@ -41,10 +41,8 @@ export function displayAccountPage(req:Request, res: Response, next: NextFunctio
 
             res.render("index",{title: "Account", page:"account", survey: surveyCollection, response: responseCollection});
         });
-
     });
 }
-
 
 export function displayLoginPage(req:Request, res: Response, next: NextFunction): void {
     if(!req.user)
