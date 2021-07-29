@@ -24,9 +24,12 @@ import User from "../models/user";
  * Display the account page for the user
  */
 export function displayAccountPage(req:Request, res: Response, next: NextFunction): void {
-    // TODO This is a temporary version because we do not have any registered users
-    // Once we have users, we do not need this `Survey.find` call.
-    Survey.find(function(err, surveyCollection){
+    // The account page should only show the list of the user's own surveys.
+    if (!req.user) { // if req.user is undefined
+        throw Error("Unreachable: this route handler is called only when the user is logged in");
+    }
+    const userId = req.user._id;
+    Survey.find({owner: userId }, function (err, surveyCollection) {
         ResponseM.find(function(err2, responseCollection){
             if (err2){
                 return next (err2);
@@ -38,6 +41,7 @@ export function displayAccountPage(req:Request, res: Response, next: NextFunctio
 
             res.render("index",{title: "Account", page:"account", survey: surveyCollection, response: responseCollection});
         });
+
     });
 }
 
