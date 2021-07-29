@@ -65,17 +65,15 @@ export function displayEditSurveyPage(req:Request, res: Response, next: NextFunc
         throw Error("Unreachable: this route handler is called only when the user is logged in");
     }
     const userId = req.user._id;
-    //survey.find() by using  survey id and owner(user id) to make sure the user edits own survey
-    Survey.find({ owner:userId, _id:id},(err)=> {
-        if(err){
+    getSurveyById(id, (err,survey) => {
+        if (err) {
             return next(err);
         }
-        getSurveyById(id, (err,survey) => {
-            if (err) {
-                return next(err);
-            }
-            res.render("index", { title: "EditSurvey", page: "editsurvey", surveyItem: survey });
-        });
+        //check if user's id equals to the survey's owner
+        if (userId != survey.owner.toString()){
+            return res.redirect("/account"); // redirect to the account page
+        }
+        res.render("index", { title: "EditSurvey", page: "editsurvey", surveyItem: survey });
     });
 }
 
