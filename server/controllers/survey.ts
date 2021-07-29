@@ -116,15 +116,26 @@ export function processMakeSurveyPage(req:Request, res: Response, next: NextFunc
  */
 export function processDeleteSurvey(req:Request, res: Response, next: NextFunction):void
 {
+    if (!req.user) { // if req.user is undefined
+        throw Error("Unreachable: this route handler is called only when the user is logged in");
+    }
+    const userId = req.user._id;
     const id = req.params.id;
-
-    Survey.findByIdAndRemove(id, {}, (err) => {
-        if(err)
-        {
+    // find the survey by survey id and user id
+    Survey.find({ owner:userId, _id:id},(err)=> {
+        if(err){
             return next(err);
         }
-        res.redirect("/account");
+        Survey.findByIdAndRemove(id, {}, (err) => {
+            if(err)
+            {
+                return next(err);
+            }
+            res.redirect("/account");
+
+        });
     });
+
 }
 
 /**
