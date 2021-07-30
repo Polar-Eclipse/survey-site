@@ -34,14 +34,12 @@
         <li class="nav-item">
           <a class="nav-link" href="/edituser/<%= user._id %>"> Edit User</a>
         </li>
-        <% } %>
-        <% if (!user) { %>
         <li class="nav-item">
-          <a class="nav-link" href="/login"><i class="fas fa-id-card fa-lg"></i> Login</a>
+          <a class="nav-link" href="/logout"><i class="fas fa-id-card fa-lg"></i> Logout</a>
         </li>
         <% } else { %>
         <li class="nav-item">
-          <a class="nav-link" href="/logout"><i class="fas fa-id-card fa-lg"></i> Logout</a>
+          <a class="nav-link" href="/login"><i class="fas fa-id-card fa-lg"></i> Login</a>
         </li>
         <% } %>
       </ul>

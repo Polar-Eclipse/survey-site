@@ -16,15 +16,15 @@ import { model, Model, Schema, Types } from "mongoose";
 
 // Create an interface which TS can rely on to give us hints of what fields can be used.
 interface Survey {
-   questions: string[]
-   title: string;
-   activeFrom: Date;
-   expiresAt?: Date;
-   activeOverride?: boolean;
-   createdAt: Date;
-   updatedAt: Date;
-   owner: Types.ObjectId;
-   type: "yesno" ;
+    questions: string[]
+    title: string;
+    activeFrom: Date;
+    expiresAt?: Date;
+    activeOverride?: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    owner: Types.ObjectId;
+    type: "yesno" ;
 }
 
 
@@ -49,7 +49,7 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
             type: Boolean,
             required: false,
         },
-        owner:{
+        owner: {
             type: Schema.Types.ObjectId,
             required: false,
             ref: "User",

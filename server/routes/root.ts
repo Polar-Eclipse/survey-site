@@ -21,5 +21,3 @@ export default router;
 router.get("/", (req, res, _next) => {
     res.render("index", { title: "", page: "home" });
 });
-
-

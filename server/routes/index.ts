@@ -25,5 +25,4 @@ export default function setRouters(app: Express): void {
     app.use("/", rootRouter);
     app.use("/", userRouter);
     app.use("/", surveyRouter);
-
 }

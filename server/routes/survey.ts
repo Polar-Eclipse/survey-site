@@ -16,39 +16,37 @@ import { Router } from "express";
 const router = Router();
 export default router;
 
-// import controller
+// import controllers
 import * as surveyController from "../controllers/survey";
 import * as responseController from "../controllers/response";
 import * as util from "../util/index";
 
-//new GET for surveyavailable:
+// GET for surveyavailable:
 router.get("/surveyavailable", surveyController.displayAvailableSurvey);
 
-//NEW GET makesurvey page through displayMakeSurveyPage method
-router.get("/makesurvey", util.authguard ,surveyController.displayMakeSurveyPage);
+// GET makesurvey page through displayMakeSurveyPage method
+router.get("/makesurvey", util.authguard, surveyController.displayMakeSurveyPage);
 
-//POST - process makesurvey
-router.post("/makesurvey", util.authguard ,surveyController.processMakeSurveyPage);
+// POST - process makesurvey
+router.post("/makesurvey", util.authguard, surveyController.processMakeSurveyPage);
 
-//NEW GET question page through displayQuestionPage method
+// NEW GET question page through displayQuestionPage method
 router.get("/question/:id", surveyController.displayQuestionPage);
 
-//POST Process question /question/:id page
+// POST Process question /question/:id page
 router.post("/question/:id", responseController.processQuestion);
 
-//GET question page through displayQuestionPage method
-router.get("/editsurvey/:id", util.authguard ,surveyController.displayEditSurveyPage);
+// GET question page through displayQuestionPage method
+router.get("/editsurvey/:id", util.authguard, surveyController.displayEditSurveyPage);
 
-//POST- Process /edit/:id page
-router.post("/editsurvey/:id", util.authguard ,surveyController.processEditSurveyPage);
+// POST- Process /edit/:id page
+router.post("/editsurvey/:id", util.authguard, surveyController.processEditSurveyPage);
 
-//DELETE process to delete survey
-router.get("/delete/:id", util.authguard ,surveyController.processDeleteSurvey);
+// DELETE process to delete survey
+router.get("/delete/:id", util.authguard, surveyController.processDeleteSurvey);
 
-//DELETE process to delete result
-router.get("/deleteres/:id", util.authguard ,responseController.processDeleteResult);
+// DELETE process to delete result
+router.get("/deleteres/:id", util.authguard, responseController.processDeleteResult);
 
-//GET surveyresult Show the result of the survey
-router.get("/surveyresponse/:id", util.authguard ,responseController.displayResult);
-
-//Testing Upload of this file adfadfadfadfadfasdfdsf
+// GET surveyresult Show the result of the survey
+router.get("/surveyresponse/:id", util.authguard, responseController.displayResult);
