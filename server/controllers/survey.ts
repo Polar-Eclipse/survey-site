@@ -61,10 +61,17 @@ export function displayQuestionPage(req:Request, res: Response, next: NextFuncti
 export function displayEditSurveyPage(req:Request, res: Response, next: NextFunction):void
 {
     const id = req.params.id;
-
-    getSurveyById(id, (err, survey) => {
+    if (!req.user) { // if req.user is undefined
+        throw Error("Unreachable: this route handler is called only when the user is logged in");
+    }
+    const userId = req.user._id;
+    getSurveyById(id, (err,survey) => {
         if (err) {
             return next(err);
+        }
+        //check if user's id equals to the survey's owner
+        if (!userId?.equals(survey.owner)) { // user's id does not equal the survey's owner
+            return res.redirect("/account"); // redirect to the account page
         }
         res.render("index", { title: "EditSurvey", page: "editsurvey", surveyItem: survey });
     });
@@ -113,9 +120,13 @@ export function processMakeSurveyPage(req:Request, res: Response, next: NextFunc
  */
 export function processDeleteSurvey(req:Request, res: Response, next: NextFunction):void
 {
+    if (!req.user) { // if req.user is undefined
+        throw Error("Unreachable: this route handler is called only when the user is logged in");
+    }
+    const userId = req.user._id;
     const id = req.params.id;
-
-    Survey.findByIdAndRemove(id, {}, (err) => {
+    // find the survey by survey id and owen and remove it
+    Survey.findOneAndRemove({owner:userId,_id:id}, {}, (err) => {
         if(err)
         {
             return next(err);
@@ -129,9 +140,11 @@ export function processDeleteSurvey(req:Request, res: Response, next: NextFuncti
  */
 export function processEditSurveyPage(req:Request, res: Response, next: NextFunction):void
 {
+    if (!req.user) { // if req.user is undefined
+        throw Error("Unreachable: this route handler is called only when the user is logged in");
+    }
+    const userId = req.user._id;
     const id = req.params.id;
-
-    console.log(req.body);
     const updatedSurvey: Partial<Survey> = {
         questions: [
             req.body.question1,
@@ -145,8 +158,7 @@ export function processEditSurveyPage(req:Request, res: Response, next: NextFunc
         expiresAt: req.body.expiresAt || undefined,
         activeOverride: req.body.isActiveStateOverridden ? req.body.activeOverride === "true" : undefined,
     };
-
-    Survey.findByIdAndUpdate(id, updatedSurvey, {}, (err)=>{
+    Survey.findOneAndUpdate({owner:userId,_id:id}, updatedSurvey, {}, (err)=>{
         if(err)
         {
             return next(err);
