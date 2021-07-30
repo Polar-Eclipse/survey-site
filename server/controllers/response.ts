@@ -17,6 +17,7 @@ import { Request, Response, NextFunction } from "express";
 import { Document } from "mongoose";
 import ResponseM from "../models/response";
 import Survey from "../models/survey";
+import { getSurveyById } from "./survey";
 
 /*** DISPLAY FUNCTIONS ***/
 
@@ -59,22 +60,32 @@ export function displayResult(req: Request, res: Response, next: NextFunction): 
 export function processQuestion(req: Request, res: Response, next: NextFunction): void {
     const id = req.params.id;
 
-    const newResponse = new ResponseM({
-        answers: [
-            req.body.answer1,
-            req.body.answer2,
-            req.body.answer3,
-            req.body.answer4,
-            req.body.answer5,
-        ],
-        question: id,
-    });
-
-    ResponseM.create(newResponse, (err) => {
+    getSurveyById(id, (err, survey) => {
         if (err) {
             return next(err);
         }
-        res.redirect("/surveyavailable");
+
+        if (!survey?.isActive()) {
+            return res.redirect("/surveyavailable");
+        }
+
+        const newResponse = new ResponseM({
+            answers: [
+                req.body.answer1,
+                req.body.answer2,
+                req.body.answer3,
+                req.body.answer4,
+                req.body.answer5,
+            ],
+            question: id,
+        });
+
+        ResponseM.create(newResponse, (err) => {
+            if (err) {
+                return next(err);
+            }
+            res.redirect("/surveyavailable");
+        });
     });
 }
 
