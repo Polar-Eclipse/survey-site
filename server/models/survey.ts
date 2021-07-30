@@ -14,17 +14,18 @@
 
 import { model, Model, Schema, Types } from "mongoose";
 
- // Create an interface which TS can rely on to give use hints of what fields can be used.
- interface Survey {
-    questions: string[]
-    title: string;
-    activeFrom: Date;
-    expiresAt?: Date;
-    createdAt: Date;
-    updatedAt: Date;
-    owner: Types.ObjectId;
-    type: "yesno" ;
- }
+// Create an interface which TS can rely on to give us hints of what fields can be used.
+interface Survey {
+   questions: string[]
+   title: string;
+   activeFrom: Date;
+   expiresAt?: Date;
+   activeOverride?: boolean;
+   createdAt: Date;
+   updatedAt: Date;
+   owner: Types.ObjectId;
+   type: "yesno" ;
+}
 
 
 // Note the type signature of the schema.
@@ -42,6 +43,10 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
         },
         expiresAt: {
             type: Date,
+            required: false,
+        },
+        activeOverride: {
+            type: Boolean,
             required: false,
         },
         owner:{

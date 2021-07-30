@@ -84,19 +84,26 @@ export function displayEditSurveyPage(req:Request, res: Response, next: NextFunc
  * Process a request to create a survey
  */
 export function processMakeSurveyPage(req:Request, res: Response, next: NextFunction):void
-{
+{    // if req.user is undefined,then throw error
+    if (!req.user) {
+        throw Error("Unreachable: this route handler is called only when the user is logged in");
+    }
+    // pass the user _id to variable userId
+    const userId = req.user._id;
     const newSurvey = new Survey
     ({
-        "questions": [
+        questions: [
             req.body.question1,
             req.body.question2,
             req.body.question3,
             req.body.question4,
             req.body.question5,
         ],
-        "title": req.body.title,
-        "activeFrom": req.body.activeFrom,
-        "expiresAt": req.body.expiresAt || undefined
+        title: req.body.title,
+        activeFrom: req.body.activeFrom,
+        expiresAt: req.body.expiresAt || undefined,
+        activeOverride: req.body.isActiveStateOverridden ? req.body.activeOverride === "true" : undefined,
+        owner: userId,
     });
     //insert newSurvey to db
     Survey.create(newSurvey, (err) => {
@@ -141,16 +148,17 @@ export function processEditSurveyPage(req:Request, res: Response, next: NextFunc
     const userId = req.user._id;
     const id = req.params.id;
     const updatedSurvey: Partial<Survey> = {
-        "questions": [
+        questions: [
             req.body.question1,
             req.body.question2,
             req.body.question3,
             req.body.question4,
             req.body.question5,
         ],
-        "title": req.body.title,
-        "activeFrom": req.body.activeFrom,
-        "expiresAt": req.body.expiresAt || undefined
+        title: req.body.title,
+        activeFrom: req.body.activeFrom,
+        expiresAt: req.body.expiresAt || undefined,
+        activeOverride: req.body.isActiveStateOverridden ? req.body.activeOverride === "true" : undefined,
     };
     Survey.findByIdAndUpdate({owner:userId,_id:id}, updatedSurvey, {}, (err)=>{
         if(err)
@@ -168,11 +176,24 @@ export function processEditSurveyPage(req:Request, res: Response, next: NextFunc
  */
 export function getAvailableSurveys(done: (err: any, surveys: Survey[]) => void): void {
     const now = new Date();
-    Survey.find({ activeFrom: { $lte: now } }).or([
-        { expiresAt: { $exists: false } },
-        { expiresAt: { $eq: undefined } },
-        { expiresAt: { $gt: now } },
-    ]).exec(done);
+    Survey.find({
+        $or: [
+            { activeOverride: true },
+            {
+                $and: [
+                    { activeOverride: { $ne: false } },
+                    { activeFrom: { $lte: now } },
+                    {
+                        $or: [
+                            { expiresAt: { $exists: false } },
+                            { expiresAt: { $eq: undefined } },
+                            { expiresAt: { $gt: now } },
+                        ],
+                    },
+                ],
+            },
+        ],
+    }, done);
 }
 
 /**
