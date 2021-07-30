@@ -14,7 +14,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Request, Response, NextFunction } from "express";
+import { Document } from "mongoose";
 import ResponseM from "../models/response";
+import Survey from "../models/survey";
 
 /*** DISPLAY FUNCTIONS ***/
 
@@ -66,7 +68,6 @@ export function processQuestion(req: Request, res: Response, next: NextFunction)
             req.body.answer5,
         ],
         question: id,
-        title: req.body.title,
     });
 
     ResponseM.create(newResponse, (err) => {
@@ -81,13 +82,40 @@ export function processQuestion(req: Request, res: Response, next: NextFunction)
  * Process a request to delete a response
  */
 export function processDeleteResult(req: Request, res: Response, next: NextFunction): void {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const userId = req.user!._id!;
     const id = req.params.id;
 
-    ResponseM.findByIdAndRemove(id, {}, (err) => {
+    // We want to check if the user actually owns the survey the given response answers to.
+    // This is dangerous because this does not prevent other people from changing the data in the database.
+    // We are creating a remove operation based on a possibly stale piece of information.
+    // There are various ways to prevent this, but we'll leave it as it is for now.
+    ResponseM.findById(id).populate("question").exec((err, response) => {
         if (err) {
             return next(err);
         }
-        res.redirect("/account");
+
+        if (!response?.populated("question")) {
+            // Failed to populate the `question` field, which should be a Survey object.
+            // We cannot check if the user has the rights to remove the response.
+            return res.redirect("/account");
+        }
+
+        // The `question` field is populated, so we have the Survey model object
+        const survey = response.question as unknown as Survey & Document;
+
+        if (userId.equals(survey._id)) {
+            // The user has the rights to remove the response
+            ResponseM.findByIdAndRemove(id, {}, (err) => {
+                if (err) {
+                    return next(err);
+                }
+                res.redirect(`/surveyresponse/${survey._id}`); // redirect to the results page
+            });
+        } else {
+            // The user does not have the rights to remove the response
+            res.redirect("/account");
+        }
     });
 }
 

@@ -46,7 +46,6 @@
         <br><br>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Title</th>
           <th scope="col">Answer1</th>
           <th scope="col">Answer2</th>
           <th scope="col">Answer3</th>
@@ -62,7 +61,6 @@
         <% for(let count = 0; count < surveyResponses.length; count++){ %>
         <tr>
           <th scope="row" class="polarPurpleText"><%= count + 1 %></th>
-          <td><%= surveyResponses[count].question %></td>
           <td><%= surveyResponses[count].answers[0] %></td>
           <td><%= surveyResponses[count].answers[1] %></td>
           <td><%= surveyResponses[count].answers[2] %></td>
