@@ -27,9 +27,17 @@ interface Survey {
     type: "yesno" ;
 }
 
+export interface SurveyMethods {
+    /**
+     * Check if this survey is active at the given time.
+     *
+     * If the time is not provided, it defaults to the current time.
+     */
+    isActive: (date?: Date) => boolean;
+}
 
-// Note the type signature of the schema.
-const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
+// eslint-disable-next-line @typescript-eslint/ban-types
+const SurveySchema = new Schema<Survey, Model<Survey, {}, SurveyMethods>, Survey>(
     {
         questions: [String],
         activeFrom: {
@@ -65,6 +73,14 @@ const SurveySchema = new Schema<Survey, Model<Survey>, Survey>(
         // Automatically creates and manages `createdAt` and `updatedAt` fields
     },
 );
+
+SurveySchema.methods.isActive = function (date?: Date): boolean {
+    if (typeof this.activeOverride === "boolean") {
+        return this.activeOverride;
+    }
+    const now = date || new Date();
+    return this.activeFrom < now && (!this.expiresAt || now < this.expiresAt);
+};
 
 // The mongoose model for the survey
 const Survey = model("Survey", SurveySchema);

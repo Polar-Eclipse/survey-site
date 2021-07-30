@@ -14,7 +14,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Request, Response, NextFunction } from "express";
-import Survey from "../models/survey";
+import { EnforceDocument } from "mongoose";
+import Survey, { SurveyMethods } from "../models/survey";
 
 /*** DISPLAY FUNCTIONS ***/
 
@@ -47,6 +48,12 @@ export function displayQuestionPage(req: Request, res: Response, next: NextFunct
         if (err) {
             return next(err);
         }
+
+        if (!survey?.isActive()) {
+            // The survey is not found, or it is not currently active
+            return res.redirect("/surveyavailable");
+        }
+
         res.render("index", { title: "Question", page: "question", surveyField: survey });
     });
 }
@@ -65,7 +72,7 @@ export function displayEditSurveyPage(req: Request, res: Response, next: NextFun
             return next(err);
         }
         //check if user's id equals to the survey's owner
-        if (!userId?.equals(survey.owner)) { // user's id does not equal the survey's owner
+        if (!survey || !userId?.equals(survey.owner)) { // user's id does not equal the survey's owner
             return res.redirect("/account"); // redirect to the account page
         }
         res.render("index", { title: "EditSurvey", page: "editsurvey", surveyItem: survey });
@@ -185,7 +192,10 @@ export function getAvailableSurveys(done: (err: any, surveys: Survey[]) => void)
 /**
  * Get a survey object with the given id from the database
  */
-export function getSurveyById(surveyId: string, done: (err: any, res: Survey) => void): void {
+export function getSurveyById(
+    surveyId: string,
+    done: (err: any, res?: EnforceDocument<Survey, SurveyMethods>) => void,
+): void {
     // get survey id:db.Survey.find({"_id": SurveyId})
     Survey.findById(surveyId, done);
 }
