@@ -9,23 +9,61 @@
         "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
-        "indent": [
+        "arrow-spacing": "error",
+        "block-spacing": "error",
+        "comma-style": "error",
+        "key-spacing": "error",
+        "no-multiple-empty-lines": [
             "error",
-            4
+            {
+                "max": 2,
+                "maxEOF": 0
+            }
         ],
-        "quotes": [
+        "no-trailing-spaces": "error",
+        "no-whitespace-before-property": "error",
+        "padded-blocks": [
             "error",
-            "double"
+            "never"
         ],
-        "semi": [
+        "space-before-blocks": [
             "error",
             "always"
         ],
+        "space-in-parens": "error",
+        "@typescript-eslint/brace-style": [
+            "error",
+            "1tbs"
+        ],
+        "@typescript-eslint/comma-dangle": [
+            "error",
+            "always-multiline"
+        ],
+        "@typescript-eslint/comma-spacing": "error",
+        "@typescript-eslint/func-call-spacing": "error",
+        "@typescript-eslint/indent": [
+            "error",
+            4
+        ],
+        "@typescript-eslint/keyword-spacing": "error",
         "@typescript-eslint/no-unused-vars": [
             "warn",
             {
                 "argsIgnorePattern": "^_"
             }
-        ]
+        ],
+        "@typescript-eslint/object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "@typescript-eslint/quotes": [
+            "error",
+            "double"
+        ],
+        "@typescript-eslint/semi": [
+            "error",
+            "always"
+        ],
+        "@typescript-eslint/type-annotation-spacing": "error"
     }
 }

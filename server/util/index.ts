@@ -12,16 +12,13 @@
  * @author Eunju Jo (301170731)
  */
 
-import express, {Request, Response, NextFunction} from "express";
-import User from "../models/user";
+import { Request, Response, NextFunction } from "express";
 
-
-
-
-export function authguard(req: Request, res: Response, next: NextFunction):void
-{
-    if(!req.isAuthenticated())
-    {
+/**
+ * Redirect the user to the login page if not logged in
+ */
+export function authguard(req: Request, res: Response, next: NextFunction): void {
+    if (!req.isAuthenticated()) {
         return res.redirect("/login");
     }
     next();

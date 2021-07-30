@@ -52,12 +52,11 @@ export default function createApp(): Express {
     app.use(express.static(path.join(__dirname, "../../client")));
     app.use(express.static(path.join(__dirname, "../../node_modules")));
 
-
     //setup express-session
     app.use(session({
         secret: ensuredEnv().SESSION_SECRET,
-        saveUninitialized:false,
-        resave: false
+        saveUninitialized: false,
+        resave: false,
     }));
 
     // initialize flash

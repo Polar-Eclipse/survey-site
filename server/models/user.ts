@@ -37,30 +37,31 @@ declare global {
     }
 }
 
-const UserSchema = new Schema<User>
-({
-    username: {
-        type:String,
-        require:true,
+const UserSchema = new Schema<User>(
+    {
+        username: {
+            type: String,
+            require: true,
+        },
+        emailAddress: {
+            type: String,
+            require: true,
+        },
+        contactNumber: {
+            type: String,
+            require: true,
+        },
+        type: {
+            type: String,
+            enum: ["admin", "user"],
+            default: "user",
+        },
     },
-    emailAddress: {
-        type:String,
-        require:true,
+    {
+        collection: "users",
+        timestamps: true,
     },
-    contactNumber:{
-        type:String,
-        require:true,
-    },
-    type:{
-        type:String,
-        enum:["admin","user"],
-        default:"user",
-    }
-},
-{
-    collection: "users",
-    timestamps: true,
-});
+);
 
 // False-positive type error.
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -16,56 +16,51 @@
 import { Request, Response, NextFunction } from "express";
 import Survey from "../models/survey";
 
-/***DISPLAY FUNCTIONS***/
+/*** DISPLAY FUNCTIONS ***/
 
 /**
  * Display the page for creating a survey
  */
-export function displayMakeSurveyPage(req:Request, res: Response, _next: NextFunction):void
-{
-    res.render("index", { title: "Make Survey", page: "makesurvey"});
+export function displayMakeSurveyPage(req: Request, res: Response, _next: NextFunction): void {
+    res.render("index", { title: "Make Survey", page: "makesurvey" });
 }
 
 /**
  * Display the page with the list of currently available surveys
  */
-export function displayAvailableSurvey(req:Request, res: Response, next: NextFunction):void
-{
+export function displayAvailableSurvey(req: Request, res: Response, next: NextFunction): void {
     getAvailableSurveys((err, surveys) => {
-        if(err){
+        if (err) {
             return next(err);
         }
-        res.render("index", { title: "Available Survey", page:"surveyavailable", survey: surveys});
+        res.render("index", { title: "Available Survey", page: "surveyavailable", survey: surveys });
     });
-
 }
 
 /**
  * Display the page where the user can answer to the survey
  */
-export function displayQuestionPage(req:Request, res: Response, next: NextFunction):void
-{
+export function displayQuestionPage(req: Request, res: Response, next: NextFunction): void {
     const id = req.params.id;
 
     getSurveyById(id, (err, survey) => {
         if (err) {
             return next(err);
         }
-        res.render("index", { title: "Question", page: "question", surveyField: survey});
+        res.render("index", { title: "Question", page: "question", surveyField: survey });
     });
 }
 
 /**
  * Display the page to edit the survey
  */
-export function displayEditSurveyPage(req:Request, res: Response, next: NextFunction):void
-{
+export function displayEditSurveyPage(req: Request, res: Response, next: NextFunction): void {
     const id = req.params.id;
     if (!req.user) { // if req.user is undefined
         throw Error("Unreachable: this route handler is called only when the user is logged in");
     }
     const userId = req.user._id;
-    getSurveyById(id, (err,survey) => {
+    getSurveyById(id, (err, survey) => {
         if (err) {
             return next(err);
         }
@@ -78,20 +73,18 @@ export function displayEditSurveyPage(req:Request, res: Response, next: NextFunc
 }
 
 
-/***PROCESS FUNCTIONS***/
+/*** PROCESS FUNCTIONS ***/
 
 /**
  * Process a request to create a survey
  */
-export function processMakeSurveyPage(req:Request, res: Response, next: NextFunction):void
-{    // if req.user is undefined,then throw error
+export function processMakeSurveyPage(req: Request, res: Response, next: NextFunction): void {    // if req.user is undefined,then throw error
     if (!req.user) {
         throw Error("Unreachable: this route handler is called only when the user is logged in");
     }
     // pass the user _id to variable userId
     const userId = req.user._id;
-    const newSurvey = new Survey
-    ({
+    const newSurvey = new Survey({
         questions: [
             req.body.question1,
             req.body.question2,
@@ -107,8 +100,7 @@ export function processMakeSurveyPage(req:Request, res: Response, next: NextFunc
     });
     //insert newSurvey to db
     Survey.create(newSurvey, (err) => {
-        if(err)
-        {
+        if (err) {
             return next(err);
         }
         res.redirect("/account");
@@ -118,17 +110,15 @@ export function processMakeSurveyPage(req:Request, res: Response, next: NextFunc
 /**
  * Process a delete request of a survey object
  */
-export function processDeleteSurvey(req:Request, res: Response, next: NextFunction):void
-{
+export function processDeleteSurvey(req: Request, res: Response, next: NextFunction): void {
     if (!req.user) { // if req.user is undefined
         throw Error("Unreachable: this route handler is called only when the user is logged in");
     }
     const userId = req.user._id;
     const id = req.params.id;
     // find the survey by survey id and owen and remove it
-    Survey.findOneAndRemove({owner:userId,_id:id}, {}, (err) => {
-        if(err)
-        {
+    Survey.findOneAndRemove({ owner: userId, _id: id }, {}, (err) => {
+        if (err) {
             return next(err);
         }
         res.redirect("/account");
@@ -138,8 +128,7 @@ export function processDeleteSurvey(req:Request, res: Response, next: NextFuncti
 /**
  * Process an update request of a survey
  */
-export function processEditSurveyPage(req:Request, res: Response, next: NextFunction):void
-{
+export function processEditSurveyPage(req: Request, res: Response, next: NextFunction): void {
     if (!req.user) { // if req.user is undefined
         throw Error("Unreachable: this route handler is called only when the user is logged in");
     }
@@ -158,16 +147,15 @@ export function processEditSurveyPage(req:Request, res: Response, next: NextFunc
         expiresAt: req.body.expiresAt || undefined,
         activeOverride: req.body.isActiveStateOverridden ? req.body.activeOverride === "true" : undefined,
     };
-    Survey.findOneAndUpdate({owner:userId,_id:id}, updatedSurvey, {}, (err)=>{
-        if(err)
-        {
+    Survey.findOneAndUpdate({ owner: userId, _id: id }, updatedSurvey, {}, (err) => {
+        if (err) {
             return next(err);
         }
         res.redirect("/account");
     });
 }
 
-/***DATABASE FUNCTIONS***/
+/*** DATABASE FUNCTIONS ***/
 
 /**
  * Get the list of currently available surveys from the database
@@ -197,8 +185,7 @@ export function getAvailableSurveys(done: (err: any, surveys: Survey[]) => void)
 /**
  * Get a survey object with the given id from the database
  */
-export function getSurveyById(surveyId: string, done: (err: any, res: Survey) => void): void
-{
+export function getSurveyById(surveyId: string, done: (err: any, res: Survey) => void): void {
     // get survey id:db.Survey.find({"_id": SurveyId})
     Survey.findById(surveyId, done);
 }

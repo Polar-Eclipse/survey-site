@@ -33,10 +33,11 @@ router.post("/register", userController.processRegisterPage);
 /* GET - GET logout page when user clicks Logout */
 router.get("/logout", userController.processLogoutPage);
 
-//NEW GET account page through displaydisplayAccountPage method
-router.get("/account", util.authguard ,userController.displayAccountPage);
+/* GET - account page through displaydisplayAccountPage method */
+router.get("/account", util.authguard, userController.displayAccountPage);
 
 /* Get - display ediuser page - with /edituser */
-router.get("/edituser/:id", util.authguard ,userController.displayUserEditPage);
+router.get("/edituser/:id", util.authguard, userController.displayUserEditPage);
 
-router.post("/edituser/:id", util.authguard ,userController.processEditPage);
+/* POST - process edit user info when user submits the form */
+router.post("/edituser/:id", util.authguard, userController.processEditPage);

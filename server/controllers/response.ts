@@ -16,10 +16,89 @@
 import { Request, Response, NextFunction } from "express";
 import ResponseM from "../models/response";
 
-// insert data in to the Response collection
-export function insertResponse(response: ResponseM, done: (err: any, res: ResponseM) => void):void
-{   //db.Response.create()
-    ResponseM.create(response,done);
+/*** DISPLAY FUNCTIONS ***/
+
+/**
+ * Display the results page of the given survey
+ */
+export function displayResult(req: Request, res: Response, next: NextFunction): void {
+    const id = req.params.id;
+
+    getAllResponse(id, (err, selectedResponse) => {
+        if (err || !selectedResponse) {
+            return next(err);
+        }
+
+        const answeredTrue = [0, 0, 0, 0, 0];
+
+        for (let i = 0; i < selectedResponse.length; i++) {
+            for (let j = 0; j < selectedResponse[i].answers.length; j++) { //survey
+                if (selectedResponse[i].answers[j] == "True") { //answers
+                    answeredTrue[j] = answeredTrue[j] + 1;
+                }
+            }
+        }
+
+        res.render("index", {
+            title: "Survey Response",
+            page: "surveyresponse",
+            surveyResponses: selectedResponse,
+            tally: answeredTrue,
+        });
+    });
+}
+
+
+/*** PROCESS FUNCTIONS ***/
+
+/**
+ * Process the request to create a new response to the given survey
+ */
+export function processQuestion(req: Request, res: Response, next: NextFunction): void {
+    const id = req.params.id;
+
+    const newResponse = new ResponseM({
+        answers: [
+            req.body.answer1,
+            req.body.answer2,
+            req.body.answer3,
+            req.body.answer4,
+            req.body.answer5,
+        ],
+        question: id,
+        title: req.body.title,
+    });
+
+    ResponseM.create(newResponse, (err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect("/surveyavailable");
+    });
+}
+
+/**
+ * Process a request to delete a response
+ */
+export function processDeleteResult(req: Request, res: Response, next: NextFunction): void {
+    const id = req.params.id;
+
+    ResponseM.findByIdAndRemove(id, {}, (err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect("/account");
+    });
+}
+
+
+/*** DATABASE FUNCTIONS ***/
+
+/**
+ * Insert a new Response object to the database
+ */
+export function insertResponse(response: ResponseM, done: (err: any, res: ResponseM) => void): void {
+    ResponseM.create(response, done);
 }
 
 /**
@@ -28,79 +107,12 @@ export function insertResponse(response: ResponseM, done: (err: any, res: Respon
  * @param surveyId The ID of the survey
  * @param done The callback function
  */
-export function getAllResponse(surveyId: string, done: (err: any, res?: ResponseM[]) => void): void
-{
-    ResponseM.find({ question: surveyId }, (err, result) =>
-    {
-        if (err)
-        {
+export function getAllResponse(surveyId: string, done: (err: any, res?: ResponseM[]) => void): void {
+    ResponseM.find({ question: surveyId }, (err, result) => {
+        if (err) {
             done(err);
-        }
-        else
-        {
+        } else {
             done(undefined, result);
         }
     });
 }
-export function processQuestion(req: Request, res: Response, next: NextFunction): void
-{
-    const id = req.params.id;
-    const newResponse = new ResponseM
-    ({
-        "answers": [
-            req.body.answer1,
-            req.body.answer2,
-            req.body.answer3,
-            req.body.answer4,
-            req.body.answer5,
-        ],
-        "question": id,
-        "title": req.body.title
-    });
-    ResponseM.create(newResponse, (err) => {
-        if(err)
-        {
-            return next(err);
-        }
-        res.redirect("/surveyavailable");
-    });
-}
-
-export function processDeleteResult(req:Request, res: Response, next: NextFunction):void
-{
-    const id = req.params.id;
-
-    ResponseM.findByIdAndRemove(id, {}, (err) => {
-        if(err)
-        {
-            return next(err);
-        }
-        res.redirect("/account");
-    });
-}
-
-//Get Survey Result site
-export function displayResult(req: Request, res: Response, next: NextFunction): void
-{
-    const id = req.params.id;
-    getAllResponse(id, (err, selectedResponse) => {
-        if (err || !selectedResponse) {
-            return next(err);
-        }
-        const answeredTrue = [0, 0, 0, 0, 0];
-        for(let i = 0; i < selectedResponse.length; i++ )
-        {
-            for(let j = 0; j < selectedResponse[i].answers.length; j++ ) //survey
-            {
-
-                if(selectedResponse[i].answers[j] == "True") //answers
-                {
-                    answeredTrue[j] = answeredTrue[j] + 1;
-                }
-            }
-        }
-        res.render("index", { title: "Survey Response", page: "surveyresponse", surveyResponses: selectedResponse, tally: answeredTrue});
-    });
-
-}
-
