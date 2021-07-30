@@ -107,7 +107,7 @@ function setCommonVars(req: Request, res: Response, next: NextFunction): void {
 
     // Date displayer: helper method that shows a user-friendly string representation of the given Date object
     // Use this when showing the date to the users
-    const formatter = Intl.DateTimeFormat("en-CA");
+    const formatter = new Intl.DateTimeFormat("en-CA");
     res.locals.displayDate = (date?: Date): string => {
         if (!date) {
             return "";
@@ -118,6 +118,17 @@ function setCommonVars(req: Request, res: Response, next: NextFunction): void {
         return formatter.format(timezoneAdjustedDate);
     };
 
+    // Percent displayer: helper method that formats the percentage
+    const percentFormatter = new Intl.NumberFormat("en-CA", {
+        style: "percent",
+        minimumSignificantDigits: 3,
+        maximumSignificantDigits: 3,
+    });
+    res.locals.displayPercent = (num: number, total: number): string => {
+        return total === 0 ? "N/A" : percentFormatter.format(num / total);
+    };
+
+    // Currently logged-in user
     res.locals.user = req.user;
 
     // Invoke next handlers

@@ -26,11 +26,13 @@
 
         <!--Repeatable Row Template-->
 
-        <% for(let count = 0; count < surveyResponses.length; count++){ %>
+        <% for(let count = 0; count < tally.length; count++){ %>
         <tr>
           <th scope="row" class="polarText text-center">Question <%= count + 1 %></th>
-          <th class="text-center polarText"><%= tally[count] / surveyResponses.length%></th>
-          <th class="text-center polarText"><%= (surveyResponses.length - tally[count]) / surveyResponses.length%></th>
+          <th class="text-center polarText"><%= displayPercent(tally[count], surveyResponses.length) %></th>
+          <th class="text-center polarText">
+            <%= displayPercent(surveyResponses.length - tally[count], surveyResponses.length) %>
+          </th>
           <th class="text-center polarText"><%= tally[count]%></th>
           <th class="text-center polarText"><%= surveyResponses.length - tally[count]%></th>
         </tr>
@@ -67,7 +69,10 @@
           <td><%= surveyResponses[count].answers[3] %></td>
           <td><%= surveyResponses[count].answers[4] %></td>
           <td class="text-center">
-            <a href="/deleteres/<%= surveyResponses[count]._id %>" class="btn btn-danger editBTN">Delete</a>
+            <a href="/deleteres/<%= surveyResponses[count]._id %>" class="btn btn-danger editBTN"
+              onclick="return confirm('Are you sure you want to delete this response?')">
+              Delete
+            </a>
           </td>
         </tr>
         <% } %>

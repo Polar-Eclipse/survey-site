@@ -16,7 +16,6 @@ import { Request, Response, NextFunction } from "express";
 import passport from "passport";
 
 import Survey from "../models/survey";
-import ResponseM from "../models/response";
 import User from "../models/user";
 
 /*** DISPLAY FUNCTIONS ***/
@@ -33,21 +32,14 @@ export function displayAccountPage(req: Request, res: Response, next: NextFuncti
     const userId = req.user._id;
 
     Survey.find({ owner: userId }, function (err, surveyCollection) {
-        ResponseM.find(function(err2, responseCollection) {
-            if (err2) {
-                return next(err2);
-            }
+        if (err) {
+            return next(err);
+        }
 
-            if (err) {
-                return next(err);
-            }
-
-            res.render("index", {
-                title: "Account",
-                page: "account",
-                survey: surveyCollection,
-                response: responseCollection,
-            });
+        res.render("index", {
+            title: "Account",
+            page: "account",
+            survey: surveyCollection,
         });
     });
 }
