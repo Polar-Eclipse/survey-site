@@ -19,6 +19,7 @@ import passport from "passport";
 
 //create an instance of the User model
 import User from "../models/user";
+import { Mongoose } from "mongoose";
 
 /**
  * Display the account page for the user
@@ -147,6 +148,7 @@ export function processEditPage(req: Request, res: Response, next: NextFunction)
             "emailAddress": req.body.email,
             "contactNumber": req.body.contactnumber
         });
+
         User.updateOne({_id: id}, updatedUser, {}, (err) =>{
 
             if(err)
