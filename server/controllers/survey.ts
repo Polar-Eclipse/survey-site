@@ -126,15 +126,13 @@ export function processDeleteSurvey(req:Request, res: Response, next: NextFuncti
     const userId = req.user._id;
     const id = req.params.id;
     // find the survey by survey id and owen and remove it
-    Survey.findByIdAndRemove({owner:userId,_id:id}, {}, (err) => {
+    Survey.findOneAndRemove({owner:userId,_id:id}, {}, (err) => {
         if(err)
         {
             return next(err);
         }
         res.redirect("/account");
     });
-
-
 }
 
 /**
@@ -160,7 +158,7 @@ export function processEditSurveyPage(req:Request, res: Response, next: NextFunc
         expiresAt: req.body.expiresAt || undefined,
         activeOverride: req.body.isActiveStateOverridden ? req.body.activeOverride === "true" : undefined,
     };
-    Survey.findByIdAndUpdate({owner:userId,_id:id}, updatedSurvey, {}, (err)=>{
+    Survey.findOneAndUpdate({owner:userId,_id:id}, updatedSurvey, {}, (err)=>{
         if(err)
         {
             return next(err);
