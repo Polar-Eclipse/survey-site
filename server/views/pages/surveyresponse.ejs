@@ -26,7 +26,7 @@
 
         <!--Repeatable Row Template-->
 
-        <% for(let count = 0; count < surveyResponses.length; count++){ %>
+        <% for(let count = 0; count < tally.length; count++){ %>
         <tr>
           <th scope="row" class="polarText text-center">Question <%= count + 1 %></th>
           <th class="text-center polarText"><%= tally[count] / surveyResponses.length%></th>
