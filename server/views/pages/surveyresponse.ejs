@@ -29,8 +29,10 @@
         <% for(let count = 0; count < tally.length; count++){ %>
         <tr>
           <th scope="row" class="polarText text-center">Question <%= count + 1 %></th>
-          <th class="text-center polarText"><%= tally[count] / surveyResponses.length%></th>
-          <th class="text-center polarText"><%= (surveyResponses.length - tally[count]) / surveyResponses.length%></th>
+          <th class="text-center polarText"><%= displayPercent(tally[count], surveyResponses.length) %></th>
+          <th class="text-center polarText">
+            <%= displayPercent(surveyResponses.length - tally[count], surveyResponses.length) %>
+          </th>
           <th class="text-center polarText"><%= tally[count]%></th>
           <th class="text-center polarText"><%= surveyResponses.length - tally[count]%></th>
         </tr>
