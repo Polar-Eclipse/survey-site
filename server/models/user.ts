@@ -12,6 +12,7 @@
  * @author Eunju Jo (301170731)
  */
 
+import { ObjectId } from "mongodb";
 import { model, Document, PassportLocalSchema, Schema } from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
 
@@ -25,8 +26,7 @@ declare global {
     // The original type for `Express.User` interface has no fields. We add more fields that we have.
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace Express {
-        interface User extends Document{
-            _id: string,
+        interface User extends Document<ObjectId> {
             username: string,
             createdAt: Date,
             updatedAt: Date,

@@ -64,7 +64,7 @@ export function displayUserEditPage(req:Request, res: Response, next: NextFuncti
 
     const id = req.params.id;
 
-    if(req.user?._id.toString() === id )
+    if (req.user?._id?.toString() === id )
     {
         return res.render("index", {title: "EditUser", page: "edituser"});
     }
@@ -140,7 +140,7 @@ export function processLogoutPage(req:Request, res: Response, next: NextFunction
 
 export function processEditPage(req: Request, res: Response, next: NextFunction): void {
     const id = req.params.id;
-    if(req.user?._id.toString() === id)
+    if (req.user?._id?.toString() === id)
     {
         const updatedUser = new User
         ({

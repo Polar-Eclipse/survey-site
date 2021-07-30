@@ -70,7 +70,7 @@ export function displayEditSurveyPage(req:Request, res: Response, next: NextFunc
             return next(err);
         }
         //check if user's id equals to the survey's owner
-        if (userId != survey.owner.toString()){
+        if (!userId?.equals(survey.owner)) { // user's id does not equal the survey's owner
             return res.redirect("/account"); // redirect to the account page
         }
         res.render("index", { title: "EditSurvey", page: "editsurvey", surveyItem: survey });
@@ -134,30 +134,31 @@ export function processDeleteSurvey(req:Request, res: Response, next: NextFuncti
  * Process an update request of a survey
  */
 export function processEditSurveyPage(req:Request, res: Response, next: NextFunction):void
-{   if (!req.user) { // if req.user is undefined
-    throw Error("Unreachable: this route handler is called only when the user is logged in");
-}
-const userId = req.user._id;
-const id = req.params.id;
-const updatedSurvey: Partial<Survey> = {
-    "questions": [
-        req.body.question1,
-        req.body.question2,
-        req.body.question3,
-        req.body.question4,
-        req.body.question5,
-    ],
-    "title": req.body.title,
-    "activeFrom": req.body.activeFrom,
-    "expiresAt": req.body.expiresAt || undefined
-};
-Survey.findByIdAndUpdate({owner:userId,_id:id}, updatedSurvey, {}, (err)=>{
-    if(err)
-    {
-        return next(err);
+{
+    if (!req.user) { // if req.user is undefined
+        throw Error("Unreachable: this route handler is called only when the user is logged in");
     }
-    res.redirect("/account");
-});
+    const userId = req.user._id;
+    const id = req.params.id;
+    const updatedSurvey: Partial<Survey> = {
+        "questions": [
+            req.body.question1,
+            req.body.question2,
+            req.body.question3,
+            req.body.question4,
+            req.body.question5,
+        ],
+        "title": req.body.title,
+        "activeFrom": req.body.activeFrom,
+        "expiresAt": req.body.expiresAt || undefined
+    };
+    Survey.findByIdAndUpdate({owner:userId,_id:id}, updatedSurvey, {}, (err)=>{
+        if(err)
+        {
+            return next(err);
+        }
+        res.redirect("/account");
+    });
 }
 
 /***DATABASE FUNCTIONS***/
@@ -182,4 +183,3 @@ export function getSurveyById(surveyId: string, done: (err: any, res: Survey) =>
     // get survey id:db.Survey.find({"_id": SurveyId})
     Survey.findById(surveyId, done);
 }
-
