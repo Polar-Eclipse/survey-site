@@ -156,7 +156,6 @@ export function processEditPage(req: Request, res: Response, next: NextFunction)
     if (req.user?._id?.toString() === id) {
         const updatedUser = new User({
             "_id": id,
-            "username": req.body.username,
             "emailAddress": req.body.email,
             "contactNumber": req.body.contactnumber,
         });
