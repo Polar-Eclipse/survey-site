@@ -115,7 +115,7 @@ export function processDeleteResult(req: Request, res: Response, next: NextFunct
         // The `question` field is populated, so we have the Survey model object
         const survey = response.question as unknown as Survey & Document;
 
-        if (userId.equals(survey._id)) {
+        if (userId.equals(survey.owner)) {
             // The user has the rights to remove the response
             ResponseM.findByIdAndRemove(id, {}, (err) => {
                 if (err) {
