@@ -72,11 +72,11 @@ export function displayRegisterPage(req: Request, res: Response, _next: NextFunc
 export function displayUserEditPage(req: Request, res: Response, _next: NextFunction): void {
     const id = req.params.id;
 
-    if (req.user?._id?.toString() === id) {
-        return res.render("index", { title: "EditUser", page: "edituser" });
+    if (req.user?._id?.equals(id)) {
+        return res.render("index", { title: "EditUser", page: "edituser", messages: req.flash("editUserAuthFailed") });
     }
 
-    res.redirect("/");
+    res.redirect("/account");
 }
 
 
@@ -152,19 +152,52 @@ export function processLogoutPage(req: Request, res: Response, _next: NextFuncti
  */
 export function processEditPage(req: Request, res: Response, next: NextFunction): void {
     const id = req.params.id;
+    const user = req.user;
 
-    if (req.user?._id?.toString() === id) {
-        const updatedUser = new User({
-            "_id": id,
-            "emailAddress": req.body.email,
-            "contactNumber": req.body.contactnumber,
-        });
-
-        User.updateOne({ _id: id }, updatedUser, {}, (err) => {
-            if (err) {
-                return next(err);
-            }
-            res.redirect("/account");
-        });
+    if (!user) {
+        throw new Error("Unreachable: The user must be logged in to reach this route handler");
     }
+
+    if (!user._id?.equals(id)) {
+        return res.redirect("/account");
+    }
+
+    user.authenticate(req.body.currentpassword, (err, authenticatedUser, info) => {
+        if (err) {
+            return next(err);
+        }
+
+        if (!authenticatedUser) {
+            if (info.name === "IncorrectPasswordError") {
+                req.flash("editUserAuthFailed", "Failed to verify user with password");
+            }
+            return res.redirect(`/edituser/${user._id}`);
+        }
+
+        user.emailAddress = req.body.email;
+        user.contactNumber = req.body.contactnumber;
+
+        if (req.body.newpassword) {
+            // New password provided: set the new password then save
+            user.setPassword(req.body.newpassword, (err) => {
+                if (err) {
+                    return next(err);
+                }
+                user.save((err) => {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.redirect("/account");
+                });
+            });
+        } else {
+            // No new password provided: simple save
+            user.save((err) => {
+                if (err) {
+                    return next(err);
+                }
+                res.redirect("/account");
+            });
+        }
+    });
 }
