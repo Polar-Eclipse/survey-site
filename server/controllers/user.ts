@@ -25,9 +25,12 @@ import { Mongoose } from "mongoose";
  * Display the account page for the user
  */
 export function displayAccountPage(req:Request, res: Response, next: NextFunction): void {
-    // TODO This is a temporary version because we do not have any registered users
-    // Once we have users, we do not need this `Survey.find` call.
-    Survey.find(function(err, surveyCollection){
+    // The account page should only show the list of the user's own surveys.
+    if (!req.user) { // if req.user is undefined
+        throw Error("Unreachable: this route handler is called only when the user is logged in");
+    }
+    const userId = req.user._id;
+    Survey.find({owner: userId }, function (err, surveyCollection) {
         ResponseM.find(function(err2, responseCollection){
             if (err2){
                 return next (err2);
@@ -41,7 +44,6 @@ export function displayAccountPage(req:Request, res: Response, next: NextFunctio
         });
     });
 }
-
 
 export function displayLoginPage(req:Request, res: Response, next: NextFunction): void {
     if(!req.user)
@@ -63,7 +65,7 @@ export function displayUserEditPage(req:Request, res: Response, next: NextFuncti
 
     const id = req.params.id;
 
-    if(req.user?._id.toString() === id )
+    if (req.user?._id?.toString() === id )
     {
         return res.render("index", {title: "EditUser", page: "edituser"});
     }
@@ -139,7 +141,7 @@ export function processLogoutPage(req:Request, res: Response, next: NextFunction
 
 export function processEditPage(req: Request, res: Response, next: NextFunction): void {
     const id = req.params.id;
-    if(req.user?._id.toString() === id)
+    if (req.user?._id?.toString() === id)
     {
         const updatedUser = new User
         ({
