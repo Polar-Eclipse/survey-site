@@ -23,6 +23,7 @@ import Survey, { SurveyMethods } from "../models/survey";
  * Display the page for creating a survey
  */
 export function displayMakeSurveyPage(req: Request, res: Response, _next: NextFunction): void {
+    res.locals.scripts.push("tableSwitch");
     res.render("index", { title: "Make Survey", page: "makesurvey" });
 }
 
