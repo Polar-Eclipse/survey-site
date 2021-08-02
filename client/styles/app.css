@@ -12,17 +12,53 @@
  * @author Eunju Jo (301170731)
  */
 
- .logoBlue { background-color: #68c2e8;}
- .logoNavy { background-color: #0d1e41;}
- .logoGray { background-color: #7f7f7f;}
- .logoDarkGray { background-color: #3b3b3b;}
+.logoBlue {
+    background-color: #68c2e8;
+}
+.logoNavy {
+    background-color: #0d1e41;
+}
+.logoGray {
+    background-color: #7f7f7f;
+}
+.logoDarkGray {
+    background-color: #3b3b3b;
+}
 
- body { background-color: #313c5c;}
- .polarText { color: #68c2e8;}
- .polarPurple {color: #686CE8;}
+body {
+    background-color: #313c5c;
+}
+.polarText {
+    color: #68c2e8;
+}
+.polarPurple {
+    color: #686ce8;
+}
 
- td {color: #68c2e8 ;}
- th {color: #686CE8;}
- table, th, td {
-    border: 1px solid #686CE8;
- }
+td {
+    color: #68c2e8;
+}
+th {
+    color: #686ce8;
+}
+table,
+th,
+td {
+    border: 1px solid #686ce8;
+}
+
+.customButton {
+    background: none;
+    color: #68c2e8;
+    border: 2px solid;
+    padding: 0em 1em;
+    font-size: 1em;
+    transition: all 0.2s;
+}
+.customButton:hover {
+    border-color: #686ce8;
+    color: #c1c3f0;
+    box-shadow: 0 0.5em 0.5em -0.4em #686ce8;
+    transform: translateY(-0.2em);
+    cursor: pointer;
+}

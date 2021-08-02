@@ -66,6 +66,7 @@
           <td><%= surveyResponses[count].answers[2] %></td>
           <td><%= surveyResponses[count].answers[3] %></td>
           <td><%= surveyResponses[count].answers[4] %></td>
+          <td hidden name="ext"><%= surveyResponses[count].question %></td>
           <td class="text-center">
             <a href="/deleteres/<%= surveyResponses[count]._id %>" class="btn btn-danger editBTN"
               onclick="return confirm('Are you sure you want to delete this response?')">

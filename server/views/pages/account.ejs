@@ -64,6 +64,7 @@
               survey[count].activeOverride ? "Active" : "Inactive" %>
           </td>
           <td><%= displayDate(survey[count].updatedAt) %></td>
+          <td><a href="/download/<%= survey[count]._id %>"><Button class="customButton">Download</Button></a></td>
           <td class="text-center">
             <a href="/surveyresponse/<%= survey[count]._id %>" class="btn btn-primary btn edit">
               <i class="fas fa-edit fa-sm"></i> Results
