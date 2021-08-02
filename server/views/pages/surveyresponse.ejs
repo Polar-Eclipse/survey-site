@@ -8,9 +8,34 @@
 <%# @author Eunju Jo (301170731) %>
 
 <h1 class="text-center polarText display-1">Survey Response</h1>
+<h2 class="text-center polarText mt-5">Visual Representation</h2>
+<div class="container">
+  <div class="canvasLine">
+    <canvas id="question1Canvas"></canvas>
+    <div class="text-center polarText mt-4">Question 1</div>
+  </div>
+  <div class="canvasLine">
+    <canvas id="question2Canvas"></canvas>
+    <div class="text-center polarText mt-4">Question 2</div>
+  </div>
+  <div class="canvasLine">
+    <canvas id="question3Canvas"></canvas>
+    <div class="text-center polarText mt-4">Question 3</div>
+  </div>
+  <div class="canvasLine">
+    <canvas id="question4Canvas"></canvas>
+    <div class="text-center polarText mt-4">Question 4</div>
+  </div>
+  <div class="canvasLine">
+    <canvas id="question5Canvas"></canvas>
+    <div class="text-center polarText mt-4">Question 5</div>
+  </div>
+</div>
+
+
 <div class="row">
   <div class="col">
-    <h2 class="text-center polarText">Statistics</h2>
+    <h2 class="text-center polarText mt-5">Statistics</h2>
     <table class="table border border-dark">
       <thead>
         <br><br>
@@ -33,8 +58,8 @@
           <th class="text-center polarText">
             <%= displayPercent(surveyResponses.length - tally[count], surveyResponses.length) %>
           </th>
-          <th class="text-center polarText"><%= tally[count]%></th>
-          <th class="text-center polarText"><%= surveyResponses.length - tally[count]%></th>
+          <th class="text-center polarText" id="question<%= count + 1 %>True"><%= tally[count]%></th>
+          <th class="text-center polarText"id="question<%= count + 1 %>False"><%= surveyResponses.length - tally[count]%></th>
         </tr>
         <% } %>
 

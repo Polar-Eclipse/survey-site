@@ -42,7 +42,7 @@ export function displayResult(req: Request, res: Response, next: NextFunction): 
                 }
             }
         }
-
+        res.locals.scripts.push("charts");
         res.render("index", {
             title: "Survey Response",
             page: "surveyresponse",
