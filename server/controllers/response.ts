@@ -156,7 +156,7 @@ export function getAllResponse(surveyId: string, done: (err: any, res?: Response
         }
     });
 }
-export async function downloadRaw (req: Request, res: Response, next: NextFunction){
+export async function downloadRaw (req: Request, res: Response, next: NextFunction) {
     if (!req.user) { // if req.user is undefined
         throw Error("Unreachable: this route handler is called only when the user is logged in");
     }
@@ -166,35 +166,34 @@ export async function downloadRaw (req: Request, res: Response, next: NextFuncti
     [
         {
             label: questionsCol?.title,
-            value: 'title'
+            value: "title",
         },
         {
             label: questionsCol?.questions[0],
-            value: 'answers[0]'
+            value: "answers[0]",
         },
         {
             label: questionsCol?.questions[1],
-            value: 'answers[1]'
+            value: "answers[1]",
         },
         {
             label: questionsCol?.questions[2],
-            value: 'answers[2]'
+            value: "answers[2]",
         },
         {
             label: questionsCol?.questions[3],
-            value: 'answers[3]'
+            value: "answers[3]",
         },
         {
             label: questionsCol?.questions[4],
-            value: 'answers[4]'
+            value: "answers[4]",
         },
         {
-            label: 'Created At',
-            value: 'createdAt'
+            label: "Created At",
+            value: "createdAt",
         },
-    ]
-    const data = await ResponseM.find({question: id});
-    //@ts-ignore
-    downloadResource(res, 'response.csv', fields, data);
-}
+    ];
+    const data = await ResponseM.find( { question: id } );
 
+    downloadResource(res, "response.csv", fields, data);
+}
