@@ -7,9 +7,9 @@
 <%# @author Tien Sang Nguyen (301028223) %>
 <%# @author Eunju Jo (301170731) %>
 
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg navbar-light headerBGColor">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand highLightNavbar" href="/">
       <img src="/images/ResizePNG.png" alt="" width="50" height="45"> Polar Eclipse Survey
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -19,27 +19,27 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="/"><i class="fas fa-igloo fa-lg"></i> Home</a>
+          <a class="nav-link highLightNavbar" href="/"> Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/surveyavailable"><i class="fas fa-gas-pump fa-lg"></i> Survey Available</a>
+          <a class="nav-link highLightNavbar" href="/surveyavailable"> Survey Available</a>
         </li>
         <% if (user) { %>
         <li class="nav-item">
-          <a class="nav-link" href="/account"><i class="fas fa-phone fa-lg"></i> Account</a>
+          <a class="nav-link highLightNavbar" href="/account"><i class="fas fa-phone fa-lg"></i> Account</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/makesurvey"><i class="fas fa-phone fa-lg"></i> Make Survey</a>
+          <a class="nav-link highLightNavbar" href="/makesurvey"><i class="fas fa-phone fa-lg"></i> Make Survey</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/edituser/<%= user._id %>"> Edit User</a>
+          <a class="nav-link highLightNavbar" href="/edituser/<%= user._id %>"> Edit User</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/logout"><i class="fas fa-id-card fa-lg"></i> Logout</a>
+          <a class="nav-link highLightNavbar" href="/logout"><i class="fas fa-id-card fa-lg"></i> Logout</a>
         </li>
         <% } else { %>
         <li class="nav-item">
-          <a class="nav-link" href="/login"><i class="fas fa-id-card fa-lg"></i> Login</a>
+          <a class="nav-link highLightNavbar" href="/login"><i class="fas fa-id-card fa-lg"></i> Login</a>
         </li>
         <% } %>
       </ul>
