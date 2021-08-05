@@ -25,8 +25,8 @@ export function authguard(req: Request, res: Response, next: NextFunction): void
     next();
 }
 
-export const downloadResource = ( res: Response, filename: string, fields: string[], data: object[] ) => {
-    const json2cvs = new Parser ( { fields } );
+export const downloadResource = (res: Response, filename: string, fields: string[], data: object[]) => {
+    const json2cvs = new Parser({ fields });
     const cvs = json2cvs.parse(data);
     res.header("Content-Type", "text/csv");
     res.attachment(filename);
