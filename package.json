@@ -33,6 +33,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "http-errors": "^1.8.0",
+    "json2csv": "^5.0.6",
     "mongoose": "^5.13.2",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "@types/bootstrap": "^5.0.17",
+    "@types/chart.js": "^2.9.34",
     "@types/connect-flash": "^0.0.37",
     "@types/cookie-parser": "^1.4.2",
     "@types/cors": "^2.8.12",
@@ -49,6 +51,7 @@
     "@types/express": "^4.17.13",
     "@types/express-session": "^1.17.4",
     "@types/http-errors": "^1.8.1",
+    "@types/json2csv": "^5.0.3",
     "@types/morgan": "^1.9.3",
     "@types/node": "^15.14.2",
     "@types/passport": "^1.0.7",

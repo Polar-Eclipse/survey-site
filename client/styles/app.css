@@ -12,17 +12,153 @@
  * @author Eunju Jo (301170731)
  */
 
- .logoBlue { background-color: #68c2e8;}
- .logoNavy { background-color: #0d1e41;}
- .logoGray { background-color: #7f7f7f;}
- .logoDarkGray { background-color: #3b3b3b;}
+.logoBlue {
+    background-color: #68c2e8;
+}
+.whiteText {
+    color: whitesmoke;
+}
+.logoNavy {
+    background-color: #0d1e41;
+}
+.logoGray {
+    background-color: #585858;
+}
+.logoDarkGray {
+    background-color: #3b3b3b;
+}
 
- body { background-color: #313c5c;}
- .polarText { color: #68c2e8;}
- .polarPurple {color: #686CE8;}
+body {
+    background-color: #313c5c;
+}
+.polarText {
+    color: #68c2e8;
+}
+.polarPurple {
+    color: #686ce8;
+}
 
- td {color: #68c2e8 ;}
- th {color: #686CE8;}
- table, th, td {
-    border: 1px solid #686CE8;
- }
+td {
+    color: #68c2e8;
+}
+th {
+    color: #686ce8;
+}
+table,
+th,
+td {
+    border: 1px solid #686ce8;
+    text-align: center;
+}
+
+.customButtonSpecial {
+    background: none;
+    color: #68c2e8;
+    border: 3px solid;
+    padding: 1em 4em;
+    font-size: 1em;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+.customButtonSpecial:hover {
+    border-color: #686ce8;
+    color: #c1c3f0;
+    box-shadow: 0 0.5em 0.5em -0.4em #c1c3f0;
+    transform: translateY(-0.2em);
+    cursor: pointer;
+}
+.customButtonDelete {
+    background: none;
+    color: #e8686c;
+    border: 2px solid;
+    padding: 0em 1em;
+    font-size: 1em;
+    transition: all 0.2s;
+}
+.customButtonDelete:hover {
+    border-color: #e4242a;
+    color: #f0656a;
+    box-shadow: 0 0.5em 0.5em -0.4em #f0656a;
+    transform: translateY(-0.2em);
+    cursor: pointer;
+}
+
+.customButtonResult {
+    background: none;
+    color: #c2e868;
+    border: 2px solid;
+    padding: 0em 1em;
+    font-size: 1em;
+    transition: all 0.2s;
+}
+.customButtonResult:hover {
+    border-color: #82e868;
+    color: #c2e868;
+    box-shadow: 0 0.5em 0.5em -0.4em #c2e868;
+    transform: translateY(-0.2em);
+    cursor: pointer;
+}
+.customButtonEdit {
+    background: none;
+    color: #68e8b9;
+    border: 2px solid;
+    padding: 0em 1em;
+    font-size: 1em;
+    transition: all 0.2s;
+}
+.customButtonEdit:hover {
+    border-color: #11e799;
+    color: #8fdfc1;
+    box-shadow: 0 0.5em 0.5em -0.4em #8fdfc1;
+    transform: translateY(-0.2em);
+    cursor: pointer;
+}
+canvas {
+    width: 250px !important;
+    height: 250px !important;
+}
+.canvasLine {
+    display: inline-block;
+}
+.customButtonDownload {
+    background: none;
+    color: #68c2e8;
+    border: 2px solid;
+    padding: 0em 1em;
+    font-size: 1em;
+    transition: all 0.2s;
+}
+.customButtonDownload:hover {
+    border-color: #17a0db;
+    color: #68c2e8;
+    box-shadow: 0 0.5em 0.5em -0.4em #68c2e8;
+    transform: translateY(-0.2em);
+    cursor: pointer;
+}
+
+.highLightNavbar:hover {
+    background: #87c7e2;
+    color: #68c2e8;
+    transition: 1.2s;
+}
+
+.headerBGColor {
+    background-color: #e3f2fd;
+}
+
+.customButtonCancel {
+    background: none;
+    text-decoration: none;
+    color: #c2e868;
+    border: 2px solid;
+    padding: 0em 1em;
+    font-size: 1em;
+    transition: all 0.2s;
+}
+.customButtonCancel:hover {
+    border-color: #82e868;
+    color: #c2e868;
+    box-shadow: 0 0.5em 0.5em -0.4em #c2e868;
+    transform: translateY(-0.2em);
+    cursor: pointer;
+}

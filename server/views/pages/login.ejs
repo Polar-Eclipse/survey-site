@@ -9,7 +9,7 @@
 
 <div class="row justify-content-center">
 
-  <h1 class="text-center polarText display-1">Sign In</h1>
+  <h1 class="text-center polarText display-1 mt-5 pt-5">Sign In</h1>
 
   <!-- message area -->
   <% if(messages.length > 0) { %>
@@ -18,17 +18,19 @@
   </div>
   <% } %>
 
-  <form action="" method="POST" class="my-4 border border-dark col-5 logoGray border-3">
-    <div class="row justify-content-center my-4">
-      <label for="username" class="col-2 text-end">User Name</label>
-      <input type="text" class="col-5" id="username" placeholder="User Name" required name="username">
+  <form action="" method="POST" class="my-4 border border-dark col-8 logoGray border-3 whiteText">
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="username" class="col-lg-4 text-lg-end">User Name</label>
+      <input type="text" class="col-lg-6 mx-1" id="username" placeholder="User Name" required name="username">
+      <div class="col-1"></div>
     </div>
-    <div class="row justify-content-center my-4">
-      <label for="email" class="col-2 text-end">Password</label>
-      <input type="password" class="col-5" id="password" placeholder="Password" required name="password">
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="email" class="col-lg-4 text-lg-end">Password</label>
+      <input type="password" class="col-lg-6 mx-1" id="password" placeholder="Password" required name="password">
+      <div class="col-1"></div>
     </div>
     <div class="row justify-content-center">
-      <button type="submit" class="btn btn-primary col-3 my-3">Sign In</button>
+      <button type="submit" class="customButtonSpecial col-lg-4 md-2 mb-3">Sign In</button>
       <br>
       <p class="text-center"><a href="/register">Click Here</a> to make an account</p>
     </div>

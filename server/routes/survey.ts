@@ -50,3 +50,6 @@ router.get("/deleteres/:id", util.authguard, responseController.processDeleteRes
 
 // GET surveyresult Show the result of the survey
 router.get("/surveyresponse/:id", util.authguard, responseController.displayResult);
+
+//GET Download Page
+router.get("/download/:id", util.authguard, responseController.downloadRaw);

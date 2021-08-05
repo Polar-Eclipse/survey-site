@@ -11,7 +11,7 @@
 
   <h1 class="text-center polarText display-1">Edit Survey</h1>
 
-  <form method="POST" class="my-4 border border-dark col-9 logoGray border-3">
+  <form method="POST" class="my-4 border border-dark col-9 logoGray border-3 whiteText">
     <div class="row justify-content-center my-4">
       <label for="title" class="col-3 text-end">title</label>
       <input type="text" class="col-7" id="title" placeholder="Survey Title" name="title"
@@ -62,9 +62,10 @@
     </div>
     <hr>
     <% } %>
-    <div class="row justify-content-center">
-      <button type="submit" class="btn btn-primary col-3 my-3">Edit It</button>
-      <a href="/account" class="btn btn-warning col-3 my-3">Cancel</a>
+    <div class="row justify-content-center mb-4">
+      <button type="submit" class="customButtonDownload col-3">Edit It</button>
+      <div class="col-1"></div>
+      <a href="/account" class="customButtonCancel col-3 text-center">Cancel</a>
     </div>
   </form>
 

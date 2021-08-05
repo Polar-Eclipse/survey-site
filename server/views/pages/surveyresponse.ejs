@@ -8,9 +8,34 @@
 <%# @author Eunju Jo (301170731) %>
 
 <h1 class="text-center polarText display-1">Survey Response</h1>
+<h2 class="text-center polarText mt-5">Visual Representation</h2>
+<div class="ms-4 ps-2 container">
+  <div class="canvasLine">
+    <canvas id="question1Canvas" class="chartCanvas"></canvas>
+    <div class="text-center polarText mt-4">Question 1</div>
+  </div>
+  <div class="canvasLine">
+    <canvas id="question2Canvas" class="chartCanvas"></canvas>
+    <div class="text-center polarText mt-4">Question 2</div>
+  </div>
+  <div class="canvasLine">
+    <canvas id="question3Canvas" class="chartCanvas"></canvas>
+    <div class="text-center polarText mt-4">Question 3</div>
+  </div>
+  <div class="canvasLine">
+    <canvas id="question4Canvas" class="chartCanvas"></canvas>
+    <div class="text-center polarText mt-4">Question 4</div>
+  </div>
+  <div class="canvasLine">
+    <canvas id="question5Canvas" class="chartCanvas"></canvas>
+    <div class="text-center polarText mt-4">Question 5</div>
+  </div>
+</div>
+
+
 <div class="row">
   <div class="col">
-    <h2 class="text-center polarText">Statistics</h2>
+    <h2 class="text-center polarText mt-5">Statistics</h2>
     <table class="table border border-dark">
       <thead>
         <br><br>
@@ -33,8 +58,8 @@
           <th class="text-center polarText">
             <%= displayPercent(surveyResponses.length - tally[count], surveyResponses.length) %>
           </th>
-          <th class="text-center polarText"><%= tally[count]%></th>
-          <th class="text-center polarText"><%= surveyResponses.length - tally[count]%></th>
+          <th class="text-center polarText" id="question<%= count + 1 %>True" class="qTrue"><%= tally[count]%></th>
+          <th class="text-center polarText"id="question<%= count + 1 %>False" class="qFalse"><%= surveyResponses.length - tally[count]%></th>
         </tr>
         <% } %>
 
@@ -66,10 +91,12 @@
           <td><%= surveyResponses[count].answers[2] %></td>
           <td><%= surveyResponses[count].answers[3] %></td>
           <td><%= surveyResponses[count].answers[4] %></td>
+          <td hidden name="ext"><%= surveyResponses[count].question %></td>
           <td class="text-center">
-            <a href="/deleteres/<%= surveyResponses[count]._id %>" class="btn btn-danger editBTN"
+            <a href="/deleteres/<%= surveyResponses[count]._id %>" class=""
               onclick="return confirm('Are you sure you want to delete this response?')">
-              Delete
+              <button class="customButtonDelete">Delete</button>
+
             </a>
           </td>
         </tr>
