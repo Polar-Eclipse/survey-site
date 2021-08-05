@@ -156,12 +156,15 @@ export function getAllResponse(surveyId: string, done: (err: any, res?: Response
         }
     });
 }
-export async function downloadRaw (req: Request, res: Response, next: NextFunction) {
+export async function downloadRaw (req: Request, res: Response, _next: NextFunction): Promise<void>{
     if (!req.user) { // if req.user is undefined
         throw Error("Unreachable: this route handler is called only when the user is logged in");
     }
     const id = req.params.id;
     const questionsCol = await Survey.findById(id);
+    if (!questionsCol || !req.user._id.equals(questionsCol.owner)) {
+        return res.redirect('/account');
+    }
     const fields =
     [
         {
@@ -194,6 +197,5 @@ export async function downloadRaw (req: Request, res: Response, next: NextFuncti
         },
     ];
     const data = await ResponseM.find({ question: id });
-    //@ts-ignore
     downloadResource(res, "response.csv", fields, data);
 }
