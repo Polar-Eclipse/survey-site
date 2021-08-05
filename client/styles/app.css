@@ -19,7 +19,7 @@
     background-color: #0d1e41;
 }
 .logoGray {
-    background-color: #7f7f7f;
+    background-color: #585858;
 }
 .logoDarkGray {
     background-color: #3b3b3b;
@@ -51,15 +51,16 @@ td {
 .customButtonSpecial {
     background: none;
     color: #68c2e8;
-    border: 2px solid;
+    border: 3px solid;
     padding: 1em 4em;
     font-size: 1em;
+    font-weight: bold;
     transition: all 0.2s;
 }
 .customButtonSpecial:hover {
     border-color: #686ce8;
     color: #c1c3f0;
-    box-shadow: 0 0.5em 0.5em -0.4em #686ce8;
+    box-shadow: 0 0.5em 0.5em -0.4em #c1c3f0;
     transform: translateY(-0.2em);
     cursor: pointer;
 }
