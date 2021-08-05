@@ -156,39 +156,39 @@ export function getAllResponse(surveyId: string, done: (err: any, res?: Response
         }
     });
 }
-export async function downloadRaw (req: Request, res: Response, _next: NextFunction): Promise<void>{
+export async function downloadRaw (req: Request, res: Response, _next: NextFunction): Promise<void> {
     if (!req.user) { // if req.user is undefined
         throw Error("Unreachable: this route handler is called only when the user is logged in");
     }
     const id = req.params.id;
     const questionsCol = await Survey.findById(id);
     if (!questionsCol || !req.user._id.equals(questionsCol.owner)) {
-        return res.redirect('/account');
+        return res.redirect("/account");
     }
     const fields =
     [
         {
-            label: questionsCol?.title,
+            label: questionsCol.title,
             value: "title",
         },
         {
-            label: questionsCol?.questions[0],
+            label: questionsCol.questions[0],
             value: "answers[0]",
         },
         {
-            label: questionsCol?.questions[1],
+            label: questionsCol.questions[1],
             value: "answers[1]",
         },
         {
-            label: questionsCol?.questions[2],
+            label: questionsCol.questions[2],
             value: "answers[2]",
         },
         {
-            label: questionsCol?.questions[3],
+            label: questionsCol.questions[3],
             value: "answers[3]",
         },
         {
-            label: questionsCol?.questions[4],
+            label: questionsCol.questions[4],
             value: "answers[4]",
         },
         {
