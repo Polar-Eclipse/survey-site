@@ -194,6 +194,6 @@ export async function downloadRaw (req: Request, res: Response, next: NextFuncti
         },
     ];
     const data = await ResponseM.find( { question: id } );
-
+    //@ts-ignore
     downloadResource(res, "response.csv", fields, data);
 }
