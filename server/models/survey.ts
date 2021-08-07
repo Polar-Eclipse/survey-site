@@ -100,7 +100,19 @@ SurveyBaseSchema.methods.isActive = function (date?: Date): boolean {
 };
 
 // The mongoose model for the survey
-const Survey = model("Survey", SurveySchema);
+const Survey = model("Survey", SurveyBaseSchema);
 
 // This exports both the model and the interface
 export default Survey;
+
+//this method shows error that  type 'SurveyYesNo' does not satisfy the constraint 'Document<any, any, any>'.
+/* const SurveyYesNo = Survey.discriminator<SurveyYesNo, Model<SurveyYesNo, {}, SurveyMethods>>(
+    "SurveyYesNo",
+    new Schema({ questions: [String] }),
+    "yesno"
+);
+
+export SurveyYesNo; */
+
+export const SurveyYesNo = Survey.discriminator("yesno", new Schema({ questions: [String] }));
+export const SurveyChoice = Survey.discriminator("choice", new Schema({ questions: [{ choices: [String] }] }));
