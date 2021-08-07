@@ -57,9 +57,9 @@ export interface SurveyMethods {
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-const SurveySchema = new Schema<Survey, Model<Survey, {}, SurveyMethods>, Survey>(
+const SurveyBaseSchema = new Schema<SurveyBase, Model<SurveyBase, {}, SurveyMethods>, SurveyBase>(
     {
-        questions: [String],
+
         activeFrom: {
             type: Date,
             default: () => new Date(),
