@@ -82,19 +82,16 @@ const SurveyBaseSchema = new Schema<SurveyBase, Model<SurveyBase, {}, SurveyMeth
             required: false,
             ref: "User",
         },
-        type: {
-            type: String,
-            default: "yesno",
-        },
     },
     {
         collection: "surveys",
         timestamps: true,
         // Automatically creates and manages `createdAt` and `updatedAt` fields
+        discriminatorKey: "type",
     },
 );
 
-SurveySchema.methods.isActive = function (date?: Date): boolean {
+SurveyBaseSchema.methods.isActive = function (date?: Date): boolean {
     if (typeof this.activeOverride === "boolean") {
         return this.activeOverride;
     }
