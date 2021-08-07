@@ -13,10 +13,17 @@
  */
 
 import { model, Model, Schema, Types } from "mongoose";
+// add QuestionBase interface and export it
+interface QuestionBase{
+    question: string;
+}
+
+export interface QuestionChoice extends QuestionBase{
+    choices: string[];
+}
 
 // Create an interface which TS can rely on to give us hints of what fields can be used.
-interface Survey {
-    questions: string[]
+interface SurveyBase {
     title: string;
     activeFrom: Date;
     expiresAt?: Date;
@@ -24,9 +31,22 @@ interface Survey {
     createdAt: Date;
     updatedAt: Date;
     owner: Types.ObjectId;
-    type: "yesno" ;
 }
 
+// add interface SurveyYesNO
+interface SurveyYesNo extends SurveyBase {
+    questions: string[];
+    type: "yesno";
+}
+
+// add interface SurveyChoice
+interface SurveyChoice extends SurveyBase {
+    questions: QuestionChoice[];
+    type: "choice";
+}
+
+// export type Survey
+export type SurveyType = SurveyYesNo | SurveyChoice;
 export interface SurveyMethods {
     /**
      * Check if this survey is active at the given time.
