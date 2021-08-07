@@ -45,8 +45,8 @@ interface SurveyChoice extends SurveyBase {
     type: "choice";
 }
 
-// export type Survey
-export type SurveyType = SurveyYesNo | SurveyChoice;
+// the Survey has two types
+export type Survey = SurveyYesNo | SurveyChoice;
 export interface SurveyMethods {
     /**
      * Check if this survey is active at the given time.
