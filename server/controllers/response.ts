@@ -161,10 +161,11 @@ export async function downloadRaw (req: Request, res: Response, _next: NextFunct
         throw Error("Unreachable: this route handler is called only when the user is logged in");
     }
     const id = req.params.id;
-    const questionsCol = await Survey.findById(id);
+    const questionsCol = await Survey.findById(id) as Survey | null;
     if (!questionsCol || !req.user._id.equals(questionsCol.owner)) {
         return res.redirect("/account");
     }
+
     const fields =
     [
         {
@@ -172,23 +173,18 @@ export async function downloadRaw (req: Request, res: Response, _next: NextFunct
             value: "title",
         },
         {
-            label: questionsCol.questions[0],
             value: "answers[0]",
         },
         {
-            label: questionsCol.questions[1],
             value: "answers[1]",
         },
         {
-            label: questionsCol.questions[2],
             value: "answers[2]",
         },
         {
-            label: questionsCol.questions[3],
             value: "answers[3]",
         },
         {
-            label: questionsCol.questions[4],
             value: "answers[4]",
         },
         {
@@ -196,6 +192,21 @@ export async function downloadRaw (req: Request, res: Response, _next: NextFunct
             value: "createdAt",
         },
     ];
+
+    switch (questionsCol.type) {
+        case "yesno":
+            for (let i = 0; i < questionsCol.questions.length; i++) {
+                fields[i + 1].label = questionsCol.questions[i];
+            }
+            break;
+
+        case "choice":
+            for (let i = 0; i < questionsCol.questions.length; i++) {
+                fields[i + 1].label = questionsCol.questions[i].question;
+            }
+            break;
+    }
+
     const data = await ResponseM.find({ question: id });
     downloadResource(res, "response.csv", fields, data);
 }

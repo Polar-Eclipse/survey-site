@@ -12,11 +12,19 @@
  * @author Eunju Jo (301170731)
  */
 
-import { model, Model, Schema, Types } from "mongoose";
+import { model, Document, Model, Schema, Types } from "mongoose";
+
+// add QuestionBase interface and export it
+interface QuestionBase{
+    question: string;
+}
+
+export interface QuestionChoice extends QuestionBase{
+    choices: string[];
+}
 
 // Create an interface which TS can rely on to give us hints of what fields can be used.
-interface Survey {
-    questions: string[]
+interface SurveyBaseType extends Document {
     title: string;
     activeFrom: Date;
     expiresAt?: Date;
@@ -24,8 +32,22 @@ interface Survey {
     createdAt: Date;
     updatedAt: Date;
     owner: Types.ObjectId;
-    type: "yesno" ;
 }
+
+// add interface SurveyYesNO
+export interface SurveyYesNoType extends SurveyBaseType {
+    questions: string[];
+    type: "yesno";
+}
+
+// add interface SurveyChoice
+export interface SurveyChoiceType extends SurveyBaseType {
+    questions: QuestionChoice[];
+    type: "choice";
+}
+
+// the Survey has two types
+type Survey = SurveyYesNoType | SurveyChoiceType;
 
 export interface SurveyMethods {
     /**
@@ -37,9 +59,9 @@ export interface SurveyMethods {
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-const SurveySchema = new Schema<Survey, Model<Survey, {}, SurveyMethods>, Survey>(
+const SurveyBaseSchema = new Schema<SurveyBaseType, Model<SurveyBaseType, {}, SurveyMethods>, SurveyBaseType>(
     {
-        questions: [String],
+
         activeFrom: {
             type: Date,
             default: () => new Date(),
@@ -62,19 +84,16 @@ const SurveySchema = new Schema<Survey, Model<Survey, {}, SurveyMethods>, Survey
             required: false,
             ref: "User",
         },
-        type: {
-            type: String,
-            default: "yesno",
-        },
     },
     {
         collection: "surveys",
         timestamps: true,
         // Automatically creates and manages `createdAt` and `updatedAt` fields
+        discriminatorKey: "type",
     },
 );
 
-SurveySchema.methods.isActive = function (date?: Date): boolean {
+SurveyBaseSchema.methods.isActive = function (date?: Date): boolean {
     if (typeof this.activeOverride === "boolean") {
         return this.activeOverride;
     }
@@ -83,7 +102,21 @@ SurveySchema.methods.isActive = function (date?: Date): boolean {
 };
 
 // The mongoose model for the survey
-const Survey = model("Survey", SurveySchema);
+const Survey = model("Survey", SurveyBaseSchema);
 
 // This exports both the model and the interface
 export default Survey;
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const SurveyYesNo: Model<SurveyYesNoType, {}, SurveyMethods> = Survey.discriminator(
+    "SurveyYesNo",
+    new Schema({ questions: [String] }),
+    "yesno",
+);
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const SurveyChoice: Model<SurveyChoiceType, {}, SurveyMethods> = Survey.discriminator(
+    "SurveyChoice",
+    new Schema({ questions: [{ choices: [String] }] }),
+    "survey",
+);
