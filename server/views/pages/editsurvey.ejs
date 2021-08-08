@@ -10,23 +10,23 @@
 <div class="row justify-content-center">
 
   <h1 class="text-center polarText display-1">Edit Survey</h1>
-
-  <form method="POST" class="my-4 border border-dark col-9 logoGray border-3 whiteText">
-    <div class="row justify-content-center my-4">
-      <label for="title" class="col-3 text-end">title</label>
-      <input type="text" class="col-7" id="title" placeholder="Survey Title" name="title"
+  <!--True or False Form STARTS-->
+  <form method="POST" class="my-4 border border-dark col-lg-7 col-md-8 logoGray border-3 whiteText"  id="TFCreatorForm">
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="title" class="col-lg-3 text-lg-end">Title</label>
+      <input type="text" class="col-lg-7 mx-1" id="title" placeholder="Survey Title" name="title"
         value="<%=surveyItem.title %>" required>
       <div class="col-1"></div>
     </div>
-    <div class="row justify-content-center my-4">
-      <label for="activeFor" class="col-3 text-end">Active From</label>
-      <input type="date" class="col-7" id="activeFrom" placeholder="Start Date" name="activeFrom"
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="activeFor" class="col-lg-3 text-lg-end">Active From</label>
+      <input type="date" class="col-lg-7 mx-1" id="activeFrom" placeholder="Start Date" name="activeFrom"
         value="<%= formatDate(surveyItem.activeFrom) %>" required>
       <div class="col-1"></div>
     </div>
-    <div class="row justify-content-center my-4">
-      <label for="activeFor" class="col-3 text-end">Active Til</label>
-      <input type="date" class="col-7" id="expiresAt" placeholder="End Date" name="expiresAt"
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="activeFor" class="col-lg-3 text-lg-end">Active Til</label>
+      <input type="date" class="col-lg-7 mx-1" id="expiresAt" placeholder="End Date" name="expiresAt"
         value="<%= formatDate(surveyItem.expiresAt) %>">
       <div class="col-1"></div>
     </div>
@@ -54,9 +54,9 @@
       </div>
     </div>
     <% for(let count = 1; count < 6; count++) {%>
-    <div class="row justify-content-center my-4">
-      <label for="question" class="col-3 text-end"><%= count %>) Your Question</label>
-      <input type="text" class="col-8" id="question" placeholder="Your Question" name="question<%= count %>"
+    <div class="row justify-content-center my-4 container text-center pe-1>
+      <label for="question" class="col-lg-3 text-lg-end"><%= count %>) Your Question</label>
+      <input type="text" class="col-lg-8 mx-1" id="question" placeholder="Your Question" name="question<%= count %>"
         value="<%=surveyItem.questions[count-1] %>" required>
       <div class="col-1"></div>
     </div>
@@ -68,5 +68,68 @@
       <a href="/account" class="customButtonCancel col-3 text-center">Cancel</a>
     </div>
   </form>
+  <!--True or False Form ENDS-->
+
+  <!--MC Form STARTS-->
+  <form method="POST" class="my-4 border border-dark col-lg-7 col-md-8 logoGray border-3 whiteText" id="MCCreatorForm">
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="title" class="col-lg-3 text-lg-end">title</label>
+      <input type="text" class="col-lg-7 mx-1" id="title" placeholder="Survey Title" name="title" required>
+      <div class="col-1"></div>
+    </div>
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="activeFor" class="col-lg-3 text-lg-end">Active From</label>
+      <input type="date" class="col-lg-7 mx-1" id="activeFrom" placeholder="Start Date" name="activeFrom" required>
+      <div class="col-1"></div>
+    </div>
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="activeFor" class="col-lg-3 text-lg-end">Active Til</label>
+      <input type="date" class="col-lg-7 mx-1" id="expiresAt" placeholder="End Date" name="expiresAt">
+      <div class="col-1"></div>
+    </div>
+    <div class="row justify-content-center align-items-center my-4">
+      <div class="col-10 col-lg-4 text-center text-lg-end me-4">
+        <label for="isActiveStateOverridden" class="form-label me-2 mb-2"
+          title="You can override the visibility of this survey regardless of the active/expire dates. If you check this, the value for the 'Override Value' will be used to set if your survey is visible or not.">
+          Override Active State
+        </label>
+        <input type="checkbox" class="form-check-input" name="isActiveStateOverridden" id="isActiveStateOverridden">
+      </div>
+      <div class="col-10 col-lg-8 row align-items-center">
+        <span class="col-12 col-lg-5 text-center text-lg-end mb-1 mb-lg-0">Override Value</span>
+        <div class="col-6 col-lg-3 text-center">
+          <input type="radio" name="activeOverrideMC" id="activeOverrideActiveMC" class="form-check-input" value="true"
+            checked>
+          <label for="activeOverrideActiveMC" class="form-label">Active</label>
+        </div>
+        <div class="col-6 col-lg-3 text-center">
+          <input type="radio" name="activeOverrideMC" id="activeOverrideInactiveMC" class="form-check-input" value="false">
+          <label for="activeOverrideInactiveMC" class="form-label">Inactive</label>
+        </div>
+      </div>
+    </div>
+    <% let answerLabeler = ["a", "b", "c", "d"]; %>
+    <% for(let count = 1; count < 6; count++) {%>
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="question" class="col-lg-3 text-lg-end"><%= count %>) Your Question</label>
+      <input type="text" class="col-lg-8 mx-1" id="question" placeholder="Your Question" name="question<%= count %>" required>
+      <div class="col-1"></div>
+    </div>
+      <% for(let answerCount = 1; answerCount < 5; answerCount++) { %>
+      <div class="row justify-content-center my-4 container text-center pe-1">
+        <label for="question" class="col-lg-3 text-lg-end"><%= answerLabeler[answerCount - 1] %>) Your Answer</label>
+        <input type="text" class="col-lg-8 mx-1" id="answer<%= answerCount %>" placeholder="Your Answer" name="answer<%= answerCount %>" required>
+      </div>
+      <% } %>
+
+    <hr>
+    <% } %>
+    <div class="row justify-content-center pb-4">
+      <button type="submit" class="customButtonDownload col-3">Make It</button>
+      <div class="col-1"></div>
+      <a href="/account" class="customButtonCancel col-3 text-center">Cancel</a>
+    </div>
+  </form>
+  <!--MC Form ENDS-->
 
 </div>

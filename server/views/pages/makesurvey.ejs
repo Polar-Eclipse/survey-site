@@ -11,35 +11,35 @@
   <h1 class="text-center polarText display-1">Make A Survey</h1>
 
   <!--Radio Button Form STARTS-->
-  <div class="text-center my-4 border border-dark col-9 logoGray border-3 whiteText py-3">
+  <div class="my-4 border border-dark col-lg-8 logoGray border-3 whiteText">
     <form action="" id="TableSwitcher" class="text-center">
-  <input type="radio" id="TrueFalse" name="surveyType" value="TF">
-  <label for="TrueFalse" class="me-3"> True or False Survey</label>
-  <input type="radio" id="MultipleChoice" name="surveyType" value="MC">
-  <label for="MultipleChoice"> Multiple Choice Survey</label>
+      <input type="radio" id="TrueFalse" name="surveyType" value="TF">
+      <label for="TrueFalse" class="me-3"> True or False Survey</label>
+      <input type="radio" id="MultipleChoice" name="surveyType" value="MC">
+      <label for="MultipleChoice"> Multiple Choice Survey</label>
     </form>
   </div>
   <!--Radio Buttion Form ENDS-->
 
   <!--True or False Form STARTS-->
   <h2 class="text-center polarText display-4" id="h2Title">True Or False </h2>
-  <form method="POST" class="my-4 border border-dark col-9 logoGray border-3 whiteText" id="TFCreatorForm">
-    <div class="row justify-content-center my-4">
-      <label for="title" class="col-3 text-end">title</label>
-      <input type="text" class="col-7" id="title" placeholder="Survey Title" name="title" required>
+  <form method="POST" class="my-4 border border-dark col-lg-7 col-md-8 logoGray border-3 whiteText" id="TFCreatorForm">
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="title" class="col-lg-3 text-lg-end">Title</label>
+      <input type="text" class="col-lg-7 mx-1" id="title" placeholder="Survey Title" name="title" required>
       <div class="col-1"></div>
     </div>
-    <div class="row justify-content-center my-4">
-      <label for="activeFor" class="col-3 text-end">Active From</label>
-      <input type="date" class="col-7" id="activeFrom" placeholder="Start Date" name="activeFrom" required>
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="activeFor" class="col-lg-3 text-lg-end">Active From</label>
+      <input type="date" class="col-lg-7 mx-1" id="activeFrom" placeholder="Start Date" name="activeFrom" required>
       <div class="col-1"></div>
     </div>
-    <div class="row justify-content-center my-4">
-      <label for="activeFor" class="col-3 text-end">Active Til</label>
-      <input type="date" class="col-7" id="expiresAt" placeholder="End Date" name="expiresAt">
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="activeFor" class="col-lg-3 text-lg-end">Active Til</label>
+      <input type="date" class="col-lg-7 mx-1" id="expiresAt" placeholder="End Date" name="expiresAt">
       <div class="col-1"></div>
     </div>
-    <div class="row justify-content-center align-items-center my-4">
+    <div class="row justify-content-center my-4 container text-center pe-1">
       <div class="col-10 col-lg-4 text-center text-lg-end me-4">
         <label for="isActiveStateOverridden" class="form-label me-2 mb-2"
           title="You can override the visibility of this survey regardless of the active/expire dates. If you check this, the value for the 'Override Value' will be used to set if your survey is visible or not.">
@@ -61,9 +61,9 @@
       </div>
     </div>
     <% for(let count = 1; count < 6; count++) {%>
-    <div class="row justify-content-center my-4">
-      <label for="question" class="col-3 text-end"><%= count %>) Your Question</label>
-      <input type="text" class="col-8" id="question" placeholder="Your Question" name="question<%= count %>" required>
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="question" class="col-lg-3 text-lg-end"><%= count %>) Your Question</label>
+      <input type="text" class="col-lg-8 mx-1" id="question" placeholder="Your Question" name="question<%= count %>" required>
       <div class="col-1"></div>
     </div>
     <hr>
@@ -77,20 +77,20 @@
   <!--True or False Form ENDS-->
 
   <!--MC Form STARTS-->
-  <form method="POST" class="my-4 border border-dark col-9 logoGray border-3 whiteText" id="MCCreatorForm" hidden>
-    <div class="row justify-content-center my-4">
-      <label for="title" class="col-3 text-end">title</label>
-      <input type="text" class="col-7" id="title" placeholder="Survey Title" name="title" required>
+  <form method="POST" class="my-4 border border-dark col-lg-7 col-md-8 logoGray border-3 whiteText" id="MCCreatorForm" hidden>
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="title" class="col-lg-3 text-lg-end">title</label>
+      <input type="text" class="col-lg-7 mx-1" id="title" placeholder="Survey Title" name="title" required>
       <div class="col-1"></div>
     </div>
-    <div class="row justify-content-center my-4">
-      <label for="activeFor" class="col-3 text-end">Active From</label>
-      <input type="date" class="col-7" id="activeFrom" placeholder="Start Date" name="activeFrom" required>
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="activeFor" class="col-lg-3 text-lg-end">Active From</label>
+      <input type="date" class="col-lg-7 mx-1" id="activeFrom" placeholder="Start Date" name="activeFrom" required>
       <div class="col-1"></div>
     </div>
-    <div class="row justify-content-center my-4">
-      <label for="activeFor" class="col-3 text-end">Active Til</label>
-      <input type="date" class="col-7" id="expiresAt" placeholder="End Date" name="expiresAt">
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="activeFor" class="col-lg-3 text-lg-end">Active Til</label>
+      <input type="date" class="col-lg-7 mx-1" id="expiresAt" placeholder="End Date" name="expiresAt">
       <div class="col-1"></div>
     </div>
     <div class="row justify-content-center align-items-center my-4">
@@ -116,14 +116,16 @@
     </div>
     <% let answerLabeler = ["a", "b", "c", "d"]; %>
     <% for(let count = 1; count < 6; count++) {%>
-    <div class="row justify-content-center my-4">
-      <label for="question" class="col-3 text-end"><%= count %>) Your Question</label>
-      <input type="text" class="col-8" id="question" placeholder="Your Question" name="question<%= count %>" required>
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="question" class="col-lg-3 text-lg-end"><%= count %>) Your Question</label>
+      <input type="text" class="col-lg-8 mx-1" id="question" placeholder="Your Question" name="question<%= count %>" required>
       <div class="col-1"></div>
     </div>
       <% for(let answerCount = 1; answerCount < 5; answerCount++) { %>
-        <label for="question" class="col-3 text-end"><%= answerLabeler[answerCount - 1] %>) Your Answer</label>
-        <input type="text" class="col-8" id="answer<%= answerCount %>" placeholder="Your Answer" name="answer<%= answerCount %>" required>
+      <div class="row justify-content-center my-4 container text-center pe-1">
+        <label for="question" class="col-lg-3 text-lg-end"><%= answerLabeler[answerCount - 1] %>) Your Answer</label>
+        <input type="text" class="col-lg-8 mx-1" id="answer<%= answerCount %>" placeholder="Your Answer" name="answer<%= answerCount %>" required>
+      </div>
       <% } %>
 
     <hr>

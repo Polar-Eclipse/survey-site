@@ -139,7 +139,7 @@ canvas {
 .highLightNavbar:hover {
     background: #87c7e2;
     color: #68c2e8;
-    transition: 1.2s;
+    transition: 1s;
 }
 
 .headerBGColor {

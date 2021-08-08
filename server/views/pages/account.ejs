@@ -9,9 +9,8 @@
 
 <!-- User Account Information Section -->
 <div class="row justify-content-center mb-5">
-
   <h1 class="text-center polarText display-1">Account</h1>
-  <div class="my-4 border border-dark col-9 logoGray border-3 whiteText">
+  <div class="my-4 border border-dark col col-sm-6 logoGray border-3 whiteText">
     <div class="row justify-content-center my-4 text-center">
       <p>User Name: <%=user.username %></p>
       <p>E-mail:<%=user.emailAddress %></p>
@@ -19,34 +18,32 @@
     </div>
 
     <div class="row justify-content-center mb-5 text-center">
-      <a href="/edituser/<%= user._id %>" class="col-6"><button class="customButtonSpecial">Edit User</button></a>
+      <a href="/edituser/<%= user._id %>" class="col"><button class="customButtonSpecial">Edit User</button></a>
     </div>
   </div>
 
-</div>
-
 <!-- The List of the User's Surveys -->
 <div class="row justify-content-center mb-5 text-center">
-  <a href="/makesurvey" class="col-4"><button class="customButtonSpecial">Make Survey</button></a>
+  <a href="/makesurvey" class="col"><button class="customButtonSpecial">Make Survey</button></a>
 </div>
 <h1 class="text-center polarText">Survey List</h1>
-<div class="row mb-5">
+<div class="row">
   <div class="col">
-    <table class="table border border-dark mb-5">
+    <table class="table border border-dark .d-none">
       <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">Title</th>
-          <th scope="col">Available From</th>
-          <th scope="col">Expires At</th>
-          <th scope="col">Active Override</th>
-          <th scope="col">Updated At</th>
+          <th scope="col" class="d-none d-lg-table-cell">Available From</th>
+          <th scope="col" class="d-none d-lg-table-cell">Expires At</th>
+          <th scope="col" class="d-none d-lg-table-cell">Active Override</th>
+          <th scope="col" class="d-none d-lg-table-cell">Updated At</th>
 
 
           <th></th>
           <th></th>
           <th></th>
-          <th></th>
+          <th class="d-none d-lg-table-cell"></th>
 
 
         </tr>
@@ -58,13 +55,13 @@
         <tr>
           <th scope="row"><%= count + 1 %></th>
           <td><%= survey[count].title %></td>
-          <td><%= displayDate(survey[count].activeFrom) %></td>
-          <td><%= displayDate(survey[count].expiresAt) %></td>
-          <td>
+          <td class="d-none d-lg-table-cell"><%= displayDate(survey[count].activeFrom) %></td>
+          <td class="d-none d-lg-table-cell"><%= displayDate(survey[count].expiresAt) %></td>
+          <td class="d-none d-lg-table-cell">
             <%= typeof survey[count].activeOverride !== "boolean" ? "" :
               survey[count].activeOverride ? "Active" : "Inactive" %>
           </td>
-          <td><%= displayDate(survey[count].updatedAt) %></td>
+          <td class="d-none d-lg-table-cell"><%= displayDate(survey[count].updatedAt) %></td>
           <td><a href="/download/<%= survey[count]._id %>"><Button class="customButtonDownload">Download</Button></a></td>
           <td class="text-center">
             <a href="/surveyresponse/<%= survey[count]._id %>">
@@ -76,7 +73,7 @@
               <button class="customButtonEdit">Edit</button>
             </a>
           </td>
-          <td class="text-center">
+          <td class="text-center d-none d-lg-table-cell">
             <a href="/delete/<%= survey[count]._id %>" title="delete"
               onclick="return confirm('Are you sure you want to delete this survey?')">
               <button class="customButtonDelete"> Delete </button>
@@ -86,5 +83,6 @@
         <% } %>
       </tbody>
     </table>
+    </div>
   </div>
 </div>

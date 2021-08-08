@@ -70,13 +70,13 @@
       <thead>
         <br><br>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col" class="d-none d-lg-table-cell">#</th>
           <th scope="col">Answer1</th>
           <th scope="col">Answer2</th>
           <th scope="col">Answer3</th>
           <th scope="col">Answer4</th>
           <th scope="col">Answer5</th>
-          <th></th>
+          <th class="d-none d-lg-table-cell"></th>
         </tr>
       </thead>
       <tbody>
@@ -85,14 +85,14 @@
 
         <% for(let count = 0; count < surveyResponses.length; count++){ %>
         <tr>
-          <th scope="row" class="polarPurpleText"><%= count + 1 %></th>
+          <th scope="row" class="polarPurpleText d-none d-lg-table-cell"><%= count + 1 %></th>
           <td><%= surveyResponses[count].answers[0] %></td>
           <td><%= surveyResponses[count].answers[1] %></td>
           <td><%= surveyResponses[count].answers[2] %></td>
           <td><%= surveyResponses[count].answers[3] %></td>
           <td><%= surveyResponses[count].answers[4] %></td>
           <td hidden name="ext"><%= surveyResponses[count].question %></td>
-          <td class="text-center">
+          <td class="text-center d-none d-lg-table-cell">
             <a href="/deleteres/<%= surveyResponses[count]._id %>" class=""
               onclick="return confirm('Are you sure you want to delete this response?')">
               <button class="customButtonDelete">Delete</button>
