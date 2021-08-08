@@ -12,7 +12,8 @@
  * @author Eunju Jo (301170731)
  */
 
-import { model, Model, Schema, Types } from "mongoose";
+import { model, Document, Model, Schema, Types } from "mongoose";
+
 // add QuestionBase interface and export it
 interface QuestionBase{
     question: string;
@@ -23,7 +24,7 @@ export interface QuestionChoice extends QuestionBase{
 }
 
 // Create an interface which TS can rely on to give us hints of what fields can be used.
-interface SurveyBase {
+interface SurveyBaseType extends Document {
     title: string;
     activeFrom: Date;
     expiresAt?: Date;
@@ -34,19 +35,20 @@ interface SurveyBase {
 }
 
 // add interface SurveyYesNO
-interface SurveyYesNo extends SurveyBase {
+export interface SurveyYesNoType extends SurveyBaseType {
     questions: string[];
     type: "yesno";
 }
 
 // add interface SurveyChoice
-interface SurveyChoice extends SurveyBase {
+export interface SurveyChoiceType extends SurveyBaseType {
     questions: QuestionChoice[];
     type: "choice";
 }
 
 // the Survey has two types
-export type Survey = SurveyYesNo | SurveyChoice;
+type Survey = SurveyYesNoType | SurveyChoiceType;
+
 export interface SurveyMethods {
     /**
      * Check if this survey is active at the given time.
@@ -57,7 +59,7 @@ export interface SurveyMethods {
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-const SurveyBaseSchema = new Schema<SurveyBase, Model<SurveyBase, {}, SurveyMethods>, SurveyBase>(
+const SurveyBaseSchema = new Schema<SurveyBaseType, Model<SurveyBaseType, {}, SurveyMethods>, SurveyBaseType>(
     {
 
         activeFrom: {
@@ -105,14 +107,16 @@ const Survey = model("Survey", SurveyBaseSchema);
 // This exports both the model and the interface
 export default Survey;
 
-//this method shows error that  type 'SurveyYesNo' does not satisfy the constraint 'Document<any, any, any>'.
-/* const SurveyYesNo = Survey.discriminator<SurveyYesNo, Model<SurveyYesNo, {}, SurveyMethods>>(
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const SurveyYesNo: Model<SurveyYesNoType, {}, SurveyMethods> = Survey.discriminator(
     "SurveyYesNo",
     new Schema({ questions: [String] }),
-    "yesno"
+    "yesno",
 );
 
-export SurveyYesNo; */
-
-export const SurveyYesNo = Survey.discriminator("yesno", new Schema({ questions: [String] }));
-export const SurveyChoice = Survey.discriminator("choice", new Schema({ questions: [{ choices: [String] }] }));
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const SurveyChoice: Model<SurveyChoiceType, {}, SurveyMethods> = Survey.discriminator(
+    "SurveyChoice",
+    new Schema({ questions: [{ choices: [String] }] }),
+    "survey",
+);

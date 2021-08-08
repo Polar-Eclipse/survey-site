@@ -14,7 +14,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Request, Response, NextFunction } from "express";
-import { EnforceDocument } from "mongoose";
 import Survey, { SurveyMethods } from "../models/survey";
 
 /*** DISPLAY FUNCTIONS ***/
@@ -193,10 +192,7 @@ export function getAvailableSurveys(done: (err: any, surveys: Survey[]) => void)
 /**
  * Get a survey object with the given id from the database
  */
-export function getSurveyById(
-    surveyId: string,
-    done: (err: any, res?: EnforceDocument<Survey, SurveyMethods>) => void,
-): void {
+export function getSurveyById(surveyId: string, done: (err: any, res?: Survey & SurveyMethods) => void): void {
     // get survey id:db.Survey.find({"_id": SurveyId})
     Survey.findById(surveyId, done);
 }
