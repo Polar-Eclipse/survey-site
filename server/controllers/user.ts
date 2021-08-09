@@ -105,7 +105,7 @@ export function processLoginPage(req: Request, res: Response, next: NextFunction
                 console.error(err);
                 return next(err);
             }
-            return res.redirect("/surveyavailable");
+            return res.redirect("/account");
         });
     })(req, res, next);
 }
