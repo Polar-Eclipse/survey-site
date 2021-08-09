@@ -13,7 +13,7 @@
   <!--Radio Button Form STARTS-->
   <div class="my-4 border border-dark col-lg-8 logoGray border-3 whiteText">
     <form action="" id="TableSwitcher" class="text-center">
-      <input type="radio" id="TrueFalse" name="surveyType" value="TF">
+      <input type="radio" id="TrueFalse" name="surveyType" value="TF" checked>
       <label for="TrueFalse" class="me-3"> True or False Survey</label>
       <input type="radio" id="MultipleChoice" name="surveyType" value="MC">
       <label for="MultipleChoice"> Multiple Choice Survey</label>
@@ -63,8 +63,9 @@
     </div>
     <% for(let count = 1; count < 6; count++) {%>
     <div class="row justify-content-center my-4 container text-center pe-1">
-      <label for="question" class="col-lg-3 text-lg-end"><%= count %>) Your Question</label>
-      <input type="text" class="col-lg-8 mx-1" id="question" placeholder="Your Question" name="question<%= count %>" required>
+      <label for="question<%= count %>" class="col-lg-3 text-lg-end"><%= count %>) Your Question</label>
+      <input type="text" class="col-lg-8 mx-1" id="question" placeholder="Your Question" name="question<%= count %>"
+        required>
       <div class="col-1"></div>
     </div>
     <hr>
@@ -78,7 +79,8 @@
   <!--True or False Form ENDS-->
 
   <!--MC Form STARTS-->
-  <form method="POST" class="my-4 border border-dark col-lg-7 col-md-8 logoGray border-3 whiteText" id="MCCreatorForm" hidden>
+  <form method="POST" class="my-4 border border-dark col-lg-7 col-md-8 logoGray border-3 whiteText" id="MCCreatorForm"
+    hidden>
     <input type="hidden" name="SurveyType" value="MC">
     <div class="row justify-content-center my-4 container text-center pe-1">
       <label for="title" class="col-lg-3 text-lg-end">title</label>
@@ -97,38 +99,43 @@
     </div>
     <div class="row justify-content-center align-items-center my-4">
       <div class="col-10 col-lg-4 text-center text-lg-end me-4">
-        <label for="isActiveStateOverridden" class="form-label me-2 mb-2"
+        <label for="isActiveStateOverriddenMC" class="form-label me-2 mb-2"
           title="You can override the visibility of this survey regardless of the active/expire dates. If you check this, the value for the 'Override Value' will be used to set if your survey is visible or not.">
           Override Active State
         </label>
-        <input type="checkbox" class="form-check-input" name="isActiveStateOverridden" id="isActiveStateOverridden">
+        <input type="checkbox" class="form-check-input" name="isActiveStateOverridden" id="isActiveStateOverriddenMC">
       </div>
       <div class="col-10 col-lg-8 row align-items-center">
         <span class="col-12 col-lg-5 text-center text-lg-end mb-1 mb-lg-0">Override Value</span>
         <div class="col-6 col-lg-3 text-center">
-          <input type="radio" name="activeOverride" id="activeOverrideActive" class="form-check-input" value="true"
+          <input type="radio" name="activeOverride" id="activeOverrideActiveMC" class="form-check-input" value="true"
             checked>
-          <label for="activeOverrideActive" class="form-label">Active</label>
+          <label for="activeOverrideActiveMC" class="form-label">Active</label>
         </div>
         <div class="col-6 col-lg-3 text-center">
-          <input type="radio" name="activeOverride" id="activeOverrideInactive" class="form-check-input" value="false">
-          <label for="activeOverrideInactive" class="form-label">Inactive</label>
+          <input type="radio" name="activeOverride" id="activeOverrideInactiveMC" class="form-check-input"
+            value="false">
+          <label for="activeOverrideInactiveMC" class="form-label">Inactive</label>
         </div>
       </div>
     </div>
     <% let answerLabeler = ["a", "b", "c", "d"]; %>
     <% for(let count = 1; count < 6; count++) {%>
     <div class="row justify-content-center my-4 container text-center pe-1">
-      <label for="question" class="col-lg-3 text-lg-end"><%= count %>) Your Question</label>
-      <input type="text" class="col-lg-8 mx-1" id="question" placeholder="Your Question" name="question<%= count %>" required>
+      <label for="question<%= count %>" class="col-lg-3 text-lg-end"><%= count %>) Your Question</label>
+      <input type="text" class="col-lg-8 mx-1" id="question" placeholder="Your Question" name="question<%= count %>"
+        required>
       <div class="col-1"></div>
     </div>
-      <% for(let answerCount = 1; answerCount < 5; answerCount++) { %>
-      <div class="row justify-content-center my-4 container text-center pe-1">
-        <label for="question" class="col-lg-3 text-lg-end"><%= answerLabeler[answerCount - 1] %>) Your Answer</label>
-        <input type="text" class="col-lg-8 mx-1" id="answer<%= answerCount %>" placeholder="Your Answer" name="answer<%= count %><%= answerCount %>" required>
-      </div>
-      <% } %>
+    <% for(let answerCount = 1; answerCount < 5; answerCount++) { %>
+    <div class="row justify-content-center my-4 container text-center pe-1">
+      <label for="answer<%= count %><%= answerCount %>" class="col-lg-3 text-lg-end">
+        <%= answerLabeler[answerCount - 1] %>) Your Answer
+      </label>
+      <input type="text" class="col-lg-8 mx-1" id="answer<%= count %><%= answerCount %>" placeholder="Your Answer"
+        name="answer<%= count %><%= answerCount %>" required>
+    </div>
+    <% } %>
 
     <hr>
     <% } %>

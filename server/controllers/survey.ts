@@ -159,24 +159,46 @@ export function processEditSurveyPage(req: Request, res: Response, next: NextFun
     }
     const userId = req.user._id;
     const id = req.params.id;
-    const updatedSurvey: Partial<Survey> = {
-        questions: [
-            req.body.question1,
-            req.body.question2,
-            req.body.question3,
-            req.body.question4,
-            req.body.question5,
-        ],
-        title: req.body.title,
-        activeFrom: req.body.activeFrom,
-        expiresAt: req.body.expiresAt || undefined,
-        activeOverride: req.body.isActiveStateOverridden ? req.body.activeOverride === "true" : undefined,
-    };
-    Survey.findOneAndUpdate({ owner: userId, _id: id }, updatedSurvey, {}, (err) => {
+
+    getSurveyById(id, (err, survey) => {
         if (err) {
             return next(err);
         }
-        res.redirect("/account");
+
+        if (!survey || !survey.owner.equals(userId)) {
+            return res.redirect("/account");
+        }
+
+        survey.title = req.body.title;
+        survey.activeFrom = req.body.activeFrom;
+        survey.expiresAt = req.body.expiresAt || undefined;
+        survey.activeOverride = req.body.isActiveStateOverridden ? req.body.activeOverride === "true" : undefined;
+
+        if (survey.type === "yesno") {
+            survey.questions = [
+                req.body.question1,
+                req.body.question2,
+                req.body.question3,
+                req.body.question4,
+                req.body.question5,
+            ];
+        } else {
+            survey.questions = [
+                { question: req.body.question1, choices: [req.body.answer11, req.body.answer12, req.body.answer13, req.body.answer14] },
+                { question: req.body.question2, choices: [req.body.answer21, req.body.answer22, req.body.answer23, req.body.answer24] },
+                { question: req.body.question3, choices: [req.body.answer31, req.body.answer32, req.body.answer33, req.body.answer34] },
+                { question: req.body.question4, choices: [req.body.answer41, req.body.answer42, req.body.answer43, req.body.answer44] },
+                { question: req.body.question5, choices: [req.body.answer51, req.body.answer52, req.body.answer53, req.body.answer54] },
+            ];
+        }
+
+        survey.save({}, (err) => {
+            if (err) {
+                return next(err);
+            }
+
+            res.redirect("/account");
+        });
     });
 }
 
