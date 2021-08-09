@@ -117,6 +117,14 @@ export const SurveyYesNo: Model<SurveyYesNoType, {}, SurveyMethods> = Survey.dis
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const SurveyChoice: Model<SurveyChoiceType, {}, SurveyMethods> = Survey.discriminator(
     "SurveyChoice",
-    new Schema({ questions: [{ choices: [String] }] }),
-    "survey",
+    new Schema({
+        questions: [{
+            question: {
+                type: String,
+                required: true,
+            },
+            choices: [String],
+        }],
+    }),
+    "choice",
 );
