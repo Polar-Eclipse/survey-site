@@ -14,7 +14,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Request, Response, NextFunction } from "express";
-import Survey, { SurveyMethods } from "../models/survey";
+import Survey, { SurveyMethods, SurveyChoice, SurveyYesNo } from "../models/survey";
 
 /*** DISPLAY FUNCTIONS ***/
 
@@ -91,20 +91,38 @@ export function processMakeSurveyPage(req: Request, res: Response, next: NextFun
     }
     // pass the user _id to variable userId
     const userId = req.user._id;
-    const newSurvey = new Survey({
-        questions: [
-            req.body.question1,
-            req.body.question2,
-            req.body.question3,
-            req.body.question4,
-            req.body.question5,
-        ],
-        title: req.body.title,
-        activeFrom: req.body.activeFrom,
-        expiresAt: req.body.expiresAt || undefined,
-        activeOverride: req.body.isActiveStateOverridden ? req.body.activeOverride === "true" : undefined,
-        owner: userId,
-    });
+    let newSurvey;
+    if (req.body.SurveyType === "TF") {
+        newSurvey = new SurveyYesNo({
+            questions: [
+                req.body.question1,
+                req.body.question2,
+                req.body.question3,
+                req.body.question4,
+                req.body.question5,
+            ],
+            title: req.body.title,
+            activeFrom: req.body.activeFrom,
+            expiresAt: req.body.expiresAt || undefined,
+            activeOverride: req.body.isActiveStateOverridden ? req.body.activeOverride === "true" : undefined,
+            owner: userId,
+        });
+    } else {
+        newSurvey = new SurveyChoice({
+            questions: [
+                { question: req.body.question1, choices: [req.body.answer11, req.body.answer12, req.body.answer13, req.body.answer14] },
+                { question: req.body.question2, choices: [req.body.answer21, req.body.answer22, req.body.answer23, req.body.answer24] },
+                { question: req.body.question3, choices: [req.body.answer31, req.body.answer32, req.body.answer33, req.body.answer34] },
+                { question: req.body.question4, choices: [req.body.answer41, req.body.answer42, req.body.answer43, req.body.answer44] },
+                { question: req.body.question5, choices: [req.body.answer51, req.body.answer52, req.body.answer53, req.body.answer54] },
+            ],
+            title: req.body.title,
+            activeFrom: req.body.activeFrom,
+            expiresAt: req.body.expiresAt || undefined,
+            activeOverride: req.body.isActiveStateOverridden ? req.body.activeOverride === "true" : undefined,
+            owner: userId,
+        });
+    }
     //insert newSurvey to db
     Survey.create(newSurvey, (err) => {
         if (err) {
