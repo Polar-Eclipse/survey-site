@@ -43,13 +43,13 @@
       <h4 class="col-8"><%= qIdx %>) <%= surveyField.questions[i].question %></h4>
     </div>
     <div class="row justify-content-center">
-      <div class="row justify-content-center col-6">
+      <div class="row justify-content-center col-9 col-lg-7">
         <% for (let j = 0; j < surveyField.questions[i].choices.length; j++) { %>
         <% let aIdx = j + 1; %>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="answer<%= qIdx %>" id="answer<%= qIdx %><%= aIdx %>"
             value="<%= aIdx %>" required>
-          <label class="form-check-label" for="answer<%= qIdx %><%= aIdx %>">
+          <label class="form-check-label col" for="answer<%= qIdx %><%= aIdx %>">
             <%= surveyField.questions[i].choices[j] %>
           </label>
         </div>
