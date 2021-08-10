@@ -32,24 +32,47 @@ export function displayResult(req: Request, res: Response, next: NextFunction): 
         if (err || !survey) {
             return next(err);
         }
+        if (survey.type === "yesno") {
+            const answeredTrue = [0, 0, 0, 0, 0];
 
-        const answeredTrue = [0, 0, 0, 0, 0];
-
-        for (let i = 0; i < survey.response.length; i++) {
-            for (let j = 0; j < survey.response[i].answers.length; j++) { //survey
-                if (survey.response[i].answers[j] == "True") { //answers
-                    answeredTrue[j] = answeredTrue[j] + 1;
+            for (let i = 0; i < survey.response.length; i++) {
+                for (let j = 0; j < survey.response[i].answers.length; j++) { //survey
+                    if (survey.response[i].answers[j] == "True") { //answers
+                        answeredTrue[j] = answeredTrue[j] + 1;
+                    }
                 }
             }
+            res.locals.scripts.push("charts");
+            res.render("index", {
+                title: "Survey Response",
+                page: "surveyresponse",
+                surveyResponses: survey.response,
+                survey: survey,
+                tally: answeredTrue,
+            });
+        } else {
+            const tally: Record<string, number>[] = [{}, {}, {}, {}, {}]; // array of objects
+
+            for (let i = 0; i < survey.response.length; i++) { // for each response
+                for (let j = 0; j < survey.response[i].answers.length; j++) { // for each question
+                    const answer = survey.response[i].answers[j]; // constant variable for convenience
+                    // It is possible that the value of `tally[j][answer]` is not number.
+                    // This happens when the key-value with the `answer` as the key is not defined yet.
+                    // Below is just one way to handle this. You can use an if statement or anything else.
+
+                    tally[j][answer] = tally[j][answer] ? tally[j][answer] + 1 : 1;
+                }
+            }
+
+            res.locals.scripts.push("charts");
+            res.render("index", {
+                title: "Survey Response",
+                page: "surveyresponse",
+                surveyResponses: survey.response,
+                survey: survey,
+                tally: tally,
+            });
         }
-        res.locals.scripts.push("charts");
-        res.render("index", {
-            title: "Survey Response",
-            page: "surveyresponse",
-            surveyResponses: survey.response,
-            survey: survey,
-            tally: answeredTrue,
-        });
     });
 }
 
