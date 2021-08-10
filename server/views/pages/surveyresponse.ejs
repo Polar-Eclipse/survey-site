@@ -133,18 +133,18 @@
           <% for(let count = 0; count < tally.length; count++){ %>
           <tr>
             <th scope="row" class="polarText text-center">Question <%= count + 1 %></th>
-            <th class="text-center polarText"><%= displayPercent(tally[count], surveyResponses.length) %></th>
+            <th class="text-center polarText"><%= displayPercent(tally[count][1], surveyResponses.length) %></th>
             <th class="text-center polarText">
-              <%= displayPercent(surveyResponses.length - tally[count], surveyResponses.length) %>
+              <%= displayPercent(tally[count][2], surveyResponses.length) %>
             </th>
-            <th class="text-center polarText"><%= displayPercent(tally[count], surveyResponses.length) %></th>
+            <th class="text-center polarText"><%= displayPercent(tally[count][3], surveyResponses.length) %></th>
             <th class="text-center polarText">
-              <%= displayPercent(surveyResponses.length - tally[count], surveyResponses.length) %>
+              <%= displayPercent(tally[count][4], surveyResponses.length) %>
             </th>
-            <th class="text-center polarText" id="question<%= count + 1 %>True" class="qTrue"><%= tally[count]%></th>
-            <th class="text-center polarText"id="question<%= count + 1 %>False" class="qFalse"><%= surveyResponses.length - tally[count]%></th>
-            <th class="text-center polarText" id="question<%= count + 1 %>True" class="qTrue"><%= tally[count]%></th>
-            <th class="text-center polarText"id="question<%= count + 1 %>False" class="qFalse"><%= surveyResponses.length - tally[count]%></th>
+            <th class="text-center polarText" id="question<%= count + 1 %>A" class="qA"><%= tally[count][1]%></th>
+            <th class="text-center polarText"id="question<%= count + 1 %>B" class="qB"><%= tally[count][2]%></th>
+            <th class="text-center polarText" id="question<%= count + 1 %>C" class="qC"><%= tally[count][3]%></th>
+            <th class="text-center polarText"id="question<%= count + 1 %>D" class="qD"><%= tally[count][4]%></th>
           </tr>
           <% } %>
 

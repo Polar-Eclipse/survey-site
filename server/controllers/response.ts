@@ -51,16 +51,13 @@ export function displayResult(req: Request, res: Response, next: NextFunction): 
                 tally: answeredTrue,
             });
         } else {
-            const tally: Record<string, number>[] = [{}, {}, {}, {}, {}]; // array of objects
+            const tally: Record<string, number>[] = [{ 1: 0, 2: 0, 3: 0, 4: 0 }, { 1: 0, 2: 0, 3: 0, 4: 0 }, { 1: 0, 2: 0, 3: 0, 4: 0 }, { 1: 0, 2: 0, 3: 0, 4: 0 }, { 1: 0, 2: 0, 3: 0, 4: 0 }]; // array of objects
 
             for (let i = 0; i < survey.response.length; i++) { // for each response
                 for (let j = 0; j < survey.response[i].answers.length; j++) { // for each question
                     const answer = survey.response[i].answers[j]; // constant variable for convenience
-                    // It is possible that the value of `tally[j][answer]` is not number.
-                    // This happens when the key-value with the `answer` as the key is not defined yet.
-                    // Below is just one way to handle this. You can use an if statement or anything else.
 
-                    tally[j][answer] = tally[j][answer] ? tally[j][answer] + 1 : 1;
+                    tally[j][answer] = answer ? tally[j][answer] + 1 : 1;
                 }
             }
 
