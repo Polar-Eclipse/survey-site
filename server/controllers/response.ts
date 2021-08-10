@@ -28,26 +28,48 @@ import { downloadResource } from "../util";
 export function displayResult(req: Request, res: Response, next: NextFunction): void {
     const id = req.params.id;
 
-    getAllResponse(id, (err, selectedResponse) => {
-        if (err || !selectedResponse) {
+    getAllResponse(id, (err, survey) => {
+        if (err || !survey) {
             return next(err);
         }
 
-        const answeredTrue = [0, 0, 0, 0, 0];
+        let tally: any[];
 
-        for (let i = 0; i < selectedResponse.length; i++) {
-            for (let j = 0; j < selectedResponse[i].answers.length; j++) { //survey
-                if (selectedResponse[i].answers[j] == "True") { //answers
-                    answeredTrue[j] = answeredTrue[j] + 1;
+        if (survey.type === "yesno") {
+            const answeredTrue = [0, 0, 0, 0, 0];
+
+            for (let i = 0; i < survey.response.length; i++) {
+                for (let j = 0; j < survey.response[i].answers.length; j++) { //survey
+                    if (survey.response[i].answers[j] == "True") { //answers
+                        answeredTrue[j] = answeredTrue[j] + 1;
+                    }
                 }
             }
+
+            tally = answeredTrue;
+        } else {
+            // Create an array of objects where the objects contain number of answers per each option.
+            // We use `fill(null)` then `map` because the objects must be of separate instances.
+            // If we just use `fill({ ... })`, then the array is populated with identical object instances.
+            // Using `map` with a function to be called for each item, we create a fresh instance for each item.
+            const numAnswers: Record<string, number>[] = Array(5).fill(null).map(() => ({ 1: 0, 2: 0, 3: 0, 4: 0 }));
+
+            for (let i = 0; i < survey.response.length; i++) { // for each response
+                for (let j = 0; j < survey.response[i].answers.length; j++) { // for each question
+                    numAnswers[j][survey.response[i].answers[j]] += 1;
+                }
+            }
+
+            tally = numAnswers;
         }
+
         res.locals.scripts.push("charts");
         res.render("index", {
             title: "Survey Response",
             page: "surveyresponse",
-            surveyResponses: selectedResponse,
-            tally: answeredTrue,
+            surveyResponses: survey.response,
+            survey: survey,
+            tally: tally,
         });
     });
 }
@@ -142,20 +164,36 @@ export function insertResponse(response: ResponseM, done: (err: any, res: Respon
 }
 
 /**
- * Get an array of user reponse to the survey with the given id
+ * Get the survey with the given id, populated with an array of user reponse to it
  *
  * @param surveyId The ID of the survey
  * @param done The callback function
  */
-export function getAllResponse(surveyId: string, done: (err: any, res?: ResponseM[]) => void): void {
-    ResponseM.find({ question: surveyId }, (err, result) => {
+export function getAllResponse(
+    surveyId: string,
+    done: (err?: any, res?: Survey & { response: ResponseM[] }) => void,
+): void {
+    Survey.findById(surveyId, {}, {}, (err, survey) => {
         if (err) {
-            done(err);
-        } else {
-            done(undefined, result);
+            return done(err);
         }
+
+        if (!survey) {
+            return done();
+        }
+
+        ResponseM.find({ question: surveyId }, (err, response) => {
+            if (err) {
+                return done(err);
+            }
+
+            const surveyWithResponse = survey as Survey & { response: ResponseM[] };
+            surveyWithResponse.response = response;
+            done(undefined, surveyWithResponse);
+        });
     });
 }
+
 export async function downloadRaw (req: Request, res: Response, _next: NextFunction): Promise<void> {
     if (!req.user) { // if req.user is undefined
         throw Error("Unreachable: this route handler is called only when the user is logged in");
