@@ -14,9 +14,9 @@
       <thead>
         <br><br>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col" class="text-center d-none d-lg-table-cell">#</th>
           <th scope="col">Title</th>
-          <th scope="col">Available From</th>
+          <th scope="col" class="text-center d-none d-lg-table-cell">Available From</th>
           <th scope="col">Expires At</th>
           <th></th>
         </tr>
@@ -27,9 +27,9 @@
 
         <% for(let count = 0; count < survey.length; count++){ %>
         <tr>
-          <th scope="row" class="polarPurpleText"><%= count + 1 %></th>
+          <th scope="row" class="polarPurpleText d-none d-lg-table-cell"><%= count + 1 %></th>
           <td><%= survey[count].title %></td>
-          <td><%= displayDate(survey[count].activeFrom) %></td>
+          <td class="text-center d-none d-lg-table-cell"><%= displayDate(survey[count].activeFrom) %></td>
           <td><%= displayDate(survey[count].expiresAt) %></td>
           <td class="text-center"><a href="/question/<%= survey[count]._id %>"> <button class="customButtonEdit">Take</button> </a>
           </td>
