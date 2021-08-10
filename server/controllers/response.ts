@@ -32,6 +32,9 @@ export function displayResult(req: Request, res: Response, next: NextFunction): 
         if (err || !survey) {
             return next(err);
         }
+
+        let tally: any[];
+
         if (survey.type === "yesno") {
             const answeredTrue = [0, 0, 0, 0, 0];
 
@@ -42,34 +45,32 @@ export function displayResult(req: Request, res: Response, next: NextFunction): 
                     }
                 }
             }
-            res.locals.scripts.push("charts");
-            res.render("index", {
-                title: "Survey Response",
-                page: "surveyresponse",
-                surveyResponses: survey.response,
-                survey: survey,
-                tally: answeredTrue,
-            });
+
+            tally = answeredTrue;
         } else {
-            const tally: Record<string, number>[] = [{ 1: 0, 2: 0, 3: 0, 4: 0 }, { 1: 0, 2: 0, 3: 0, 4: 0 }, { 1: 0, 2: 0, 3: 0, 4: 0 }, { 1: 0, 2: 0, 3: 0, 4: 0 }, { 1: 0, 2: 0, 3: 0, 4: 0 }]; // array of objects
+            // Create an array of objects where the objects contain number of answers per each option.
+            // We use `fill(null)` then `map` because the objects must be of separate instances.
+            // If we just use `fill({ ... })`, then the array is populated with identical object instances.
+            // Using `map` with a function to be called for each item, we create a fresh instance for each item.
+            const numAnswers: Record<string, number>[] = Array(5).fill(null).map(() => ({ 1: 0, 2: 0, 3: 0, 4: 0 }));
 
             for (let i = 0; i < survey.response.length; i++) { // for each response
                 for (let j = 0; j < survey.response[i].answers.length; j++) { // for each question
-                    const answer = survey.response[i].answers[j]; // constant variable for convenience
-
-                    tally[j][answer] = answer ? tally[j][answer] + 1 : 1;
+                    numAnswers[j][survey.response[i].answers[j]] += 1;
                 }
             }
 
-            res.locals.scripts.push("charts");
-            res.render("index", {
-                title: "Survey Response",
-                page: "surveyresponse",
-                surveyResponses: survey.response,
-                survey: survey,
-                tally: tally,
-            });
+            tally = numAnswers;
         }
+
+        res.locals.scripts.push("charts");
+        res.render("index", {
+            title: "Survey Response",
+            page: "surveyresponse",
+            surveyResponses: survey.response,
+            survey: survey,
+            tally: tally,
+        });
     });
 }
 
