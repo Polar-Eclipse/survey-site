@@ -31,7 +31,7 @@
                 datasets:[{
                     label: 'Question 1',
                     data: [A, B, C, D],
-                    backgroundColor: ['gray', 'black', 'lightgray', 'dimgray'],
+                    backgroundColor: ['gray', 'black', 'skyblue', 'slateblue'],
                     borderWidth: 3,
                     borderColor: 'green',
                     hoverBorderWidth: 10,
