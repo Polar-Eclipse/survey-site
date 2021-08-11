@@ -31,7 +31,7 @@
                 datasets:[{
                     label: 'Question 1',
                     data: [A, B, C, D],
-                    backgroundColor: ['gray', 'black'],
+                    backgroundColor: ['gray', 'black', 'lightgray', 'dimgray'],
                     borderWidth: 3,
                     borderColor: 'green',
                     hoverBorderWidth: 10,
@@ -43,7 +43,7 @@
     }
 
     function Start(){
-        if (document.getElementById(`question${i}True`).innerText != null) {
+        if (document.getElementById(`question1True`)) {
             let surveyQuestion = document.getElementsByClassName('chartCanvas');
 
             for (let i = 1; i <  surveyQuestion.length + 1; i++)
@@ -56,7 +56,7 @@
         }
         else {
             let surveyQuestion = document.getElementsByClassName('chartCanvas');
-    
+
             for (let i = 1; i <  surveyQuestion.length + 1; i++)
             {
                 let option = document.getElementById(`question${i}Canvas`).getContext('2d');
@@ -73,4 +73,3 @@
     window.addEventListener('load', Start);
 
 })();
-
