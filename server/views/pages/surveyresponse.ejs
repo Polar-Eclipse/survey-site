@@ -8,7 +8,7 @@
 <%# @author Eunju Jo (301170731) %>
 
 <h1 class="text-center polarText display-1">Survey Response</h1>
-<h2 class="text-center polarText mt-5">Visual Representation</h2>
+<h2 class="text-center polarText my-5">Visual Representation</h2>
 <div class="ms-4 ps-2 container">
   <div class="canvasLine">
     <canvas id="question1Canvas" class="chartCanvas"></canvas>
@@ -81,10 +81,10 @@
           <th scope="col" class="text-center">Second Choice</th>
           <th scope="col" class="text-center">Third Choice</th>
           <th scope="col" class="text-center">Fourth Choice</th>
-          <th scope="col" class="text-center">Total First Choice</th>
-          <th scope="col" class="text-center">Total Second Choice</th>
-          <th scope="col" class="text-center">Total Third Choice</th>
-          <th scope="col" class="text-center">Total Fourth Choice</th>
+          <th scope="col" class="text-center d-none d-lg-table-cell">Total First Choice</th>
+          <th scope="col" class="text-center d-none d-lg-table-cell">Total Second Choice</th>
+          <th scope="col" class="text-center d-none d-lg-table-cell">Total Third Choice</th>
+          <th scope="col" class="text-center d-none d-lg-table-cell">Total Fourth Choice</th>
         </tr>
       </thead>
       <tbody>
@@ -98,10 +98,10 @@
           <th class="text-center polarText"><%= displayPercent(tally[count][2], surveyResponses.length) %></th>
           <th class="text-center polarText"><%= displayPercent(tally[count][3], surveyResponses.length) %></th>
           <th class="text-center polarText"><%= displayPercent(tally[count][4], surveyResponses.length) %></th>
-          <th class="text-center polarText" id="question<%= count + 1 %>A" class="qA"><%= tally[count][1]%></th>
-          <th class="text-center polarText" id="question<%= count + 1 %>B" class="qB"><%= tally[count][2]%></th>
-          <th class="text-center polarText" id="question<%= count + 1 %>C" class="qC"><%= tally[count][3]%></th>
-          <th class="text-center polarText" id="question<%= count + 1 %>D" class="qD"><%= tally[count][4]%></th>
+          <th class="text-center polarText d-none d-lg-table-cell" id="question<%= count + 1 %>A" class="qA"><%= tally[count][1]%></th>
+          <th class="text-center polarText d-none d-lg-table-cell" id="question<%= count + 1 %>B" class="qB"><%= tally[count][2]%></th>
+          <th class="text-center polarText d-none d-lg-table-cell" id="question<%= count + 1 %>C" class="qC"><%= tally[count][3]%></th>
+          <th class="text-center polarText d-none d-lg-table-cell" id="question<%= count + 1 %>D" class="qD"><%= tally[count][4]%></th>
         </tr>
         <% } %>
 
@@ -116,11 +116,11 @@
         <br><br>
         <tr>
           <th scope="col" class="d-none d-lg-table-cell">#</th>
-          <th scope="col">Answer1</th>
-          <th scope="col">Answer2</th>
-          <th scope="col">Answer3</th>
-          <th scope="col">Answer4</th>
-          <th scope="col">Answer5</th>
+          <th scope="col">Answer 1</th>
+          <th scope="col">Answer 2</th>
+          <th scope="col">Answer 3</th>
+          <th scope="col">Answer 4</th>
+          <th scope="col">Answer 5</th>
           <th class="d-none d-lg-table-cell"></th>
         </tr>
       </thead>
