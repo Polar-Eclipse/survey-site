@@ -27,9 +27,19 @@
 </head>
 
 <body>
-  <header>
+  <div class="night d-none d-md-block">
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+  <header class="rotate-40">
     <%- include("partials/header") %>
   </header>
+  </div>
+    <main class="container mb-5">
+      <%- include(`pages/${page}`) %>
+    </main>
 
   <main class="container mb-5">
     <%- include(`pages/${page}`) %>
