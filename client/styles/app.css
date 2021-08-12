@@ -211,7 +211,7 @@ body {
         transform: translate(0);
     }
     100% {
-        transform: translateX(400px);
+        transform: translateX(550px);
     }
 }
 
