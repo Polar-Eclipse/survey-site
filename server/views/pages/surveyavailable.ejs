@@ -10,7 +10,7 @@
 <h1 class="text-center polarText display-1">Available Survey</h1>
 <div class="row">
   <div class="col">
-    <table class="table border border-dark">
+    <table class="table border border-dark logoGray">
       <thead>
         <br><br>
         <tr>
@@ -31,7 +31,7 @@
           <td><%= survey[count].title %></td>
           <td class="text-center d-none d-lg-table-cell"><%= displayDate(survey[count].activeFrom) %></td>
           <td><%= displayDate(survey[count].expiresAt) %></td>
-          <td class="text-center"><a href="/question/<%= survey[count]._id %>"> <button class="customButtonEdit">Take</button> </a>
+          <td class="text-center"><a href="/question/<%= survey[count]._id %>"> <button class="customButtonEdit">Participate</button> </a>
           </td>
         </tr>
         <% } %>

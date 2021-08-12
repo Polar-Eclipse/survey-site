@@ -22,7 +22,12 @@
     background-color: #0d1e41;
 }
 .logoGray {
-    background-color: #585858;
+    background-color: transparent;
+    transition: all 0.9s;
+}
+.logoGray:hover {
+    background-color: #050f21;
+    opacity: 0.9;
 }
 .logoDarkGray {
     background-color: #3b3b3b;
@@ -161,4 +166,11 @@ canvas {
     box-shadow: 0 0.5em 0.5em -0.4em #c2e868;
     transform: translateY(-0.2em);
     cursor: pointer;
+}
+
+body {
+    background-image: url("../images/Stars.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: unset;
 }
