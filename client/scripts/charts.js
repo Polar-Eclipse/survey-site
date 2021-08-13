@@ -1,6 +1,11 @@
 "use strict";
 (function(){
 
+    function disapear (){
+        let disaparingLable = document.getElementById("disapearingText");
+        disaparingLable.hidden = false;
+        setTimeout(disaparingLable.hidden = true, 4000);
+    }
 
     function chartDraw(option, tr, fl){
 
@@ -31,7 +36,7 @@
                 datasets:[{
                     label: 'Question 1',
                     data: [A, B, C, D],
-                    backgroundColor: ['gray', 'black', 'lightgray', 'dimgray'],
+                    backgroundColor: ['gray', 'black', 'skyblue', 'slateblue'],
                     borderWidth: 3,
                     borderColor: 'green',
                     hoverBorderWidth: 10,
@@ -43,6 +48,7 @@
     }
 
     function Start(){
+        disapear();
         if (document.getElementById(`question1True`)) {
             let surveyQuestion = document.getElementsByClassName('chartCanvas');
 

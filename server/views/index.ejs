@@ -15,7 +15,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title ? `${title} | ` : null %>Polar Survey</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"></script>
+  <script src="/chart.js/dist/chart.min.js"></script>
 
   <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
@@ -27,14 +27,19 @@
 </head>
 
 <body>
-  <header>
+  <div class="night d-none d-lg-block">
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+  </div>
+  <header class="">
     <%- include("partials/header") %>
   </header>
-
-  <main class="container mb-5">
-    <%- include(`pages/${page}`) %>
-  </main>
-
+    <main class="container mb-5">
+      <%- include(`pages/${page}`) %>
+    </main>
   <footer>
     <%- include("partials/footer") %>
   </footer>
