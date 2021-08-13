@@ -176,8 +176,8 @@ body {
 }
 .night {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     transform: rotateZ(40deg);
 }
 .rotate-40 {
@@ -290,8 +290,8 @@ body {
 }
 
 .star:nth-child(5) {
-    top: calc(50% - -400px);
-    left: calc(50% - 500px);
+    top: calc(50% - -300px);
+    left: calc(50% - 400px);
     animation-delay: 1.5s;
 }
 
