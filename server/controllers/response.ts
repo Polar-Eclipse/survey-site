@@ -153,48 +153,10 @@ export function processDeleteResult(req: Request, res: Response, next: NextFunct
     });
 }
 
-
-/*** DATABASE FUNCTIONS ***/
-
 /**
- * Insert a new Response object to the database
+ * Process a request to download the answers to the given survey
  */
-export function insertResponse(response: ResponseM, done: (err: any, res: ResponseM) => void): void {
-    ResponseM.create(response, done);
-}
-
-/**
- * Get the survey with the given id, populated with an array of user reponse to it
- *
- * @param surveyId The ID of the survey
- * @param done The callback function
- */
-export function getAllResponse(
-    surveyId: string,
-    done: (err?: any, res?: Survey & { response: ResponseM[] }) => void,
-): void {
-    Survey.findById(surveyId, {}, {}, (err, survey) => {
-        if (err) {
-            return done(err);
-        }
-
-        if (!survey) {
-            return done();
-        }
-
-        ResponseM.find({ question: surveyId }, (err, response) => {
-            if (err) {
-                return done(err);
-            }
-
-            const surveyWithResponse = survey as Survey & { response: ResponseM[] };
-            surveyWithResponse.response = response;
-            done(undefined, surveyWithResponse);
-        });
-    });
-}
-
-export async function downloadRaw (req: Request, res: Response, _next: NextFunction): Promise<void> {
+export async function downloadRaw(req: Request, res: Response, _next: NextFunction): Promise<void> {
     if (!req.user) { // if req.user is undefined
         throw Error("Unreachable: this route handler is called only when the user is logged in");
     }
@@ -247,4 +209,45 @@ export async function downloadRaw (req: Request, res: Response, _next: NextFunct
 
     const data = await ResponseM.find({ question: id });
     downloadResource(res, "response.csv", fields, data);
+}
+
+
+/*** DATABASE FUNCTIONS ***/
+
+/**
+ * Insert a new Response object to the database
+ */
+export function insertResponse(response: ResponseM, done: (err: any, res: ResponseM) => void): void {
+    ResponseM.create(response, done);
+}
+
+/**
+ * Get the survey with the given id, populated with an array of user reponse to it
+ *
+ * @param surveyId The ID of the survey
+ * @param done The callback function
+ */
+export function getAllResponse(
+    surveyId: string,
+    done: (err?: any, res?: Survey & { response: ResponseM[] }) => void,
+): void {
+    Survey.findById(surveyId, {}, {}, (err, survey) => {
+        if (err) {
+            return done(err);
+        }
+
+        if (!survey) {
+            return done();
+        }
+
+        ResponseM.find({ question: surveyId }, (err, response) => {
+            if (err) {
+                return done(err);
+            }
+
+            const surveyWithResponse = survey as Survey & { response: ResponseM[] };
+            surveyWithResponse.response = response;
+            done(undefined, surveyWithResponse);
+        });
+    });
 }
