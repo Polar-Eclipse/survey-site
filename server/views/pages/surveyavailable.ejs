@@ -1,4 +1,4 @@
-<%# The header of every page %>
+<%# The list of currently available surveys %>
 <%# Polar Survey %>
 <%# @author Aun Raza (301074590) %>
 <%# @author Jamee Kim (301058465) %>
@@ -31,7 +31,8 @@
           <td><%= survey[count].title %></td>
           <td class="text-center d-none d-lg-table-cell"><%= displayDate(survey[count].activeFrom) %></td>
           <td><%= displayDate(survey[count].expiresAt) %></td>
-          <td class="text-center"><a href="/question/<%= survey[count]._id %>"> <button class="customButtonEdit">Participate</button> </a>
+          <td class="text-center">
+            <a href="/question/<%= survey[count]._id %>"><button class="customButtonEdit">Participate</button> </a>
           </td>
         </tr>
         <% } %>

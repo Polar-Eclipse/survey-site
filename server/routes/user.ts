@@ -1,7 +1,7 @@
 /**
  * server/routes/user.ts
  *
- * User-Related Router to be exported to server/routers/index
+ * User-related router to be exported to server/routers/index
  *
  * Polar Survey
  * @author Aun Raza (301074590)

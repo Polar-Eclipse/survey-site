@@ -1,4 +1,4 @@
-<%# The page to create/edit a survey question %>
+<%# The page to create a survey question %>
 <%# Polar Survey %>
 <%# @author Aun Raza (301074590) %>
 <%# @author Jamee Kim (301058465) %>
@@ -13,14 +13,14 @@
   <!--Radio Button Form STARTS-->
   <div class="my-4 border border-dark col-lg-8 logoGray border-3 whiteText">
     <form action="" id="TableSwitcher" class="text-center">
-    <div>
-      <input type="radio" id="TrueFalse" name="surveyType" value="TF" checked>
-      <label for="TrueFalse" class="me-3"> True or False Survey</label>
-    </div>
-    <div>
-      <input type="radio" id="MultipleChoice" name="surveyType" value="MC">
-      <label for="MultipleChoice"> Multiple Choice Survey</label>
-    </div>
+      <div>
+        <input type="radio" id="TrueFalse" name="surveyType" value="TF" checked>
+        <label for="TrueFalse" class="me-3"> True or False Survey</label>
+      </div>
+      <div>
+        <input type="radio" id="MultipleChoice" name="surveyType" value="MC">
+        <label for="MultipleChoice"> Multiple Choice Survey</label>
+      </div>
     </form>
   </div>
   <!--Radio Buttion Form ENDS-->
@@ -75,7 +75,8 @@
     <hr>
     <% } %>
     <div class="row justify-content-center pb-4">
-      <button type="submit" class="customButtonDownload col col-lg-3 my-2" style="display: inline-block;">Make It</button>
+      <button type="submit" class="customButtonDownload col col-lg-3 my-2" style="display: inline-block;">Make
+        It</button>
       <div class="col-1"></div>
       <a href="/account" class="customButtonCancel col col-lg-3 my-2 py-2 text-center">Cancel</a>
     </div>

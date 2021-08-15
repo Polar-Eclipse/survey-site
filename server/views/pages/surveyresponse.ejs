@@ -1,4 +1,4 @@
-<%# The header of every page %>
+<%# Page to view results of a survey %>
 <%# Polar Survey %>
 <%# @author Aun Raza (301074590) %>
 <%# @author Jamee Kim (301058465) %>
@@ -33,7 +33,7 @@
   </div>
 </div>
 <br>
-<a href="/account" class="customButtonCancel text-center"> << Back</a>
+<a href="/account" class="customButtonCancel text-center"> &lt;&lt; Back</a>
 <div class="row">
   <div class="col">
     <h2 class="text-center polarText mt-5">Statistics</h2>
@@ -100,10 +100,18 @@
           <th class="text-center polarText"><%= displayPercent(tally[count][2], surveyResponses.length) %></th>
           <th class="text-center polarText"><%= displayPercent(tally[count][3], surveyResponses.length) %></th>
           <th class="text-center polarText"><%= displayPercent(tally[count][4], surveyResponses.length) %></th>
-          <th class="text-center polarText d-none d-lg-table-cell" id="question<%= count + 1 %>A" class="qA"><%= tally[count][1]%></th>
-          <th class="text-center polarText d-none d-lg-table-cell" id="question<%= count + 1 %>B" class="qB"><%= tally[count][2]%></th>
-          <th class="text-center polarText d-none d-lg-table-cell" id="question<%= count + 1 %>C" class="qC"><%= tally[count][3]%></th>
-          <th class="text-center polarText d-none d-lg-table-cell" id="question<%= count + 1 %>D" class="qD"><%= tally[count][4]%></th>
+          <th class="text-center polarText d-none d-lg-table-cell" id="question<%= count + 1 %>A" class="qA">
+            <%= tally[count][1]%>
+          </th>
+          <th class="text-center polarText d-none d-lg-table-cell" id="question<%= count + 1 %>B" class="qB">
+            <%= tally[count][2]%>
+          </th>
+          <th class="text-center polarText d-none d-lg-table-cell" id="question<%= count + 1 %>C" class="qC">
+            <%= tally[count][3]%>
+          </th>
+          <th class="text-center polarText d-none d-lg-table-cell" id="question<%= count + 1 %>D" class="qD">
+            <%= tally[count][4]%>
+          </th>
         </tr>
         <% } %>
 

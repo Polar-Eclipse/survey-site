@@ -1,7 +1,7 @@
 /**
  * server/routes/survey.ts
  *
- * Survey-Related Routers to be exported to server/routers/index
+ * Survey-related routers to be exported to server/routers/index
  *
  * Polar Survey
  * @author Aun Raza (301074590)
