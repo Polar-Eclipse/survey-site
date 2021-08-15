@@ -21,6 +21,9 @@
     let MCCreatorForm = document.getElementById("MCCreatorForm");
     let TFCreatorForm = document.getElementById("TFCreatorForm");
 
+    /**
+     * Show the appropriate form element based on which one is selected
+     */
     function SwitchTables() {
         if (mcForm.checked) {
             MCCreatorForm.hidden = false;

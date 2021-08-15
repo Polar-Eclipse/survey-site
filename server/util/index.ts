@@ -25,6 +25,9 @@ export function authguard(req: Request, res: Response, next: NextFunction): void
     next();
 }
 
+/**
+ * Send a csv file with the given data as the html response
+ */
 export const downloadResource = (res: Response, filename: string, fields: FieldInfo<unknown>[],  data: unknown[]): void => {
     const json2cvs = new Parser({ fields });
     const cvs = json2cvs.parse(data);

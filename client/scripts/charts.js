@@ -20,6 +20,9 @@
         setTimeout(disaparingLable.hidden = true, 4000);
     }
 
+    /**
+     * Draw a chart in the given canvas with the given data (true/false)
+     */
     function chartDraw(option, tr, fl) {
         let chart1 = new Chart(option, {
             type: "pie",
@@ -39,6 +42,9 @@
         });
     }
 
+    /**
+     * Draw a chart in the given canvas with the given data (4 options)
+     */
     function chart2Draw(option, A, B, C, D) {
         let chart2 = new Chart(option, {
             type: "pie",
