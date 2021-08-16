@@ -173,6 +173,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: unset;
+    background-size: cover;
 }
 .night {
     position: relative;
