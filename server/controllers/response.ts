@@ -26,11 +26,20 @@ import { downloadResource } from "../util";
  * Display the results page of the given survey
  */
 export function displayResult(req: Request, res: Response, next: NextFunction): void {
+    if (!req.user) { // if req.user is undefined
+        throw Error("Unreachable: this route handler is called only when the user is logged in");
+    }
+
+    const userId = req.user._id;
     const id = req.params.id;
 
     getAllResponse(id, (err, survey) => {
         if (err || !survey) {
             return next(err);
+        }
+
+        if (!userId.equals(survey.owner)) {
+            return res.redirect("/account");
         }
 
         let tally: any[];
